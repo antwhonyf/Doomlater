@@ -3,503 +3,845 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doomlater | Panel de Finanzas y Taller</title>
+  <title>Doomlater | Finanzas & Taller</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js para las gráficas estilo Cashew -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .cashew-card {
+      background: #141418;
+      border: 1px solid #232329;
+      border-radius: 1.5rem;
+    }
+    .cashew-pill {
+      border-radius: 9999px;
+    }
+  </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 antialiased font-sans min-h-screen">
+<body class="bg-[#0b0b0e] text-zinc-100 antialiased min-h-screen selection:bg-indigo-500 selection:text-white">
 
-  <!-- VISTA PORTADA TIENDA (Oculta por defecto para que veas el Panel primero) -->
-  <div id="vista-tienda" class="hidden min-h-screen flex-col items-center justify-center p-6 text-center bg-zinc-950">
-    <div class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-4">
-      DOOMLATER CORP
+  <!-- ==========================================
+       1. PANTALLA DE LOGIN (ACCESO EXCLUSIVO)
+       ========================================== -->
+  <div id="vista-login" class="min-h-screen flex items-center justify-center p-4">
+    <div class="cashew-card max-w-md w-full p-8 shadow-2xl relative overflow-hidden">
+      <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-2xl mb-6">
+        🔐
+      </div>
+      <h1 class="text-2xl font-extrabold tracking-tight text-white mb-1">
+        Doomlater Finanzas
+      </h1>
+      <p class="text-sm text-zinc-400 mb-6">
+        Inicia sesión con tus credenciales privadas para ver tus métricas, cuentas e inventario.
+      </p>
+
+      <form onsubmit="iniciarSesion(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+            Correo Electrónico
+          </label>
+          <input
+            id="login-email"
+            type="email"
+            required
+            placeholder="tu@correo.com"
+            class="w-full bg-[#0b0b0e] border border-zinc-800 focus:border-indigo-500 rounded-2xl px-4 py-3 text-sm text-white outline-none transition"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+            Contraseña
+          </label>
+          <input
+            id="login-pass"
+            type="password"
+            required
+            placeholder="••••••••"
+            class="w-full bg-[#0b0b0e] border border-zinc-800 focus:border-indigo-500 rounded-2xl px-4 py-3 text-sm text-white outline-none transition"
+          />
+        </div>
+
+        <p id="login-error" class="hidden text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl p-3">
+          ⚠️ Credenciales incorrectas. Acceso restringido.
+        </p>
+
+        <button
+          type="submit"
+          class="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-indigo-500/20 cursor-pointer"
+        >
+          Entrar al Panel
+        </button>
+      </form>
     </div>
-    <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
-      Tienda & Servicio Técnico
-    </h1>
-    <p class="text-zinc-400 max-w-md mb-8 text-sm md:text-base">
-      Próximamente: Catálogo de juegos, consolas y agendamiento de citas en línea (Módulo 2).
-    </p>
-    <button
-      onclick="cambiarVista('admin')"
-      class="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold px-6 py-3 rounded-xl transition cursor-pointer"
-    >
-      🔒 Entrar al Panel de Finanzas (Módulo 1)
-    </button>
   </div>
 
-  <!-- VISTA PANEL DE ADMINISTRACIÓN (MÓDULO 1) -->
-  <div id="vista-admin" class="p-6 md:p-10 max-w-7xl mx-auto">
-    
-    <!-- ENCABEZADO -->
-    <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zinc-800 pb-6 mb-8">
-      <div>
-        <button
-          onclick="cambiarVista('tienda')"
-          class="text-zinc-400 hover:text-white text-xs mb-2 block transition cursor-pointer"
-        >
-          ← Ver portada pública de la tienda
-        </button>
-        <div class="text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
-          🔒 Acceso Privado de Socios • Doomlater
+  <!-- ==========================================
+       2. PANEL PRINCIPAL ESTILO CASHEW
+       ========================================== -->
+  <div id="vista-app" class="hidden pb-28">
+    <!-- BARRA SUPERIOR -->
+    <header class="sticky top-0 z-30 backdrop-blur-xl bg-[#0b0b0e]/80 border-b border-zinc-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-emerald-400 flex items-center justify-center font-black text-zinc-950 text-lg">
+            D
+          </div>
+          <div>
+            <h2 class="font-bold text-white leading-none">Doomlater</h2>
+            <span class="text-xs text-zinc-400">anthojvf@gmail.com</span>
+          </div>
         </div>
-        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
-          Panel de Finanzas y Taller
-        </h1>
-      </div>
 
-      <div class="flex items-center gap-3">
-        <button
-          id="btn-tab-finanzas"
-          onclick="cambiarTab('finanzas')"
-          class="px-4 py-2 rounded-lg text-sm font-medium transition bg-zinc-100 text-zinc-950 cursor-pointer"
-        >
-          Finanzas y Operaciones
-        </button>
-        <button
-          id="btn-tab-taller"
-          onclick="cambiarTab('taller')"
-          class="px-4 py-2 rounded-lg text-sm font-medium transition bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 flex items-center gap-2 cursor-pointer"
-        >
-          <span>Inventario y Taller</span>
-          <span id="badge-criticos" class="bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full text-xs">
-            0
-          </span>
-        </button>
+        <!-- PÍLDORAS DE NAVEGACIÓN (ESTILO CASHEW) -->
+        <div class="flex items-center gap-2 bg-[#141418] p-1.5 rounded-full border border-zinc-800">
+          <button
+            id="tab-resumen"
+            onclick="cambiarSeccion('resumen')"
+            class="cashew-pill px-4 py-1.5 text-xs font-semibold transition bg-indigo-500 text-white cursor-pointer"
+          >
+            📊 Finanzas y Gráficas
+          </button>
+          <button
+            id="tab-taller"
+            onclick="cambiarSeccion('taller')"
+            class="cashew-pill px-4 py-1.5 text-xs font-semibold transition text-zinc-400 hover:text-white flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>🛠️ Insumos Taller</span>
+            <span id="badge-stock" class="hidden bg-rose-500 text-white px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            onclick="reiniciarDatos()"
+            title="Borrar todo y volver a $0"
+            class="text-xs text-zinc-500 hover:text-rose-400 px-3 py-2 rounded-xl transition cursor-pointer"
+          >
+            Reiniciar a $0
+          </button>
+          <button
+            onclick="cerrarSesion()"
+            class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-semibold px-4 py-2 rounded-xl transition cursor-pointer"
+          >
+            Salir
+          </button>
+        </div>
       </div>
     </header>
 
-    <!-- TARJETAS DE CUENTAS Y GANANCIAS DEL MES -->
-    <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-      <div class="bg-zinc-900/70 border border-zinc-800/80 rounded-xl p-5 flex flex-col justify-between">
-        <div class="flex justify-between items-center text-zinc-400 text-sm">
-          <span>Binance (USDT)</span>
-          <span>🪙</span>
-        </div>
-        <div class="mt-4">
-          <span id="saldo-binance" class="text-2xl font-bold text-white">$645.50</span>
-          <span class="text-xs text-zinc-500 ml-1">USDT</span>
-        </div>
-      </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 pt-6 space-y-6">
 
-      <div class="bg-zinc-900/70 border border-zinc-800/80 rounded-xl p-5 flex flex-col justify-between">
-        <div class="flex justify-between items-center text-zinc-400 text-sm">
-          <span>Efectivo Caja ($)</span>
-          <span>💵</span>
-        </div>
-        <div class="mt-4">
-          <span id="saldo-efectivo" class="text-2xl font-bold text-white">$320.00</span>
-          <span class="text-xs text-zinc-500 ml-1">USD</span>
-        </div>
-      </div>
+      <!-- CABECERA DE PATRIMONIO NETO Y BILLETERAS (CASHEW WALLETS) -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Tarjeta Principal de Balance Total -->
+        <div class="lg:col-span-5 cashew-card p-6 flex flex-col justify-between bg-gradient-to-br from-[#181824] to-[#121216]">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">
+              Patrimonio Total en Cuentas
+            </span>
+            <div id="patrimonio-total" class="text-4xl sm:text-5xl font-extrabold text-white mt-2 tracking-tight">
+              $0.00
+            </div>
+            <p class="text-xs text-zinc-400 mt-1">
+              Haz clic en cualquier cuenta a la derecha para ajustar su saldo.
+            </p>
+          </div>
 
-      <div class="bg-zinc-900/70 border border-zinc-800/80 rounded-xl p-5 flex flex-col justify-between">
-        <div class="flex justify-between items-center text-zinc-400 text-sm">
-          <span>Pago Móvil / Banco</span>
-          <span>🏦</span>
-        </div>
-        <div class="mt-4">
-          <span id="saldo-banco" class="text-2xl font-bold text-white">$185.20</span>
-          <span class="text-xs text-zinc-500 ml-1">USD (Eq.)</span>
-        </div>
-      </div>
-
-      <div class="bg-emerald-950/30 border border-emerald-800/50 rounded-xl p-5 flex flex-col justify-between">
-        <div class="flex justify-between items-center text-emerald-400 text-sm font-medium">
-          <span>Ganancia Neta (Mes)</span>
-          <span>📈</span>
-        </div>
-        <div class="mt-3">
-          <span id="ganancia-mes" class="text-2xl font-bold text-emerald-300">+$0.00</span>
-          <div class="flex justify-between text-xs text-zinc-400 mt-2 pt-2 border-t border-emerald-800/30">
-            <span id="ganancia-ventas">Ventas: +$0</span>
-            <span id="ganancia-servicios">Servicios: +$0</span>
+          <div class="grid grid-cols-3 gap-2 mt-6 pt-5 border-t border-zinc-800/80">
+            <div class="bg-[#0b0b0e]/60 p-3 rounded-2xl">
+              <span class="text-[11px] text-zinc-400 block">Ventas Brutas</span>
+              <span id="metrica-ingresos" class="text-sm font-bold text-white">$0.00</span>
+            </div>
+            <div class="bg-[#0b0b0e]/60 p-3 rounded-2xl">
+              <span class="text-[11px] text-zinc-400 block">Invertido/Costo</span>
+              <span id="metrica-invertido" class="text-sm font-bold text-amber-400">$0.00</span>
+            </div>
+            <div class="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-2xl">
+              <span class="text-[11px] text-emerald-300 block">Ganancia Neta</span>
+              <span id="metrica-ganancia" class="text-sm font-extrabold text-emerald-400">+$0.00</span>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ALERTA DE INSUMOS POR AGOTARSE -->
-    <div id="alerta-stock" class="bg-amber-950/20 border border-amber-800/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-      <div class="text-sm">
-        <span class="font-semibold text-amber-300">⚠️ Atención en el taller: </span>
-        <span id="texto-alerta-stock" class="text-zinc-300"></span>
-      </div>
-      <button
-        onclick="cambiarTab('taller')"
-        class="text-xs font-medium text-amber-300 hover:underline shrink-0 cursor-pointer"
-      >
-        Ver inventario completo →
-      </button>
-    </div>
-
-    <!-- SECCIÓN 1: TABLA DE FINANZAS Y OPERACIONES -->
-    <section id="seccion-finanzas" class="bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden">
-      <div class="p-5 border-b border-zinc-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h2 class="text-lg font-semibold text-white">Registro de Compras, Inversiones y Ventas</h2>
-          <p class="text-xs text-zinc-400">
-            Control exacto de qué se compró, cuándo se compró, qué se le invirtió y en cuánto se vendió.
-          </p>
+        <!-- Tarjetas de Cuentas Individuales -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4" id="contenedor-cuentas">
+          <!-- Se llenan dinámicamente -->
         </div>
-        <button
-          onclick="abrirModal('modal-operacion')"
-          class="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold px-4 py-2 rounded-lg text-sm transition cursor-pointer"
-        >
-          + Nueva Operación
+      </section>
+
+      <!-- ALERTA DE STOCK CRÍTICO SI ALGÚN INSUMO SE ESTÁ ACABANDO -->
+      <div id="alerta-insumos" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-3xl p-4 flex items-center justify-between gap-4">
+        <div class="text-xs sm:text-sm text-amber-200">
+          <strong class="text-amber-400">⚠️ Alerta de Taller:</strong>
+          <span id="texto-alerta-insumos"></span>
+        </div>
+        <button onclick="cambiarSeccion('taller')" class="text-xs font-bold text-amber-400 hover:underline shrink-0 cursor-pointer">
+          Ver stock →
         </button>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-sm">
-          <thead>
-            <tr class="border-b border-zinc-800 text-zinc-400 text-xs uppercase bg-zinc-900/80">
-              <th class="py-3.5 px-4">Equipo / Servicio</th>
-              <th class="py-3.5 px-4">Fecha</th>
-              <th class="py-3.5 px-4">Costo Compra</th>
-              <th class="py-3.5 px-4">Inversión Taller</th>
-              <th class="py-3.5 px-4">Precio Venta</th>
-              <th class="py-3.5 px-4">Ganancia Neta</th>
-              <th class="py-3.5 px-4">Cuenta / Estado</th>
-            </tr>
-          </thead>
-          <tbody id="tabla-operaciones" class="divide-y divide-zinc-800/60"></tbody>
-        </table>
-      </div>
-    </section>
+      <!-- ==========================================
+           SECCIÓN A: FINANZAS, GRÁFICAS Y OPERACIONES
+           ========================================== -->
+      <div id="seccion-resumen" class="space-y-6">
+        
+        <!-- GRÁFICAS ESTILO CASHEW -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-8 cashew-card p-6">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="font-bold text-white text-base">Flujo de Caja por Operación</h3>
+                <p class="text-xs text-zinc-400">Comparativa entre Costo + Inversión vs. Precio de Venta y Ganancia</p>
+              </div>
+            </div>
+            <div class="h-64 relative">
+              <canvas id="graficaFlujo"></canvas>
+              <div id="empty-grafica-flujo" class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                <span class="text-2xl mb-1">📉</span>
+                <p class="text-xs text-zinc-500">Sin movimientos aún. Agrega tu primera operación con el botón +</p>
+              </div>
+            </div>
+          </div>
 
-    <!-- SECCIÓN 2: TABLA DE INVENTARIO E INSUMOS DEL TALLER -->
-    <section id="seccion-taller" class="hidden bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden">
-      <div class="p-5 border-b border-zinc-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h2 class="text-lg font-semibold text-white">Insumos del Taller y Repuestos</h2>
-          <p class="text-xs text-zinc-400">
-            El sistema lanza una alerta automática cuando un insumo llega o baja del stock mínimo.
-          </p>
-        </div>
-        <button
-          onclick="abrirModal('modal-insumo')"
-          class="bg-zinc-100 hover:bg-white text-zinc-950 font-semibold px-4 py-2 rounded-lg text-sm transition cursor-pointer"
-        >
-          + Agregar Insumo / Repuesto
-        </button>
+          <div class="lg:col-span-4 cashew-card p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-white text-base">Origen de Ganancias</h3>
+              <p class="text-xs text-zinc-400">Ventas vs. Servicios Técnicos</p>
+            </div>
+            <div class="h-52 relative my-auto flex items-center justify-center">
+              <canvas id="graficaCategorias"></canvas>
+              <div id="empty-grafica-cat" class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                <span class="text-2xl mb-1">🍩</span>
+                <p class="text-xs text-zinc-500">Todo en $0.00</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs pt-3 border-t border-zinc-800/80">
+              <div class="flex items-center justify-between bg-[#0b0b0e] px-3 py-2 rounded-xl">
+                <span class="text-zinc-400">🛒 Ventas:</span>
+                <span id="resumen-ventas" class="font-bold text-indigo-400">$0</span>
+              </div>
+              <div class="flex items-center justify-between bg-[#0b0b0e] px-3 py-2 rounded-xl">
+                <span class="text-zinc-400">🔧 Taller:</span>
+                <span id="resumen-servicios" class="font-bold text-emerald-400">$0</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HISTORIAL DE OPERACIONES (QUÉ SE COMPRÓ, CUÁNDO, INVERSIÓN Y VENTA) -->
+        <section class="cashew-card overflow-hidden">
+          <div class="p-6 border-b border-zinc-800/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-white">Historial de Operaciones</h3>
+              <p class="text-xs text-zinc-400">
+                Qué se compró, cuándo se compró, qué se le invirtió y en cuánto se vendió.
+              </p>
+            </div>
+            <button
+              onclick="abrirModal('modal-operacion')"
+              class="bg-indigo-500 hover:bg-indigo-400 text-white font-semibold px-4 py-2.5 rounded-2xl text-xs transition cursor-pointer"
+            >
+              + Registrar Operación
+            </button>
+          </div>
+
+          <div id="lista-operaciones" class="divide-y divide-zinc-800/60">
+            <!-- Se llena dinámicamente -->
+          </div>
+        </section>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-sm">
-          <thead>
-            <tr class="border-b border-zinc-800 text-zinc-400 text-xs uppercase bg-zinc-900/80">
-              <th class="py-3.5 px-4">Insumo / Repuesto</th>
-              <th class="py-3.5 px-4">Categoría</th>
-              <th class="py-3.5 px-4">Stock Actual</th>
-              <th class="py-3.5 px-4">Mínimo</th>
-              <th class="py-3.5 px-4">Costo Unitario</th>
-              <th class="py-3.5 px-4">Estado</th>
-            </tr>
-          </thead>
-          <tbody id="tabla-insumos" class="divide-y divide-zinc-800/60"></tbody>
-        </table>
+      <!-- ==========================================
+           SECCIÓN B: INVENTARIO E INSUMOS DEL TALLER
+           ========================================== -->
+      <div id="seccion-taller" class="hidden space-y-6">
+        <section class="cashew-card overflow-hidden">
+          <div class="p-6 border-b border-zinc-800/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-white">Inventario de Taller y Productos</h3>
+              <p class="text-xs text-zinc-400">
+                Controla tus repuestos, insumos (estaño, pasta térmica, chips) y productos de la tienda.
+              </p>
+            </div>
+            <button
+              onclick="abrirModal('modal-insumo')"
+              class="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-4 py-2.5 rounded-2xl text-xs transition cursor-pointer"
+            >
+              + Nuevo Insumo / Producto
+            </button>
+          </div>
+
+          <div id="lista-insumos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+            <!-- Se llena dinámicamente -->
+          </div>
+        </section>
       </div>
-    </section>
+
+    </main>
+
+    <!-- BOTÓN FLOTANTE "+" ESTILO CASHEW -->
+    <button
+      onclick="abrirModal('modal-operacion')"
+      title="Agregar nueva operación"
+      class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-indigo-500 hover:bg-indigo-400 text-white text-2xl font-bold shadow-2xl shadow-indigo-500/40 flex items-center justify-center transition transform hover:scale-105 cursor-pointer z-40"
+    >
+      +
+    </button>
   </div>
 
-  <!-- MODAL: NUEVA OPERACIÓN -->
-  <div id="modal-operacion" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-    <div class="bg-zinc-900 border border-zinc-800 rounded-xl max-w-md w-full p-6 space-y-4">
-      <h3 class="text-lg font-bold text-white">Registrar Nueva Operación</h3>
-      <div class="space-y-3 text-sm">
+  <!-- ==========================================
+       MODAL 1: REGISTRAR OPERACIÓN
+       ========================================== -->
+  <div id="modal-operacion" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="cashew-card max-w-lg w-full p-6 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold text-white">Nueva Operación</h3>
+        <button onclick="cerrarModal('modal-operacion')" class="text-zinc-500 hover:text-white text-sm">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm">
         <div>
-          <label class="block text-zinc-400 mb-1">Equipo o Servicio</label>
-          <input id="op-concepto" type="text" placeholder="Ej: Nintendo Switch V2 o Cambio HDMI" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+          <label class="block text-zinc-400 mb-1">¿Qué se compró o qué servicio se hizo?</label>
+          <input id="op-concepto" type="text" placeholder="Ej: Nintendo Switch OLED o Cambio HDMI PS5" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3.5 py-2.5 text-white outline-none focus:border-indigo-500" />
         </div>
+
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-zinc-400 mb-1">Tipo</label>
-            <select id="op-tipo" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white">
-              <option value="compra_venta">Compra / Venta</option>
-              <option value="servicio_tecnico">Servicio Técnico</option>
+            <label class="block text-zinc-400 mb-1">Categoría</label>
+            <select id="op-tipo" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3.5 py-2.5 text-white outline-none">
+              <option value="compra_venta">🔄 Compra / Venta Equipo</option>
+              <option value="servicio_tecnico">🔧 Servicio Técnico</option>
+              <option value="venta_tienda">🛒 Venta Tienda / Juego</option>
             </select>
           </div>
           <div>
-            <label class="block text-zinc-400 mb-1">Cuenta Destino</label>
-            <select id="op-cuenta" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white">
-              <option value="Binance (USDT)">Binance (USDT)</option>
-              <option value="Efectivo Caja ($)">Efectivo Caja ($)</option>
-              <option value="Pago Móvil / Banco">Pago Móvil / Banco</option>
-            </select>
+            <label class="block text-zinc-400 mb-1">Fecha</label>
+            <input id="op-fecha" type="date" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3.5 py-2.5 text-white outline-none" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-2">
+
+        <div class="grid grid-cols-3 gap-2.5">
           <div>
-            <label class="block text-zinc-400 mb-1">Costo ($)</label>
-            <input id="op-costo" type="number" value="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+            <label class="block text-zinc-400 mb-1">Costo Compra ($)</label>
+            <input id="op-costo" type="number" step="0.01" placeholder="0.00" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3 py-2.5 text-white outline-none" />
           </div>
           <div>
-            <label class="block text-zinc-400 mb-1">Inversión ($)</label>
-            <input id="op-inversion" type="number" value="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+            <label class="block text-zinc-400 mb-1">Inversión Taller ($)</label>
+            <input id="op-inversion" type="number" step="0.01" placeholder="0.00" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3 py-2.5 text-white outline-none" />
           </div>
           <div>
-            <label class="block text-zinc-400 mb-1">Venta ($)</label>
-            <input id="op-venta" type="number" value="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+            <label class="block text-emerald-400 font-semibold mb-1">Precio Venta ($)</label>
+            <input id="op-venta" type="number" step="0.01" placeholder="0.00" class="w-full bg-[#0b0b0e] border border-emerald-500/40 rounded-2xl px-3 py-2.5 text-white outline-none" />
           </div>
         </div>
+
         <div>
-          <label class="block text-zinc-400 mb-1">Detalle de qué se le invirtió</label>
-          <input id="op-detalle" type="text" placeholder="Ej: Chip RP2040 + Pasta térmica" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+          <label class="block text-zinc-400 mb-1">Detalle de qué se le invirtió (Repuestos / Insumos)</label>
+          <input id="op-detalle" type="text" placeholder="Ej: Chip Picofly + Pasta térmica + Limpieza" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3.5 py-2.5 text-white outline-none" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-zinc-400 mb-1">Cuenta donde entra el dinero</label>
+            <select id="op-cuenta" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3.5 py-2.5 text-white outline-none"></select>
+          </div>
+          <div>
+            <label class="block text-zinc-400 mb-1">Estado</label>
+            <select id="op-estado" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3.5 py-2.5 text-white outline-none">
+              <option value="completado">✅ Cobrado (Suma a la cuenta)</option>
+              <option value="en_taller">⏳ En Taller / En Venta</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="flex justify-end gap-2 pt-3 border-t border-zinc-800">
-        <button onclick="cerrarModal('modal-operacion')" class="px-4 py-2 rounded-lg text-sm text-zinc-400 hover:text-white">Cancelar</button>
-        <button onclick="guardarOperacion()" class="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold px-4 py-2 rounded-lg text-sm">Guardar</button>
+
+      <div class="flex justify-end gap-2 pt-4 border-t border-zinc-800">
+        <button onclick="cerrarModal('modal-operacion')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold text-zinc-400 hover:text-white cursor-pointer">
+          Cancelar
+        </button>
+        <button onclick="guardarOperacion()" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-5 py-2.5 rounded-2xl text-xs cursor-pointer">
+          Guardar Operación
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: NUEVO INSUMO -->
-  <div id="modal-insumo" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-    <div class="bg-zinc-900 border border-zinc-800 rounded-xl max-w-md w-full p-6 space-y-4">
-      <h3 class="text-lg font-bold text-white">Agregar Insumo o Repuesto</h3>
-      <div class="space-y-3 text-sm">
+  <!-- ==========================================
+       MODAL 2: AJUSTAR SALDO DE UNA CUENTA
+       ========================================== -->
+  <div id="modal-cuenta" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="cashew-card max-w-sm w-full p-6 space-y-4">
+      <h3 id="titulo-modal-cuenta" class="text-lg font-bold text-white">Ajustar Saldo</h3>
+      <input type="hidden" id="cuenta-edit-id" />
+      <div>
+        <label class="block text-xs text-zinc-400 mb-1">Saldo Actual Disponible ($)</label>
+        <input id="cuenta-nuevo-saldo" type="number" step="0.01" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-4 py-3 text-lg font-bold text-white outline-none focus:border-indigo-500" />
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="cerrarModal('modal-cuenta')" class="px-4 py-2 rounded-xl text-xs text-zinc-400 hover:text-white">Cancelar</button>
+        <button onclick="guardarSaldoCuenta()" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-4 py-2 rounded-xl text-xs">Actualizar Saldo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 3: AGREGAR INSUMO / REPUESTO
+       ========================================== -->
+  <div id="modal-insumo" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="cashew-card max-w-md w-full p-6 space-y-4">
+      <h3 class="text-lg font-bold text-white">Nuevo Insumo o Producto</h3>
+      <div class="space-y-3 text-xs sm:text-sm">
         <div>
           <label class="block text-zinc-400 mb-1">Nombre del Insumo / Repuesto</label>
-          <input id="in-nombre" type="text" placeholder="Ej: Estaño, Puerto HDMI PS5..." class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+          <input id="in-nombre" type="text" placeholder="Ej: Flux Amtech, Puerto HDMI PS5, Estaño..." class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3.5 py-2.5 text-white outline-none" />
         </div>
         <div class="grid grid-cols-3 gap-2">
           <div>
-            <label class="block text-zinc-400 mb-1">Stock Actual</label>
-            <input id="in-stock" type="number" value="5" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+            <label class="block text-zinc-400 mb-1">Cantidad Actual</label>
+            <input id="in-stock" type="number" value="1" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3 py-2.5 text-white outline-none" />
           </div>
           <div>
-            <label class="block text-zinc-400 mb-1">Stock Mínimo</label>
-            <input id="in-minimo" type="number" value="2" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+            <label class="block text-zinc-400 mb-1">Mínimo Alerta</label>
+            <input id="in-minimo" type="number" value="2" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3 py-2.5 text-white outline-none" />
           </div>
           <div>
-            <label class="block text-zinc-400 mb-1">Costo ($)</label>
-            <input id="in-costo" type="number" step="0.5" value="5" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white" />
+            <label class="block text-zinc-400 mb-1">Costo Unit. ($)</label>
+            <input id="in-costo" type="number" step="0.01" value="0" class="w-full bg-[#0b0b0e] border border-zinc-800 rounded-2xl px-3 py-2.5 text-white outline-none" />
           </div>
         </div>
       </div>
       <div class="flex justify-end gap-2 pt-3 border-t border-zinc-800">
-        <button onclick="cerrarModal('modal-insumo')" class="px-4 py-2 rounded-lg text-sm text-zinc-400 hover:text-white">Cancelar</button>
-        <button onclick="guardarInsumo()" class="bg-zinc-100 hover:bg-white text-zinc-950 font-semibold px-4 py-2 rounded-lg text-sm">Guardar</button>
+        <button onclick="cerrarModal('modal-insumo')" class="px-4 py-2 rounded-xl text-xs text-zinc-400">Cancelar</button>
+        <button onclick="guardarInsumo()" class="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-4 py-2 rounded-xl text-xs">Guardar Insumo</button>
       </div>
     </div>
   </div>
 
-  <!-- LÓGICA JAVASCRIPT NATIVA (Cero fallos de carga) -->
+  <!-- ==========================================
+       LÓGICA DE DATOS, LOGIN Y GRÁFICAS
+       ========================================== -->
   <script>
-    const operaciones = [
-      {
-        concepto: "Nintendo Switch OLED (Compra/Venta + Magia)",
-        tipo: "compra_venta",
-        fecha: "2026-10-05",
-        costo: 190,
-        inversion: 25,
-        detalle: "Chip RP2040 + MicroSD 128GB + Estaño/Flux",
-        venta: 310,
-        cuenta: "Binance (USDT)",
-        estado: "completado"
-      },
-      {
-        concepto: "Cambio de Puerto HDMI PS4 Pro + Mantenimiento",
-        tipo: "servicio_tecnico",
-        fecha: "2026-10-10",
-        costo: 0,
-        inversion: 6,
-        detalle: "1x Puerto HDMI PS4 + Pasta térmica",
-        venta: 45,
-        cuenta: "Pago Móvil / Banco",
-        estado: "completado"
-      },
-      {
-        concepto: "Control DualSense PS5 (Con Drift)",
-        tipo: "compra_venta",
-        fecha: "2026-10-14",
-        costo: 25,
-        inversion: 8,
-        detalle: "Par de Joysticks Hall Effect",
-        venta: 60,
-        cuenta: "Efectivo Caja ($)",
-        estado: "en_venta"
+    // 1. CREDENCIALES AUTORIZADAS
+    const ADMIN_EMAIL = "anthojvf@gmail.com";
+    const ADMIN_PASS = "24112007";
+
+    // 2. ESTADO INICIAL EN $0.00 (Sin datos falsos, persistente en tu navegador)
+    const CUENTAS_INICIALES = [
+      { id: "binance", nombre: "Binance (USDT)", icono: "🪙", moneda: "USDT", color: "from-amber-500/20 to-amber-500/5 border-amber-500/30", saldo: 0 },
+      { id: "efectivo", nombre: "Efectivo ($)", icono: "💵", moneda: "USD", color: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/30", saldo: 0 },
+      { id: "banco", nombre: "Pago Móvil / Banco", icono: "🏦", moneda: "USD Eq.", color: "from-indigo-500/20 to-indigo-500/5 border-indigo-500/30", saldo: 0 }
+    ];
+
+    let cuentas = JSON.parse(localStorage.getItem("dl_cuentas")) || CUENTAS_INICIALES;
+    let operaciones = JSON.parse(localStorage.getItem("dl_operaciones")) || [];
+    let insumos = JSON.parse(localStorage.getItem("dl_insumos")) || [];
+
+    let chartFlujo = null;
+    let chartCategorias = null;
+
+    function guardarEnStorage() {
+      localStorage.setItem("dl_cuentas", JSON.stringify(cuentas));
+      localStorage.setItem("dl_operaciones", JSON.stringify(operaciones));
+      localStorage.setItem("dl_insumos", JSON.stringify(insumos));
+    }
+
+    // 3. SISTEMA DE LOGIN
+    function iniciarSesion(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim().toLowerCase();
+      const pass = document.getElementById("login-pass").value.trim();
+
+      if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+        sessionStorage.setItem("dl_sesion_activa", "true");
+        document.getElementById("login-error").classList.add("hidden");
+        mostrarApp();
+      } else {
+        document.getElementById("login-error").classList.remove("hidden");
       }
-    ];
+    }
 
-    const insumos = [
-      { nombre: "Puertos HDMI PS4 / PS5", categoria: "Repuesto", stock: 2, minimo: 5, costo: 3.50 },
-      { nombre: "Flux Amtech (Jeringa 10cc)", categoria: "Insumo Taller", stock: 1, minimo: 2, costo: 8.00 },
-      { nombre: "Joysticks Hall Effect (PS5/Xbox)", categoria: "Repuesto", stock: 12, minimo: 4, costo: 4.00 },
-      { nombre: "Pasta Térmica Alta Conductividad", categoria: "Insumo Taller", stock: 4, minimo: 2, costo: 6.50 }
-    ];
+    function cerrarSesion() {
+      sessionStorage.removeItem("dl_sesion_activa");
+      document.getElementById("vista-app").classList.add("hidden");
+      document.getElementById("vista-login").classList.remove("hidden");
+      document.getElementById("login-pass").value = "";
+    }
 
-    function renderizarTodo() {
-      // 1. Renderizar Operaciones y calcular ganancias
-      const tbodyOp = document.getElementById("tabla-operaciones");
-      tbodyOp.innerHTML = "";
-      let gananciaTotal = 0;
+    function mostrarApp() {
+      document.getElementById("vista-login").classList.add("hidden");
+      document.getElementById("vista-app").classList.remove("hidden");
+      document.getElementById("op-fecha").value = new Date().toISOString().split("T")[0];
+      actualizarTodo();
+    }
+
+    // 4. RENDERIZAR PANEL Y MÉTRICAS
+    function actualizarTodo() {
+      guardarEnStorage();
+
+      // A. Renderizar Cuentas
+      const contCuentas = document.getElementById("contenedor-cuentas");
+      const selectCuenta = document.getElementById("op-cuenta");
+      contCuentas.innerHTML = "";
+      selectCuenta.innerHTML = "";
+
+      let patrimonioTotal = 0;
+      cuentas.forEach((c) => {
+        patrimonioTotal += Number(c.saldo);
+        selectCuenta.innerHTML += `<option value="${c.id}">${c.icono} ${c.nombre}</option>`;
+
+        contCuentas.innerHTML += `
+          <div onclick="editarCuenta('${c.id}')" class="cashew-card p-5 bg-gradient-to-br ${c.color} cursor-pointer hover:scale-[1.02] transition flex flex-col justify-between">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-semibold text-zinc-300">${c.nombre}</span>
+              <span class="text-lg">${c.icono}</span>
+            </div>
+            <div class="mt-6">
+              <div class="text-2xl font-extrabold text-white">$${Number(c.saldo).toFixed(2)}</div>
+              <div class="text-[11px] text-zinc-400 mt-0.5 flex justify-between">
+                <span>${c.moneda}</span>
+                <span class="underline">Editar saldo</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById("patrimonio-total").innerText = `$${patrimonioTotal.toFixed(2)}`;
+
+      // B. Calcular Métricas de Operaciones
+      let ingresosBrutos = 0;
+      let totalInvertido = 0;
+      let gananciaNetaTotal = 0;
       let gananciaVentas = 0;
       let gananciaServicios = 0;
 
-      operaciones.forEach((op) => {
-        const ganancia = op.venta - (op.costo + op.inversion);
+      const contOp = document.getElementById("lista-operaciones");
+      contOp.innerHTML = "";
+
+      if (operaciones.length === 0) {
+        contOp.innerHTML = `
+          <div class="p-12 text-center text-zinc-500 text-sm">
+            Aún no hay operaciones registradas. Usa el botón <strong>+ Registrar Operación</strong> para empezar.
+          </div>
+        `;
+      }
+
+      operaciones.forEach((op, index) => {
+        const invertidoOp = Number(op.costo) + Number(op.inversion);
+        const gananciaOp = Number(op.venta) - invertidoOp;
+
         if (op.estado === "completado") {
-          gananciaTotal += ganancia;
-          if (op.tipo === "servicio_tecnico") gananciaServicios += ganancia;
-          else gananciaVentas += ganancia;
+          ingresosBrutos += Number(op.venta);
+          totalInvertido += invertidoOp;
+          gananciaNetaTotal += gananciaOp;
+
+          if (op.tipo === "servicio_tecnico") gananciaServicios += gananciaOp;
+          else gananciaVentas += gananciaOp;
         }
 
-        tbodyOp.innerHTML += `
-          <tr class="hover:bg-zinc-900/40 transition">
-            <td class="py-4 px-4">
-              <div class="font-medium text-zinc-100">${op.concepto}</div>
-              <div class="text-xs text-zinc-500 mt-0.5">Insumos: ${op.detalle}</div>
-            </td>
-            <td class="py-4 px-4 text-zinc-400 whitespace-nowrap">${op.fecha}</td>
-            <td class="py-4 px-4 text-zinc-300">$${op.costo.toFixed(2)}</td>
-            <td class="py-4 px-4 text-amber-400/90">+$${op.inversion.toFixed(2)}</td>
-            <td class="py-4 px-4 font-medium text-white">$${op.venta.toFixed(2)}</td>
-            <td class="py-4 px-4 font-bold text-emerald-400">+$${ganancia.toFixed(2)}</td>
-            <td class="py-4 px-4">
-              <div class="text-xs text-zinc-300">${op.cuenta}</div>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-medium ${
-                op.estado === "completado"
-                  ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                  : "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-              }">
-                ${op.estado === "completado" ? "Cobrado" : "En Venta / Taller"}
-              </span>
-            </td>
-          </tr>
+        const cuentaObj = cuentas.find((c) => c.id === op.cuentaId) || { nombre: "Cuenta" };
+        const iconoCat = op.tipo === "servicio_tecnico" ? "🔧" : op.tipo === "compra_venta" ? "🔄" : "🛒";
+
+        contOp.innerHTML += `
+          <div class="p-5 hover:bg-zinc-900/30 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-lg shrink-0">
+                ${iconoCat}
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm sm:text-base">${op.concepto}</div>
+                <div class="text-xs text-zinc-400 mt-0.5">
+                  📅 ${op.fecha} • 🛠️ Inversión: <span class="text-zinc-300">${op.detalle || "Ninguna"}</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-2 text-[11px]">
+                  <span class="bg-zinc-900 border border-zinc-800 px-2.5 py-0.5 rounded-lg text-zinc-300">
+                    Compra: $${Number(op.costo).toFixed(2)}
+                  </span>
+                  <span class="bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-lg text-amber-300">
+                    Taller: +$${Number(op.inversion).toFixed(2)}
+                  </span>
+                  <span class="bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-lg text-indigo-300">
+                    Venta: $${Number(op.venta).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto border-t sm:border-t-0 border-zinc-800/60 pt-3 sm:pt-0">
+              <div class="text-right">
+                <span class="text-base font-extrabold ${gananciaOp >= 0 ? "text-emerald-400" : "text-rose-400"}">
+                  ${gananciaOp >= 0 ? "+" : ""}$${gananciaOp.toFixed(2)}
+                </span>
+                <span class="block text-[11px] text-zinc-400">${cuentaObj.nombre}</span>
+              </div>
+
+              <div class="flex items-center gap-2 mt-2">
+                ${
+                  op.estado === "en_taller"
+                    ? `<button onclick="marcarCobrado(${index})" class="text-[11px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2.5 py-1 rounded-lg hover:bg-blue-500/30 cursor-pointer">⏳ Marcar Cobrado</button>`
+                    : `<span class="text-[11px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-0.5 rounded-lg">✅ Cobrado</span>`
+                }
+                <button onclick="eliminarOperacion(${index})" class="text-xs text-zinc-600 hover:text-rose-400 px-1.5 cursor-pointer" title="Eliminar">🗑️</button>
+              </div>
+            </div>
+          </div>
         `;
       });
 
-      document.getElementById("ganancia-mes").innerText = `+$${gananciaTotal.toFixed(2)}`;
-      document.getElementById("ganancia-ventas").innerText = `Ventas: +$${gananciaVentas.toFixed(0)}`;
-      document.getElementById("ganancia-servicios").innerText = `Servicios: +$${gananciaServicios.toFixed(0)}`;
+      document.getElementById("metrica-ingresos").innerText = `$${ingresosBrutos.toFixed(2)}`;
+      document.getElementById("metrica-invertido").innerText = `$${totalInvertido.toFixed(2)}`;
+      document.getElementById("metrica-ganancia").innerText = `+$${gananciaNetaTotal.toFixed(2)}`;
+      document.getElementById("resumen-ventas").innerText = `$${gananciaVentas.toFixed(2)}`;
+      document.getElementById("resumen-servicios").innerText = `$${gananciaServicios.toFixed(2)}`;
 
-      // 2. Renderizar Insumos y alertas
-      const tbodyIn = document.getElementById("tabla-insumos");
-      tbodyIn.innerHTML = "";
+      // C. Renderizar Insumos y Stock del Taller
+      const contInsumos = document.getElementById("lista-insumos");
+      contInsumos.innerHTML = "";
       const criticos = [];
 
-      insumos.forEach((item) => {
-        const esCritico = item.stock <= item.minimo;
-        if (esCritico) criticos.push(`${item.nombre} (quedan ${item.stock})`);
+      if (insumos.length === 0) {
+        contInsumos.innerHTML = `
+          <div class="col-span-full p-8 text-center text-zinc-500 text-sm">
+            No has cargado insumos o repuestos aún. Agrega tus consumibles de taller para activar las alertas de stock.
+          </div>
+        `;
+      }
 
-        tbodyIn.innerHTML += `
-          <tr class="hover:bg-zinc-900/40 transition">
-            <td class="py-4 px-4 font-medium text-zinc-100">📦 ${item.nombre}</td>
-            <td class="py-4 px-4 text-zinc-400">${item.categoria}</td>
-            <td class="py-4 px-4 font-bold text-white">${item.stock} uds.</td>
-            <td class="py-4 px-4 text-zinc-500">${item.minimo} uds.</td>
-            <td class="py-4 px-4 text-zinc-300">$${item.costo.toFixed(2)}</td>
-            <td class="py-4 px-4">
-              ${
-                esCritico
-                  ? '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">⚠️ Por agotarse (Comprar)</span>'
-                  : '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Disponible</span>'
-              }
-            </td>
-          </tr>
+      insumos.forEach((item, idx) => {
+        const agotandose = Number(item.stock) <= Number(item.minimo);
+        if (agotandose) criticos.push(`${item.nombre} (${item.stock})`);
+
+        contInsumos.innerHTML += `
+          <div class="bg-[#0b0b0e] border ${agotandose ? "border-rose-500/40" : "border-zinc-800"} rounded-2xl p-4 flex flex-col justify-between">
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-bold text-white text-sm">📦 ${item.nombre}</h4>
+                <span class="text-xs text-zinc-500">Costo unitario: $${Number(item.costo).toFixed(2)}</span>
+              </div>
+              <button onclick="eliminarInsumo(${idx})" class="text-xs text-zinc-600 hover:text-rose-400">✕</button>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between pt-3 border-t border-zinc-800/80">
+              <div>
+                <span class="text-xs text-zinc-400">Disponible: </span>
+                <strong class="text-sm ${agotandose ? "text-rose-400" : "text-emerald-400"}">${item.stock} uds</strong>
+                <span class="text-[11px] text-zinc-600"> (Mín: ${item.minimo})</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <button onclick="cambiarStock(${idx}, -1)" class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 text-white hover:bg-zinc-800 cursor-pointer">-</button>
+                <button onclick="cambiarStock(${idx}, 1)" class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 text-white hover:bg-zinc-800 cursor-pointer">+</button>
+              </div>
+            </div>
+          </div>
         `;
       });
 
-      document.getElementById("badge-criticos").innerText = criticos.length;
-      const alertaBox = document.getElementById("alerta-stock");
+      const badgeStock = document.getElementById("badge-stock");
+      const alertaInsumos = document.getElementById("alerta-insumos");
       if (criticos.length > 0) {
-        alertaBox.classList.remove("hidden");
-        document.getElementById("texto-alerta-stock").innerText =
-          `Tienes ${criticos.length} insumos por agotarse: ${criticos.join(", ")}.`;
+        badgeStock.innerText = criticos.length;
+        badgeStock.classList.remove("hidden");
+        alertaInsumos.classList.remove("hidden");
+        document.getElementById("texto-alerta-insumos").innerText = ` Quedan pocos: ${criticos.join(", ")}.`;
       } else {
-        alertaBox.classList.add("hidden");
+        badgeStock.classList.add("hidden");
+        alertaInsumos.classList.add("hidden");
       }
+
+      // D. Actualizar Gráficas
+      actualizarGraficas(gananciaVentas, gananciaServicios);
     }
 
-    function cambiarTab(tab) {
-      const secFinanzas = document.getElementById("seccion-finanzas");
-      const secTaller = document.getElementById("seccion-taller");
-      const btnFinanzas = document.getElementById("btn-tab-finanzas");
-      const btnTaller = document.getElementById("btn-tab-taller");
+    // 5. GRÁFICAS INTERACTIVAS (CHART.JS)
+    function actualizarGraficas(gananciaVentas, gananciaServicios) {
+      const completadas = operaciones.filter((o) => o.estado === "completado").slice(0, 8).reverse();
 
-      if (tab === "finanzas") {
-        secFinanzas.classList.remove("hidden");
-        secTaller.classList.add("hidden");
-        btnFinanzas.className = "px-4 py-2 rounded-lg text-sm font-medium transition bg-zinc-100 text-zinc-950 cursor-pointer";
-        btnTaller.className = "px-4 py-2 rounded-lg text-sm font-medium transition bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 flex items-center gap-2 cursor-pointer";
-      } else {
-        secFinanzas.classList.add("hidden");
-        secTaller.classList.remove("hidden");
-        btnTaller.className = "px-4 py-2 rounded-lg text-sm font-medium transition bg-zinc-100 text-zinc-950 flex items-center gap-2 cursor-pointer";
-        btnFinanzas.className = "px-4 py-2 rounded-lg text-sm font-medium transition bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 cursor-pointer";
-      }
+      document.getElementById("empty-grafica-flujo").style.display = completadas.length === 0 ? "flex" : "none";
+      document.getElementById("empty-grafica-cat").style.display = (gananciaVentas === 0 && gananciaServicios === 0) ? "flex" : "none";
+
+      const ctxFlujo = document.getElementById("graficaFlujo").getContext("2d");
+      if (chartFlujo) chartFlujo.destroy();
+
+      chartFlujo = new Chart(ctxFlujo, {
+        type: "bar",
+        data: {
+          labels: completadas.map((o) => o.concepto.substring(0, 14)),
+          datasets: [
+            {
+              label: "Costo + Inversión ($)",
+              data: completadas.map((o) => Number(o.costo) + Number(o.inversion)),
+              backgroundColor: "rgba(251, 191, 36, 0.7)",
+              borderRadius: 8
+            },
+            {
+              label: "Ganancia Neta ($)",
+              data: completadas.map((o) => Number(o.venta) - (Number(o.costo) + Number(o.inversion))),
+              backgroundColor: "rgba(52, 211, 153, 0.85)",
+              borderRadius: 8
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: "#a1a1aa", font: { size: 11 } } } },
+          scales: {
+            x: { ticks: { color: "#71717a" }, grid: { display: false } },
+            y: { ticks: { color: "#71717a" }, grid: { color: "#232329" } }
+          }
+        }
+      });
+
+      const ctxCat = document.getElementById("graficaCategorias").getContext("2d");
+      if (chartCategorias) chartCategorias.destroy();
+
+      chartCategorias = new Chart(ctxCat, {
+        type: "doughnut",
+        data: {
+          labels: ["Ventas / Equipos", "Servicios Taller"],
+          datasets: [{
+            data: (gananciaVentas === 0 && gananciaServicios === 0) ? [0, 0] : [Math.max(0, gananciaVentas), Math.max(0, gananciaServicios)],
+            backgroundColor: ["#6366f1", "#10b981"],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "72%",
+          plugins: { legend: { display: false } }
+        }
+      });
     }
 
-    function cambiarVista(vista) {
-      const vTienda = document.getElementById("vista-tienda");
-      const vAdmin = document.getElementById("vista-admin");
-      if (vista === "tienda") {
-        vTienda.classList.remove("hidden");
-        vTienda.classList.add("flex");
-        vAdmin.classList.add("hidden");
-      } else {
-        vTienda.classList.add("hidden");
-        vTienda.classList.remove("flex");
-        vAdmin.classList.remove("hidden");
-      }
-    }
-
-    function abrirModal(id) {
-      document.getElementById(id).classList.remove("hidden");
-    }
-
-    function cerrarModal(id) {
-      document.getElementById(id).classList.add("hidden");
-    }
-
+    // 6. ACCIONES DE USUARIO
     function guardarOperacion() {
-      const concepto = document.getElementById("op-concepto").value || "Nueva operación";
+      const concepto = document.getElementById("op-concepto").value.trim() || "Operación";
       const tipo = document.getElementById("op-tipo").value;
-      const cuenta = document.getElementById("op-cuenta").value;
+      const fecha = document.getElementById("op-fecha").value;
       const costo = parseFloat(document.getElementById("op-costo").value) || 0;
       const inversion = parseFloat(document.getElementById("op-inversion").value) || 0;
       const venta = parseFloat(document.getElementById("op-venta").value) || 0;
-      const detalle = document.getElementById("op-detalle").value || "Sin insumos adicionales";
-      const hoy = new Date().toISOString().split("T")[0];
+      const detalle = document.getElementById("op-detalle").value.trim();
+      const cuentaId = document.getElementById("op-cuenta").value;
+      const estado = document.getElementById("op-estado").value;
 
-      operaciones.unshift({
-        concepto,
-        tipo,
-        fecha: hoy,
-        costo,
-        inversion,
-        detalle,
-        venta,
-        cuenta,
-        estado: "completado"
-      });
+      const ganancia = venta - (costo + inversion);
+
+      if (estado === "completado") {
+        const cuenta = cuentas.find((c) => c.id === cuentaId);
+        if (cuenta) cuenta.saldo = Number(cuenta.saldo) + ganancia;
+      }
+
+      operaciones.unshift({ concepto, tipo, fecha, costo, inversion, venta, detalle, cuentaId, estado });
+
+      document.getElementById("op-concepto").value = "";
+      document.getElementById("op-costo").value = "";
+      document.getElementById("op-inversion").value = "";
+      document.getElementById("op-venta").value = "";
+      document.getElementById("op-detalle").value = "";
 
       cerrarModal("modal-operacion");
-      renderizarTodo();
+      actualizarTodo();
+    }
+
+    function marcarCobrado(index) {
+      const op = operaciones[index];
+      if (op.estado !== "completado") {
+        op.estado = "completado";
+        const ganancia = Number(op.venta) - (Number(op.costo) + Number(op.inversion));
+        const cuenta = cuentas.find((c) => c.id === op.cuentaId);
+        if (cuenta) cuenta.saldo = Number(cuenta.saldo) + ganancia;
+        actualizarTodo();
+      }
+    }
+
+    function eliminarOperacion(index) {
+      operaciones.splice(index, 1);
+      actualizarTodo();
+    }
+
+    function editarCuenta(id) {
+      const cuenta = cuentas.find((c) => c.id === id);
+      if (!cuenta) return;
+      document.getElementById("cuenta-edit-id").value = id;
+      document.getElementById("titulo-modal-cuenta").innerText = `Saldo en ${cuenta.nombre}`;
+      document.getElementById("cuenta-nuevo-saldo").value = cuenta.saldo;
+      abrirModal("modal-cuenta");
+    }
+
+    function guardarSaldoCuenta() {
+      const id = document.getElementById("cuenta-edit-id").value;
+      const nuevoSaldo = parseFloat(document.getElementById("cuenta-nuevo-saldo").value) || 0;
+      const cuenta = cuentas.find((c) => c.id === id);
+      if (cuenta) cuenta.saldo = nuevoSaldo;
+      cerrarModal("modal-cuenta");
+      actualizarTodo();
     }
 
     function guardarInsumo() {
-      const nombre = document.getElementById("in-nombre").value || "Nuevo insumo";
+      const nombre = document.getElementById("in-nombre").value.trim() || "Insumo";
       const stock = parseInt(document.getElementById("in-stock").value) || 0;
       const minimo = parseInt(document.getElementById("in-minimo").value) || 1;
       const costo = parseFloat(document.getElementById("in-costo").value) || 0;
 
-      insumos.unshift({
-        nombre,
-        categoria: "Taller / Repuesto",
-        stock,
-        minimo,
-        costo
-      });
-
+      insumos.unshift({ nombre, stock, minimo, costo });
+      document.getElementById("in-nombre").value = "";
       cerrarModal("modal-insumo");
-      renderizarTodo();
+      actualizarTodo();
     }
 
-    // Inicializar al cargar la página
-    renderizarTodo();
+    function cambiarStock(idx, delta) {
+      insumos[idx].stock = Math.max(0, Number(insumos[idx].stock) + delta);
+      actualizarTodo();
+    }
+
+    function eliminarInsumo(idx) {
+      insumos.splice(idx, 1);
+      actualizarTodo();
+    }
+
+    function reiniciarDatos() {
+      if (confirm("¿Seguro que deseas dejar todas las cuentas, operaciones e inventario en $0.00?")) {
+        localStorage.removeItem("dl_cuentas");
+        localStorage.removeItem("dl_operaciones");
+        localStorage.removeItem("dl_insumos");
+        cuentas = JSON.parse(JSON.stringify(CUENTAS_INICIALES));
+        operaciones = [];
+        insumos = [];
+        actualizarTodo();
+      }
+    }
+
+    function cambiarSeccion(sec) {
+      const sResumen = document.getElementById("seccion-resumen");
+      const sTaller = document.getElementById("seccion-taller");
+      const tResumen = document.getElementById("tab-resumen");
+      const tTaller = document.getElementById("tab-taller");
+
+      if (sec === "resumen") {
+        sResumen.classList.remove("hidden");
+        sTaller.classList.add("hidden");
+        tResumen.className = "cashew-pill px-4 py-1.5 text-xs font-semibold transition bg-indigo-500 text-white cursor-pointer";
+        tTaller.className = "cashew-pill px-4 py-1.5 text-xs font-semibold transition text-zinc-400 hover:text-white flex items-center gap-1.5 cursor-pointer";
+      } else {
+        sResumen.classList.add("hidden");
+        sTaller.classList.remove("hidden");
+        tTaller.className = "cashew-pill px-4 py-1.5 text-xs font-semibold transition bg-indigo-500 text-white flex items-center gap-1.5 cursor-pointer";
+        tResumen.className = "cashew-pill px-4 py-1.5 text-xs font-semibold transition text-zinc-400 hover:text-white cursor-pointer";
+      }
+    }
+
+    function abrirModal(id) { document.getElementById(id).classList.remove("hidden"); }
+    function cerrarModal(id) { document.getElementById(id).classList.add("hidden"); }
+
+    // Mantener sesión si ya habías entrado en la misma pestaña
+    if (sessionStorage.getItem("dl_sesion_activa") === "true") {
+      mostrarApp();
+    }
   </script>
 </body>
 </html>
