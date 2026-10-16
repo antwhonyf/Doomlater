@@ -9,8 +9,8 @@
 
   <!-- Iconos FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <!-- Fuente Inter & Orbitron -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
+  <!-- Tipografía actualizada: Inter & Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -84,22 +84,31 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
       font-size: 18px;
       color: #fff;
       border: 2px solid var(--accent);
       box-shadow: 0 0 12px var(--primary-glow);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
     }
 
     .brand-info h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.05rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 6px;
-      letter-spacing: 0.5px;
+      letter-spacing: -0.02em;
     }
 
     .verified-badge {
@@ -230,10 +239,21 @@
     }
 
     .hero-box h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: clamp(1.5rem, 3.2vw, 2.25rem);
       margin-bottom: 8px;
       line-height: 1.2;
+    }
+
+    /* OVERLAY DE COLOR EN "No dejes morir tu consola" */
+    .title-gradient-overlay {
+      background: linear-gradient(90deg, #a855f7 0%, #6366f1 45%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
 
     .hero-box p {
@@ -329,7 +349,9 @@
     }
 
     .section-title {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
       font-size: 1.15rem;
       display: flex;
       align-items: center;
@@ -431,6 +453,7 @@
     }
 
     .card-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.02rem;
       font-weight: 700;
       margin-bottom: 6px;
@@ -455,9 +478,10 @@
     }
 
     .price-tag {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.18rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.22rem;
       font-weight: 800;
+      letter-spacing: -0.02em;
       color: #fff;
     }
 
@@ -664,7 +688,8 @@
       border-radius: 12px;
       text-align: center;
       margin: 14px 0;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
       font-size: 1.1rem;
       color: #fda4af;
       letter-spacing: 1px;
@@ -793,7 +818,10 @@
   <header class="navbar">
     <div class="nav-container">
       <div class="brand-box" onclick="switchTab('tienda')">
-        <div class="brand-logo">ID</div>
+        <div class="brand-logo">
+          <img id="nav-profile-img" src="" alt="ItsDoomlater" />
+          <span id="nav-profile-initials">ID</span>
+        </div>
         <div class="brand-info">
           <h1>ItsDoomlater <i class="fa-solid fa-circle-check verified-badge"></i></h1>
           <span class="follower-pill"><i class="fa-solid fa-microchip"></i> Lab & Gaming Store</span>
@@ -837,7 +865,7 @@
   <section class="hero">
     <div class="hero-box">
       <span class="hero-tag" id="hero-badge">Microsoldadura · Magia · Gaming</span>
-      <h2 id="hero-title">Mi Tienda & Laboratorio - No des tu consola por perdida</h2>
+      <h2 id="hero-title">Mi Tienda · <span class="title-gradient-overlay">No dejes morir tu consola</span></h2>
       <p id="hero-desc">
         Reparación electrónica de precisión, instalación de magia (Nintendo Switch, GameCube, PS4/PS5), joysticks Hall Effect y equipamiento para gamers exigentes en Caracas.
       </p>
@@ -866,7 +894,7 @@
     <section class="admin-panel" id="admin-panel">
       <div class="admin-header">
         <div>
-          <h3 style="font-family:'Orbitron',sans-serif; color:#10b981;">
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif; color:#10b981;">
             <i class="fa-solid fa-user-gear"></i> Panel Admin · ItsDoomlater
           </h3>
           <p style="font-size:0.82rem; color:var(--text-muted);">
@@ -876,6 +904,19 @@
         <button class="btn-secondary" onclick="logoutAdmin()">
           <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
         </button>
+      </div>
+
+      <!-- CAMBIAR FOTO DE PERFIL -->
+      <div class="sync-box" style="margin-top:0; margin-bottom:16px;">
+        <strong style="display:block; margin-bottom:6px;">
+          <i class="fa-solid fa-camera" style="color:var(--accent);"></i> Foto de Perfil (Reemplaza el círculo "ID")
+        </strong>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <input type="text" id="profile-url-input" class="form-control" style="flex:1; min-width:200px;" placeholder="Pega URL de tu foto o súbela desde tu galería ->" />
+          <input type="file" accept="image/*" class="form-control" style="max-width:230px; font-size:0.76rem;" onchange="handleProfileUpload(event)" />
+          <button type="button" class="btn-secondary" onclick="saveProfileUrl()">Guardar Foto</button>
+          <button type="button" class="btn-secondary" onclick="resetProfilePhoto()">Restaurar "ID"</button>
+        </div>
       </div>
 
       <form id="product-form" onsubmit="saveProduct(event)">
@@ -988,7 +1029,10 @@
   <!-- BANNER INSTALABLE PWA (Réplica Juan Sequera) -->
   <div class="pwa-banner" id="pwa-banner">
     <div style="display:flex; align-items:center; gap:10px;">
-      <div class="brand-logo" style="width:38px; height:38px; font-size:14px; flex-shrink:0;">ID</div>
+      <div class="brand-logo" style="width:38px; height:38px; font-size:14px; flex-shrink:0;">
+        <img id="pwa-profile-img" src="" alt="ItsDoomlater" />
+        <span id="pwa-profile-initials">ID</span>
+      </div>
       <div>
         <strong style="font-size:0.86rem; display:block;">ItsDoomlater App</strong>
         <span style="font-size:0.75rem; color:var(--text-muted);">Ten el laboratorio y Doomketplace a un toque en tu teléfono.</span>
@@ -1029,7 +1073,7 @@
   <div class="modal-overlay" id="modal-redes">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-redes')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Mis Redes & Contacto</h3>
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:6px;">Mis Redes & Contacto</h3>
       <p style="font-size:0.85rem; color:var(--text-muted);">Síguenos y contáctanos directamente para presupuestos, reparaciones o colaboraciones:</p>
       <div class="social-list">
         <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="social-item">
@@ -1052,7 +1096,7 @@
   <div class="modal-overlay" id="modal-gana">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-gana')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Gana Dinero con ItsDoomlater</h3>
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:6px;">Gana Dinero con ItsDoomlater</h3>
       <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5;">
         ¿Tienes amigos con consolas dañadas, controles con drift o que quieran instalar magia en su Nintendo Switch? Recomiéndalos y gana comisión directa o descuento en tus reparaciones.
       </p>
@@ -1070,7 +1114,7 @@
   <div class="modal-overlay" id="modal-login">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-login')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Acceso Administrador</h3>
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:6px;">Acceso Administrador</h3>
       <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:16px;">
         Inicia sesión con tu cuenta de <strong>ItsDoomlater</strong> para agregar, editar o eliminar productos desde cualquier dispositivo.
       </p>
@@ -1097,7 +1141,7 @@
   <div class="modal-overlay" id="modal-carrito">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-carrito')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:12px;">
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:12px;">
         <i class="fa-solid fa-cart-shopping" style="color:var(--primary);"></i> Tu Pedido / Presupuesto
       </h3>
       <div id="cart-items-list" style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; margin-bottom:14px;"></div>
@@ -1105,7 +1149,7 @@
       <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:14px;">
         <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; margin-bottom:10px;">
           <span>Total Estimado:</span>
-          <span id="cart-total" style="color:var(--accent); font-family:'Orbitron',sans-serif;">$0.00</span>
+          <span id="cart-total" style="color:var(--accent); font-family:'Plus Jakarta Sans',sans-serif;">$0.00</span>
         </div>
         <div class="form-group">
           <label>Método de pago preferido</label>
@@ -1127,7 +1171,7 @@
   <div class="modal-overlay" id="modal-creditos">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-creditos')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:8px;">Garantía & Contacto</h3>
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:8px;">Garantía & Contacto</h3>
       <p style="font-size:0.86rem; color:var(--text-muted); line-height:1.55; margin-bottom:12px;">
         En <strong>ItsDoomlater</strong> trabajamos con estándares de laboratorio en microsoldadura, modificación de consolas y mantenimiento preventivo en Caracas.
       </p>
@@ -1150,11 +1194,14 @@
     const WHATSAPP_NUMBER = "584245323796";
     const CONTACT_EMAIL   = "itsdoomlater@gmail.com";
 
-    // Si creas una base de datos gratuita en Firebase Realtime Database,
-    // puedes pegar el link aquí o directamente desde el Panel Admin de la web:
+    // URL de tu Firebase Realtime Database ya integrada:
     const DEFAULT_CLOUD_DB_URL = "https://itsdoomlater-web-default-rtdb.firebaseio.com/";
 
+    // Si quieres dejar una foto de perfil fija por código, pon el link aquí:
+    const DEFAULT_PROFILE_PHOTO = "";
+
     const STORAGE_KEY_PRODUCTS = "itsdoomlater_catalog_v2";
+    const STORAGE_KEY_PROFILE  = "itsdoomlater_profile_photo";
     const STORAGE_KEY_ADMIN    = "itsdoomlater_admin_session";
     const STORAGE_KEY_CLOUD    = "itsdoomlater_cloud_db_url";
 
@@ -1223,6 +1270,7 @@
     ];
 
     let products = [];
+    let profilePhoto = "";
     let cart = [];
     let currentTab = "tienda";
     let currentCategory = "Todos";
@@ -1235,6 +1283,10 @@
       // Cargar estado de sesión admin
       isAdmin = localStorage.getItem(STORAGE_KEY_ADMIN) === "true";
       updateAdminUI();
+
+      // Cargar foto de perfil local
+      profilePhoto = localStorage.getItem(STORAGE_KEY_PROFILE) || DEFAULT_PROFILE_PHOTO;
+      renderProfilePhoto();
 
       // Cargar URL de base de datos en la nube si existe
       const savedCloudUrl = localStorage.getItem(STORAGE_KEY_CLOUD) || DEFAULT_CLOUD_DB_URL;
@@ -1257,20 +1309,103 @@
 
       renderCatalog();
 
-      // Si hay nube configurada, sincronizar catálogo remoto (Teléfono <-> PC)
+      // Si hay nube configurada, sincronizar catálogo y foto de perfil
       if (savedCloudUrl) {
         await syncFromCloud(false);
       }
     });
 
-    function getCleanCloudEndpoint() {
+    function getCleanCloudBase() {
       let url = (localStorage.getItem(STORAGE_KEY_CLOUD) || DEFAULT_CLOUD_DB_URL || "").trim();
       if (!url) return "";
-      url = url.replace(/\/+$/, "");
-      if (!url.endsWith(".json")) {
-        url += "/itsdoomlater_catalog.json";
-      }
+      url = url.replace(/\/+$/, "").replace(/\/itsdoomlater_catalog\.json$/, "");
       return url;
+    }
+
+    function getCleanCloudEndpoint() {
+      const base = getCleanCloudBase();
+      return base ? `${base}/itsdoomlater_catalog.json` : "";
+    }
+
+    function getProfileCloudEndpoint() {
+      const base = getCleanCloudBase();
+      return base ? `${base}/itsdoomlater_profile.json` : "";
+    }
+
+    /********************************************************************
+     * FOTO DE PERFIL (REEMPLAZA EL "ID")
+     ********************************************************************/
+    function renderProfilePhoto() {
+      const navImg = document.getElementById("nav-profile-img");
+      const navTxt = document.getElementById("nav-profile-initials");
+      const pwaImg = document.getElementById("pwa-profile-img");
+      const pwaTxt = document.getElementById("pwa-profile-initials");
+      const urlInput = document.getElementById("profile-url-input");
+
+      if (urlInput) urlInput.value = profilePhoto || "";
+
+      if (profilePhoto) {
+        navImg.src = profilePhoto;
+        navImg.style.display = "block";
+        navTxt.style.display = "none";
+        pwaImg.src = profilePhoto;
+        pwaImg.style.display = "block";
+        pwaTxt.style.display = "none";
+      } else {
+        navImg.style.display = "none";
+        navTxt.style.display = "block";
+        pwaImg.style.display = "none";
+        pwaTxt.style.display = "block";
+      }
+    }
+
+    function handleProfileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = async function() {
+          const canvas = document.createElement("canvas");
+          const MAX_SIZE = 260;
+          const scale = Math.min(1, MAX_SIZE / Math.max(img.width, img.height));
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+          profilePhoto = canvas.toDataURL("image/jpeg", 0.85);
+          localStorage.setItem(STORAGE_KEY_PROFILE, profilePhoto);
+          renderProfilePhoto();
+          await pushProfileToCloud();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function saveProfileUrl() {
+      profilePhoto = document.getElementById("profile-url-input").value.trim();
+      localStorage.setItem(STORAGE_KEY_PROFILE, profilePhoto);
+      renderProfilePhoto();
+      await pushProfileToCloud();
+    }
+
+    async function resetProfilePhoto() {
+      profilePhoto = "";
+      localStorage.removeItem(STORAGE_KEY_PROFILE);
+      renderProfilePhoto();
+      await pushProfileToCloud();
+    }
+
+    async function pushProfileToCloud() {
+      const ep = getProfileCloudEndpoint();
+      if (!ep) return;
+      try {
+        await fetch(ep, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ photo: profilePhoto })
+        });
+      } catch (e) {}
     }
 
     async function saveCloudConfig() {
@@ -1283,6 +1418,7 @@
       }
       localStorage.setItem(STORAGE_KEY_CLOUD, inputVal);
       await pushToCloud();
+      await pushProfileToCloud();
       alert("¡Nube conectada y sincronizada! Ahora todo lo que cambies en el teléfono se verá en tu PC.");
     }
 
@@ -1302,11 +1438,24 @@
             localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
             renderCatalog();
           } else {
-            // Si la nube está vacía, subimos nuestro catálogo actual
             await pushToCloud();
           }
           document.getElementById("sync-status").textContent = "Nube Sincronizada (Teléfono ↔ PC)";
           if (showAlert) alert("¡Catálogo sincronizado correctamente desde la nube!");
+        }
+
+        // Sincronizar también la foto de perfil si existe en Firebase
+        const profEp = getProfileCloudEndpoint();
+        if (profEp) {
+          const profRes = await fetch(profEp);
+          if (profRes.ok) {
+            const profData = await profRes.json();
+            if (profData && typeof profData.photo === "string") {
+              profilePhoto = profData.photo;
+              localStorage.setItem(STORAGE_KEY_PROFILE, profilePhoto);
+              renderProfilePhoto();
+            }
+          }
         }
       } catch (err) {
         document.getElementById("sync-status").textContent = "Modo Local (Sin conexión a nube)";
@@ -1498,12 +1647,12 @@
 
       if (tab === "doomketplace") {
         heroBadge.textContent = "Doomketplace · Equipos & Mods";
-        heroTitle.textContent = "Doomketplace - Consolas, Mods y Accesorios Listos";
+        heroTitle.innerHTML   = `Doomketplace · <span class="title-gradient-overlay">Consolas, Mods y Accesorios Listos</span>`;
         heroDesc.textContent  = "Equipos verificados por nuestro laboratorio, accesorios originales y consolas con magia lista para jugar.";
         heading.innerHTML = `<i class="fa-solid fa-gamepad" style="color:var(--accent);"></i> Doomketplace Disponible`;
       } else {
         heroBadge.textContent = "Microsoldadura · Magia · Gaming";
-        heroTitle.textContent = "Mi Tienda & Laboratorio - No des tu consola por perdida";
+        heroTitle.innerHTML   = `Mi Tienda · <span class="title-gradient-overlay">No dejes morir tu consola</span>`;
         heroDesc.textContent  = "Reparación electrónica de precisión, instalación de magia (Nintendo Switch, GameCube, PS4/PS5), joysticks Hall Effect y equipamiento para gamers exigentes en Caracas.";
         heading.innerHTML = `<i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Servicios & Tienda Oficial`;
       }
