@@ -3,63 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ItsDoomlater · Laboratorio Técnico & Gaming Store</title>
-  <meta name="description" content="Microsoldadura, Magia para Consolas, Reparación de Mandos y Accesorios Gaming en Caracas. Servicio técnico especializado por @itsdoomlater." />
-  <meta name="theme-color" content="#0b0b10" />
+  <title>ItsDoomlater · Gaming & Lab</title>
+  <meta name="description" content="Servicio técnico especializado, microsoldadura, magia para consolas y equipamiento de calidad para el gamer moderno por @itsdoomlater." />
+  <meta name="theme-color" content="#07070c" />
 
   <!-- Iconos FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <!-- Fuente Inter & Orbitron -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
+  <!-- Tipografía moderna exacta (Plus Jakarta Sans + Inter) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg-main: #09090e;
-      --bg-card: #13131c;
-      --bg-card-hover: #1b1b28;
-      --bg-glass: rgba(19, 19, 28, 0.88);
-      --primary: #e11d48;
-      --primary-glow: rgba(225, 29, 72, 0.38);
-      --accent: #00f0ff;
+      --bg-main: #07070c;
+      --bg-card: #101018;
+      --bg-card-hover: #161622;
+      --bg-glass: rgba(11, 11, 18, 0.88);
+      --purple: #7c3aed;
+      --purple-light: #a855f7;
+      --cyan: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --pink: #ec4899;
       --green: #10b981;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --border: rgba(255, 255, 255, 0.09);
-      --radius: 16px;
+      --border: rgba(255, 255, 255, 0.08);
+      --radius: 18px;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    h1, h2, h3, h4, .price-tag {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      letter-spacing: -0.03em;
     }
 
     body {
       background-color: var(--bg-main);
       background-image:
-        radial-gradient(circle at 15% 10%, rgba(225, 29, 72, 0.12), transparent 35%),
-        radial-gradient(circle at 85% 20%, rgba(0, 240, 255, 0.08), transparent 35%);
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 36px 36px;
       color: var(--text-main);
       min-height: 100vh;
-      padding-bottom: 90px;
+      padding-bottom: 95px;
       overflow-x: hidden;
     }
 
-    /* TOP NAVBAR (Réplica estructura Juan Sequera) */
+    /* TOP NAVBAR */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 100;
       background: var(--bg-glass);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       padding: 12px 20px;
     }
 
     .nav-container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -76,56 +84,81 @@
       cursor: pointer;
     }
 
-    .brand-logo {
+    .brand-avatar {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      border-radius: 13px;
+      background: linear-gradient(135deg, #1e1b4b, #0f172a);
+      border: 1.5px solid rgba(168, 85, 247, 0.6);
+      box-shadow: 0 0 16px rgba(124, 58, 237, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: 18px;
-      color: #fff;
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 12px var(--primary-glow);
+      position: relative;
+      flex-shrink: 0;
     }
 
-    .brand-info h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 800;
+    .brand-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 11px;
+      display: none;
+    }
+
+    .brand-avatar i {
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, #fff, var(--cyan-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .status-dot {
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      width: 12px;
+      height: 12px;
+      background: var(--green);
+      border: 2px solid var(--bg-main);
+      border-radius: 50%;
+    }
+
+    .brand-title-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      letter-spacing: 0.5px;
+      gap: 8px;
     }
 
-    .verified-badge {
-      color: var(--accent);
-      font-size: 0.9rem;
+    .brand-title-row h1 {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #fff;
     }
 
-    .follower-pill {
+    .brand-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      background: rgba(225, 29, 72, 0.16);
-      border: 1px solid rgba(225, 29, 72, 0.4);
-      color: #fda4af;
-      font-size: 0.72rem;
+      gap: 4px;
+      background: rgba(124, 58, 237, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      color: #c4b5fd;
+      font-size: 0.68rem;
       font-weight: 700;
       padding: 2px 8px;
       border-radius: 999px;
+    }
+
+    .brand-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
       margin-top: 2px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 6px;
     }
 
     .nav-btn {
@@ -133,14 +166,14 @@
       border: 1px solid transparent;
       color: var(--text-muted);
       padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 0.88rem;
+      border-radius: 11px;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
 
     .nav-btn:hover, .nav-btn.active {
@@ -149,113 +182,265 @@
       border-color: var(--border);
     }
 
-    .nav-btn.login-btn {
-      background: linear-gradient(135deg, var(--primary), #be123c);
-      color: #fff;
-      border: none;
-      box-shadow: 0 4px 14px var(--primary-glow);
+    .badge-usados {
+      background: rgba(6, 182, 212, 0.18);
+      color: var(--cyan-bright);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 6px;
+      text-transform: uppercase;
     }
 
-    .nav-btn.admin-active {
-      background: linear-gradient(135deg, #059669, #10b981);
-      color: #fff;
-      border: none;
-    }
-
-    /* QUICK ACTION PILLS (YouTube, Implementos/Servicios, Gana Dinero, Mis Redes) */
-    .quick-actions {
-      max-width: 1200px;
-      margin: 18px auto 10px;
-      padding: 0 16px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    .nav-right {
+      display: flex;
+      align-items: center;
       gap: 10px;
     }
 
-    .action-pill {
-      background: var(--bg-card);
+    .ig-pill-btn {
+      background: rgba(236, 72, 153, 0.12);
+      border: 1px solid rgba(236, 72, 153, 0.35);
+      color: #f472b6;
+      padding: 8px 14px;
+      border-radius: 11px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+
+    .ig-pill-btn:hover {
+      background: rgba(236, 72, 153, 0.22);
+      color: #fff;
+    }
+
+    .top-cart-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 10px;
+      color: #fff;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      color: var(--text-main);
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .action-pill:hover {
-      transform: translateY(-2px);
-      border-color: var(--primary);
-      background: var(--bg-card-hover);
+    .top-cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .action-pill i {
-      font-size: 1.1rem;
-    }
-
-    /* HERO BANNER */
-    .hero {
-      max-width: 1200px;
-      margin: 14px auto 22px;
+    /* 4 TARJETAS SUPERIORES (Contenido, Servicios, Gana Dinero, Mis Redes) */
+    .quick-cards {
+      max-width: 1240px;
+      margin: 22px auto 18px;
       padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
 
-    .hero-box {
-      background: linear-gradient(135deg, rgba(225, 29, 72, 0.16) 0%, rgba(19, 19, 28, 0.95) 65%);
-      border: 1px solid rgba(225, 29, 72, 0.3);
-      border-radius: 20px;
-      padding: 28px 24px;
+    .q-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      text-decoration: none;
+      color: var(--text-main);
+      cursor: pointer;
       position: relative;
       overflow: hidden;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      background: rgba(0, 240, 255, 0.12);
-      color: var(--accent);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .hero-box h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.4rem, 3vw, 2.1rem);
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    .hero-box p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 680px;
-      margin-bottom: 18px;
-    }
-
-    /* SEARCH & FILTERS */
-    .controls-row {
+      transition: transform 0.22s ease, border-color 0.22s ease;
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .q-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(168, 85, 247, 0.45);
+    }
+
+    .q-card.red-glow { background: radial-gradient(circle at 90% 90%, rgba(225, 29, 72, 0.14), var(--bg-card) 70%); }
+    .q-card.purple-glow { background: radial-gradient(circle at 90% 90%, rgba(124, 58, 237, 0.16), var(--bg-card) 70%); }
+    .q-card.green-glow { background: radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.14), var(--bg-card) 70%); }
+    .q-card.cyan-glow { background: radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.14), var(--bg-card) 70%); }
+
+    .q-top {
+      display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .search-wrap {
+    .q-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+    }
+
+    .q-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .q-card h3 {
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .q-card p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* HERO BANNER */
+    .hero {
+      max-width: 1240px;
+      margin: 0 auto 20px;
+      padding: 0 16px;
+    }
+
+    .hero-box {
+      background: linear-gradient(125deg, #111122 0%, #171332 55%, #0d1b2a 100%);
+      border: 1px solid rgba(168, 85, 247, 0.22);
+      border-radius: 22px;
+      padding: 30px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
       flex: 1;
-      min-width: 240px;
+      min-width: 280px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      color: var(--cyan-bright);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .hero-left h2 {
+      font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #a855f7 0%, #38bdf8 50%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-left p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      max-width: 640px;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .segmented-switch {
+      background: rgba(7, 7, 12, 0.75);
+      border: 1px solid var(--border);
+      padding: 5px;
+      border-radius: 14px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .seg-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: 0.2s;
+    }
+
+    .seg-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #6366f1);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+    }
+
+    .order-link {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .order-link:hover {
+      color: var(--cyan-bright);
+    }
+
+    /* BARRA BUSCADOR Y CATEGORÍAS */
+    .filter-bar {
+      max-width: 1240px;
+      margin: 0 auto 22px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
       position: relative;
+      min-width: 240px;
+      flex: 0 1 280px;
     }
 
     .search-wrap i {
@@ -264,89 +449,74 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
+      font-size: 0.85rem;
     }
 
     .search-input {
       width: 100%;
-      background: rgba(9, 9, 14, 0.85);
+      background: var(--bg-card);
       border: 1px solid var(--border);
       color: #fff;
-      padding: 12px 14px 12px 40px;
+      padding: 11px 14px 11px 38px;
       border-radius: 12px;
-      font-size: 0.92rem;
+      font-size: 0.86rem;
       outline: none;
     }
 
     .search-input:focus {
-      border-color: var(--primary);
+      border-color: var(--purple-light);
     }
 
-    .category-bar {
+    .category-pills {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 4px;
       scrollbar-width: none;
+      flex: 1;
     }
 
-    .category-bar::-webkit-scrollbar {
-      display: none;
-    }
+    .category-pills::-webkit-scrollbar { display: none; }
 
     .cat-chip {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 8px 14px;
-      border-radius: 999px;
+      padding: 10px 15px;
+      border-radius: 12px;
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       transition: 0.2s;
     }
 
-    .cat-chip.active, .cat-chip:hover {
-      background: var(--primary);
+    .cat-chip.active {
+      background: linear-gradient(135deg, #7c3aed, #6366f1);
       color: #fff;
-      border-color: var(--primary);
+      border-color: transparent;
     }
 
-    /* MAIN PRODUCTS GRID */
+    /* GRILLA DE TARJETAS ESTILO IMAGEN 2 */
     .main-container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 0 16px;
     }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .section-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 20px;
     }
 
     .product-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
+      border-radius: 20px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       transition: transform 0.22s ease, border-color 0.22s ease;
@@ -355,30 +525,151 @@
 
     .product-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(225, 29, 72, 0.5);
+      border-color: rgba(168, 85, 247, 0.45);
     }
 
-    .card-badge {
+    .card-visual {
+      height: 175px;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .card-visual.theme-purple { background: linear-gradient(135deg, #2e1065 0%, #1e1b4b 100%); }
+    .card-visual.theme-cyan   { background: linear-gradient(135deg, #083344 0%, #0f172a 100%); }
+    .card-visual.theme-green  { background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); }
+    .card-visual.theme-pink   { background: linear-gradient(135deg, #500724 0%, #1e1b4b 100%); }
+
+    .card-visual-img {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(225, 29, 72, 0.92);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.38;
+      z-index: 0;
+    }
+
+    .visual-top, .visual-bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .v-badge {
+      background: var(--purple-light);
       color: #fff;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
       padding: 4px 10px;
       border-radius: 999px;
-      z-index: 2;
+    }
+
+    .v-cat-tag {
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(6px);
+      color: #e2e8f0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .v-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--cyan-bright);
+    }
+
+    .v-price-box {
+      text-align: right;
+    }
+
+    .v-price-box small {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #cbd5e1;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .v-price-box .price-tag {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .card-body {
+      padding: 4px 6px 6px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .add-cart-btn {
+      flex: 1;
+      background: linear-gradient(135deg, #7c3aed, #6366f1);
+      color: #fff;
+      border: none;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+    }
+
+    .add-cart-btn:hover {
+      opacity: 0.92;
     }
 
     .card-admin-actions {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 22px;
+      right: 22px;
       display: flex;
       gap: 6px;
-      z-index: 3;
+      z-index: 5;
     }
 
     .icon-action-btn {
@@ -387,138 +678,32 @@
       border-radius: 8px;
       border: none;
       cursor: pointer;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 0.85rem;
-      backdrop-filter: blur(6px);
     }
 
-    .btn-edit { background: rgba(14, 165, 233, 0.88); }
+    .btn-edit { background: rgba(14, 165, 233, 0.9); }
     .btn-delete { background: rgba(239, 68, 68, 0.9); }
 
-    .card-img-wrap {
-      width: 100%;
-      height: 185px;
-      background: #0d0d14;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .card-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .card-body {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .card-cat {
-      font-size: 0.73rem;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .card-title {
-      font-size: 1.02rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-
-    .card-desc {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-      margin-bottom: 16px;
-      flex: 1;
-    }
-
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-
-    .price-tag {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.18rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .add-cart-btn {
-      background: linear-gradient(135deg, var(--primary), #be123c);
-      color: #fff;
-      border: none;
-      padding: 9px 14px;
-      border-radius: 10px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: opacity 0.2s;
-    }
-
-    .add-cart-btn:hover {
-      opacity: 0.92;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 48px 20px;
-      background: var(--bg-card);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      color: var(--text-muted);
-      grid-column: 1 / -1;
-    }
-
-    /* ADMIN PANEL BOX */
+    /* PANEL DE ADMINISTRADOR */
     .admin-panel {
       display: none;
-      background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(19, 19, 28, 0.96));
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 20px;
-      padding: 22px;
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(16, 16, 24, 0.98));
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 22px;
+      padding: 24px;
       margin-bottom: 26px;
     }
 
-    .admin-panel.show {
-      display: block;
-    }
-
-    .admin-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
+    .admin-panel.show { display: block; }
 
     .admin-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 12px;
+      margin-top: 14px;
     }
 
     .form-group {
@@ -528,31 +713,19 @@
     }
 
     .form-group label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
       font-weight: 600;
     }
 
     .form-control {
-      background: rgba(9, 9, 14, 0.9);
+      background: #090910;
       border: 1px solid var(--border);
       color: #fff;
       padding: 10px 12px;
       border-radius: 10px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       outline: none;
-    }
-
-    .form-control:focus {
-      border-color: var(--green);
-    }
-
-    .admin-actions-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-      align-items: center;
     }
 
     .btn-save-prod {
@@ -560,16 +733,13 @@
       color: #052e16;
       font-weight: 800;
       border: none;
-      padding: 11px 20px;
+      padding: 11px 18px;
       border-radius: 10px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.07);
       color: #fff;
       border: 1px solid var(--border);
       padding: 10px 14px;
@@ -579,16 +749,7 @@
       cursor: pointer;
     }
 
-    .sync-box {
-      margin-top: 16px;
-      padding: 12px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-size: 0.82rem;
-    }
-
-    /* MODALS */
+    /* MODALES */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -601,20 +762,16 @@
       padding: 16px;
     }
 
-    .modal-overlay.open {
-      display: flex;
-    }
+    .modal-overlay.open { display: flex; }
 
     .modal-card {
-      background: #14141f;
+      background: #12121c;
       border: 1px solid var(--border);
       border-radius: 20px;
       width: 100%;
       max-width: 440px;
       padding: 24px;
       position: relative;
-      max-height: 90vh;
-      overflow-y: auto;
     }
 
     .modal-close {
@@ -627,85 +784,16 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      font-size: 1.1rem;
       cursor: pointer;
     }
 
-    .social-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .social-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.2s;
-    }
-
-    .social-item:hover {
-      border-color: var(--primary);
-      background: rgba(225, 29, 72, 0.12);
-    }
-
-    .promo-code-box {
-      background: rgba(225, 29, 72, 0.15);
-      border: 1px dashed var(--primary);
-      padding: 12px;
-      border-radius: 12px;
-      text-align: center;
-      margin: 14px 0;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.1rem;
-      color: #fda4af;
-      letter-spacing: 1px;
-    }
-
-    /* FOOTER */
-    footer {
-      max-width: 1200px;
-      margin: 48px auto 20px;
-      padding: 24px 16px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.84rem;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .footer-links a:hover {
-      color: #fff;
-    }
-
-    /* BOTTOM MOBILE BAR (Réplica exacta Juan Sequera) */
+    /* BARRA INFERIOR MÓVIL */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(12, 12, 18, 0.95);
+      background: rgba(10, 10, 16, 0.95);
       backdrop-filter: blur(14px);
       border-top: 1px solid var(--border);
       display: flex;
@@ -725,159 +813,191 @@
       font-size: 0.72rem;
       font-weight: 600;
       cursor: pointer;
-      position: relative;
       text-decoration: none;
     }
 
-    .bottom-item i {
-      font-size: 1.15rem;
-    }
+    .bottom-item.active { color: var(--purple-light); }
 
-    .bottom-item.active, .bottom-item:hover {
-      color: var(--primary);
+    @media (max-width: 900px) {
+      .quick-cards { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
     }
-
-    .cart-badge {
-      position: absolute;
-      top: -4px;
-      right: 4px;
-      background: var(--primary);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 800;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* PWA INSTALL BANNER */
-    .pwa-banner {
-      position: fixed;
-      bottom: 74px;
-      right: 16px;
-      left: 16px;
-      max-width: 420px;
-      margin: 0 auto;
-      background: #171723;
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      border-radius: 16px;
-      padding: 14px 16px;
-      z-index: 110;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .pwa-banner.hidden {
-      display: none;
-    }
-
-    @media (max-width: 680px) {
-      .quick-actions {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .nav-links {
-        display: none;
-      }
+    @media (max-width: 540px) {
+      .quick-cards { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- TOP NAVBAR -->
+  <!-- TOP NAVBAR (Diseño exacto captura 2) -->
   <header class="navbar">
     <div class="nav-container">
       <div class="brand-box" onclick="switchTab('tienda')">
-        <div class="brand-logo">ID</div>
-        <div class="brand-info">
-          <h1>ItsDoomlater <i class="fa-solid fa-circle-check verified-badge"></i></h1>
-          <span class="follower-pill"><i class="fa-solid fa-microchip"></i> Lab & Gaming Store</span>
+        <div class="brand-avatar">
+          <img id="brand-avatar-img" src="" alt="Logo ItsDoomlater" />
+          <i class="fa-solid fa-gamepad" id="brand-avatar-icon"></i>
+          <span class="status-dot"></span>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <h1>ItsDoomlater</h1>
+            <span class="brand-pill"><i class="fa-solid fa-bolt"></i> Gaming & Lab</span>
+          </div>
+          <p class="brand-sub">@itsdoomlater · Microsoldadura & Magia</p>
         </div>
       </div>
 
       <nav class="nav-links">
         <button class="nav-btn active" id="nav-tienda" onclick="switchTab('tienda')">
-          <i class="fa-solid fa-store"></i> Tienda & Servicios
+          <i class="fa-solid fa-store" style="color:#a855f7;"></i> Tienda
         </button>
         <button class="nav-btn" id="nav-doomketplace" onclick="switchTab('doomketplace')">
-          <i class="fa-solid fa-gamepad"></i> Doomketplace
+          <i class="fa-solid fa-fire" style="color:#22d3ee;"></i> Doomketplace <span class="badge-usados">USADOS</span>
         </button>
         <button class="nav-btn" onclick="openModal('modal-creditos')">
-          <i class="fa-solid fa-shield-halved"></i> Garantía & Contacto
+          <i class="fa-solid fa-shield-halved" style="color:#10b981;"></i> Garantía
         </button>
-        <button class="nav-btn login-btn" id="top-auth-btn" onclick="handleAuthClick()">
-          <i class="fa-solid fa-user-lock"></i> <span id="auth-btn-text">Login</span>
+        <button class="nav-btn" onclick="handleAuthClick()">
+          <i class="fa-regular fa-user"></i> <span id="auth-btn-text">Login / Taller</span>
         </button>
       </nav>
+
+      <div class="nav-right">
+        <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="ig-pill-btn">
+          <i class="fa-brands fa-instagram"></i> @itsdoomlater
+        </a>
+        <button class="top-cart-btn" onclick="openModal('modal-carrito')">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="top-cart-badge" id="cart-count">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- 4 BOTONES RÁPIDOS SUPERIORES (Réplica Juan Sequera) -->
-  <section class="quick-actions">
-    <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="action-pill">
-      <i class="fa-brands fa-instagram" style="color:#ec4899;"></i> Reels & Trabajos
+  <!-- 4 TARJETAS DE ACCIÓN RÁPIDA (Exactas a la captura 2) -->
+  <section class="quick-cards">
+    <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="q-card red-glow">
+      <div class="q-top">
+        <div class="q-icon" style="background:rgba(225,29,72,0.18); color:#fb7185;">
+          <i class="fa-solid fa-clapperboard"></i>
+        </div>
+        <span class="q-badge" style="background:rgba(225,29,72,0.2); color:#fda4af;">Reels</span>
+      </div>
+      <h3>Contenido & Shorts</h3>
+      <p>Mira reparaciones extremas, magia y diagnósticos en @itsdoomlater</p>
     </a>
-    <button class="action-pill" onclick="switchTab('tienda')">
-      <i class="fa-solid fa-screwdriver-wrench" style="color:#00f0ff;"></i> Servicios Técnicos
+
+    <button class="q-card purple-glow" onclick="switchTab('tienda')">
+      <div class="q-top">
+        <div class="q-icon" style="background:rgba(124,58,237,0.2); color:#c084fc;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <span class="q-badge" style="background:rgba(124,58,237,0.22); color:#d8b4fe;">Top Taller</span>
+      </div>
+      <h3>Servicios & Magia</h3>
+      <p>Modchips Switch OLED/Lite, HDMI PS5, Hall Effect y Microsoldadura</p>
     </button>
-    <button class="action-pill" onclick="openModal('modal-gana')">
-      <i class="fa-solid fa-sack-dollar" style="color:#10b981;"></i> Gana Dinero
+
+    <button class="q-card green-glow" onclick="openModal('modal-gana')">
+      <div class="q-top">
+        <div class="q-icon" style="background:rgba(16,185,129,0.18); color:#34d399;">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </div>
+        <span class="q-badge" style="background:rgba(16,185,129,0.2); color:#6ee7b7;">Comisión</span>
+      </div>
+      <h3>Gana Dinero</h3>
+      <p>Alianza de referidos y descuentos con el código DOOMLATER</p>
     </button>
-    <button class="action-pill" onclick="openModal('modal-redes')">
-      <i class="fa-solid fa-share-nodes" style="color:#f43f5e;"></i> Mis Redes
+
+    <button class="q-card cyan-glow" onclick="openModal('modal-redes')">
+      <div class="q-top">
+        <div class="q-icon" style="background:rgba(6,182,212,0.18); color:#22d3ee;">
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+        <span class="q-badge" style="background:rgba(6,182,212,0.2); color:#67e8f9;">Conecta</span>
+      </div>
+      <h3>Mis Redes</h3>
+      <p>Instagram @itsdoomlater, TikTok y contacto directo al taller</p>
     </button>
   </section>
 
-  <!-- HERO PRINCIPAL -->
+  <!-- HERO BANNER -->
   <section class="hero">
     <div class="hero-box">
-      <span class="hero-tag" id="hero-badge">Microsoldadura · Magia · Gaming</span>
-      <h2 id="hero-title">Mi Tienda & Laboratorio - No des tu consola por perdida</h2>
-      <p id="hero-desc">
-        Reparación electrónica de precisión, instalación de magia (Nintendo Switch, GameCube, PS4/PS5), joysticks Hall Effect y equipamiento para gamers exigentes en Caracas.
-      </p>
-
-      <div class="controls-row">
-        <div class="search-wrap">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" id="search-input" class="search-input" placeholder="Buscar servicio, consola, repuesto o accesorio..." oninput="renderCatalog()" />
-        </div>
-
-        <div class="category-bar" id="category-bar">
-          <button class="cat-chip active" onclick="setCategory('Todos', this)">Todos</button>
-          <button class="cat-chip" onclick="setCategory('Magia / Mods', this)">Magia / Mods</button>
-          <button class="cat-chip" onclick="setCategory('Microsoldadura', this)">Microsoldadura</button>
-          <button class="cat-chip" onclick="setCategory('Mandos', this)">Mandos & Hall Effect</button>
-          <button class="cat-chip" onclick="setCategory('Accesorios', this)">Consolas & Accesorios</button>
-        </div>
+      <div class="hero-left">
+        <span class="hero-pill"><i class="fa-solid fa-screwdriver-wrench"></i> Mi Tienda & Laboratorio Oficial</span>
+        <h2>Mi Tienda · <span class="gradient-text" id="hero-highlight">No dejes morir tu consola</span></h2>
+        <p id="hero-desc">
+          Servicio técnico especializado, microsoldadura, magia para consolas y equipamiento de calidad para el gamer moderno. Todo lo que necesitas para jugar sin límites.
+        </p>
       </div>
+
+      <div class="hero-right">
+        <div class="segmented-switch">
+          <button class="seg-btn active" id="seg-tienda" onclick="switchTab('tienda')">
+            <i class="fa-solid fa-certificate"></i> Tienda & Taller
+          </button>
+          <button class="seg-btn" id="seg-doomketplace" onclick="switchTab('doomketplace')">
+            <i class="fa-solid fa-fire" style="color:#22d3ee;"></i> Doomketplace
+          </button>
+        </div>
+        <a class="order-link" href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20quiero%20consultar%20el%20estado%20de%20mi%20consola" target="_blank">
+          <i class="fa-solid fa-magnifying-glass"></i> ¿Dejaste tu consola? Consulta tu orden aquí
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSCADOR Y FILTROS -->
+  <section class="filter-bar">
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="search-input" class="search-input" placeholder="Buscar magia Switch, HDMI..." oninput="renderCatalog()" />
+    </div>
+
+    <div class="category-pills">
+      <button class="cat-chip active" onclick="setCategory('Todos', this)">Todos</button>
+      <button class="cat-chip" onclick="setCategory('Magia & Modchips', this)">
+        <i class="fa-solid fa-wand-magic-sparkles" style="color:#c084fc;"></i> Magia & Modchips
+      </button>
+      <button class="cat-chip" onclick="setCategory('Microsoldadura & HDMI', this)">
+        <i class="fa-solid fa-microchip" style="color:#22d3ee;"></i> Microsoldadura & HDMI
+      </button>
+      <button class="cat-chip" onclick="setCategory('Mandos & Drift', this)">
+        <i class="fa-solid fa-gamepad" style="color:#34d399;"></i> Mandos & Drift
+      </button>
+      <button class="cat-chip" onclick="setCategory('Accesorios & Retro', this)">
+        <i class="fa-solid fa-compact-disc" style="color:#fb7185;"></i> Accesorios & Retro
+      </button>
     </div>
   </section>
 
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="main-container">
 
-    <!-- PANEL DE ADMINISTRADOR (Solo visible al iniciar sesión con itsdoomlater@gmail.com) -->
+    <!-- PANEL ADMIN (CON CAMBIO DE FOTO DE PERFIL Y FIREBASE) -->
     <section class="admin-panel" id="admin-panel">
-      <div class="admin-header">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; padding-bottom:12px; border-bottom:1px solid var(--border);">
         <div>
-          <h3 style="font-family:'Orbitron',sans-serif; color:#10b981;">
-            <i class="fa-solid fa-user-gear"></i> Panel Admin · ItsDoomlater
-          </h3>
-          <p style="font-size:0.82rem; color:var(--text-muted);">
-            Sesión iniciada como <strong>itsdoomlater@gmail.com</strong>. Agrega, edita o elimina servicios y productos desde tu teléfono o PC.
-          </p>
+          <h3 style="color:#10b981;"><i class="fa-solid fa-user-gear"></i> Panel Admin · ItsDoomlater</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Sesión activa: itsdoomlater@gmail.com</p>
         </div>
-        <button class="btn-secondary" onclick="logoutAdmin()">
-          <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
-        </button>
+        <button class="btn-secondary" onclick="logoutAdmin()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
       </div>
 
+      <!-- CAMBIAR FOTO DE PERFIL DESDE EL TELÉFONO O PC -->
+      <div style="margin-top:14px; padding:12px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+        <div>
+          <strong style="font-size:0.85rem;"><i class="fa-solid fa-camera" style="color:#a855f7;"></i> Cambiar Foto de Perfil / Logo de la Barra Superior</strong>
+          <p style="font-size:0.76rem; color:var(--text-muted);">Sube tu logo desde tu galería o pega una URL y se actualizará en todos los dispositivos.</p>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <input type="file" accept="image/*" class="form-control" style="font-size:0.75rem; max-width:220px;" onchange="handleProfileLogoUpload(event)" />
+          <button type="button" class="btn-secondary" onclick="clearProfileLogo()">Usar Ícono Gamer</button>
+        </div>
+      </div>
+
+      <!-- FORMULARIO AGREGAR / EDITAR SERVICIO O PRODUCTO -->
       <form id="product-form" onsubmit="saveProduct(event)">
         <input type="hidden" id="prod-id" />
         <div class="admin-grid">
@@ -885,480 +1005,420 @@
             <label>Nombre del Servicio o Producto *</label>
             <input type="text" id="prod-title" class="form-control" placeholder="Ej: Magia Nintendo Switch OLED" required />
           </div>
-
           <div class="form-group">
             <label>Precio (USD) *</label>
             <input type="number" step="0.01" id="prod-price" class="form-control" placeholder="Ej: 65" required />
           </div>
-
           <div class="form-group">
             <label>Categoría *</label>
             <select id="prod-category" class="form-control">
-              <option value="Magia / Mods">Magia / Mods</option>
-              <option value="Microsoldadura">Microsoldadura</option>
-              <option value="Mandos">Mandos & Hall Effect</option>
-              <option value="Accesorios">Consolas & Accesorios</option>
+              <option value="Magia & Modchips">Magia & Modchips</option>
+              <option value="Microsoldadura & HDMI">Microsoldadura & HDMI</option>
+              <option value="Mandos & Drift">Mandos & Drift</option>
+              <option value="Accesorios & Retro">Accesorios & Retro</option>
             </select>
           </div>
-
           <div class="form-group">
-            <label>Sección de la Web *</label>
+            <label>Sección *</label>
             <select id="prod-section" class="form-control">
-              <option value="tienda">Tienda & Servicios (Principal)</option>
-              <option value="doomketplace">Doomketplace (Ofertas / Equipos)</option>
+              <option value="tienda">Tienda & Taller</option>
+              <option value="doomketplace">Doomketplace (Usados/Equipos)</option>
             </select>
           </div>
-
           <div class="form-group">
-            <label>Etiqueta Destacada (Opcional)</label>
-            <input type="text" id="prod-badge" class="form-control" placeholder="Ej: Más Pedido, Garantía, Nuevo" />
+            <label>Etiqueta Superior (Badge)</label>
+            <input type="text" id="prod-badge" class="form-control" placeholder="Ej: Más Pedido, Cero Drift" />
           </div>
-
           <div class="form-group">
-            <label>URL de Imagen o Subir Foto desde Teléfono/PC</label>
-            <input type="text" id="prod-img" class="form-control" placeholder="Pega link de imagen o sube archivo abajo" />
-            <input type="file" id="prod-file" accept="image/*" class="form-control" style="margin-top:6px; font-size:0.76rem;" onchange="handleImageUpload(event)" />
+            <label>Foto Opcional (Subir de galería o link)</label>
+            <input type="text" id="prod-img" class="form-control" placeholder="Link o sube foto abajo" />
+            <input type="file" accept="image/*" class="form-control" style="margin-top:4px; font-size:0.74rem;" onchange="handleProductImageUpload(event)" />
           </div>
         </div>
 
         <div class="form-group" style="margin-top:10px;">
-          <label>Descripción detallada *</label>
-          <textarea id="prod-desc" rows="2" class="form-control" placeholder="Describe qué incluye el servicio, tiempo de entrega o garantía..." required></textarea>
+          <label>Descripción *</label>
+          <textarea id="prod-desc" rows="2" class="form-control" placeholder="Detalles del servicio, garantía..." required></textarea>
         </div>
 
-        <div class="admin-actions-row">
-          <button type="submit" class="btn-save-prod" id="save-btn-label">
-            <i class="fa-solid fa-plus-circle"></i> Guardar en el Catálogo
-          </button>
-          <button type="button" class="btn-secondary" onclick="resetForm()">
-            Limpiar Formulario
-          </button>
-          <button type="button" class="btn-secondary" onclick="restoreDefaultCatalog()">
-            <i class="fa-solid fa-rotate-left"></i> Restaurar Catálogo Base
-          </button>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <button type="submit" class="btn-save-prod" id="save-btn-label"><i class="fa-solid fa-plus-circle"></i> Guardar en el Catálogo</button>
+          <button type="button" class="btn-secondary" onclick="resetForm()">Limpiar</button>
         </div>
       </form>
 
-      <!-- SINCRONIZACIÓN MULTI-DISPOSITIVO (TELÉFONO <-> PC) -->
-      <div class="sync-box">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
-          <strong><i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent);"></i> Sincronización Teléfono ↔ PC (Nube en Tiempo Real)</strong>
-          <span id="sync-status" style="font-size:0.76rem; color:#10b981;">Guardado Local Activo</span>
+      <!-- CONEXIÓN FIREBASE -->
+      <div style="margin-top:16px; padding:12px; background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:12px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <strong style="font-size:0.82rem;"><i class="fa-solid fa-cloud" style="color:#22d3ee;"></i> Sincronización Firebase (Teléfono ↔ PC)</strong>
+          <span id="sync-status" style="font-size:0.75rem; color:#10b981;">Listo</span>
         </div>
-        <p style="color:var(--text-muted); margin-bottom:8px;">
-          Para que los productos que agregues desde el teléfono se actualicen al instante en tu PC y para todos tus clientes en GitHub Pages, pega aquí la URL de tu <strong>Firebase Realtime Database</strong> (ej. <code>https://tu-proyecto-default-rtdb.firebaseio.com</code>):
-        </p>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <input type="url" id="cloud-db-input" class="form-control" style="flex:1; min-width:220px;" placeholder="https://itsdoomlater-default-rtdb.firebaseio.com" />
-          <button type="button" class="btn-secondary" onclick="saveCloudConfig()">
-            <i class="fa-solid fa-link"></i> Conectar Nube
-          </button>
-          <button type="button" class="btn-secondary" onclick="syncFromCloud(true)">
-            <i class="fa-solid fa-arrows-rotate"></i> Sincronizar Ahora
-          </button>
+          <input type="url" id="cloud-db-input" class="form-control" style="flex:1;" placeholder="https://tu-proyecto-default-rtdb.firebaseio.com" />
+          <button type="button" class="btn-secondary" onclick="saveCloudConfig()">Conectar Nube</button>
         </div>
       </div>
     </section>
 
-    <!-- CABECERA DE CATÁLOGO -->
-    <div class="section-header">
-      <h3 class="section-title" id="catalog-heading">
-        <i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Catálogo Disponible
-      </h3>
-      <span id="items-count" style="font-size:0.84rem; color:var(--text-muted);">Cargando...</span>
-    </div>
-
-    <!-- GRILLA DE PRODUCTOS / SERVICIOS -->
+    <!-- GRILLA DE TARJETAS -->
     <div class="products-grid" id="products-grid"></div>
-
   </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-links">
-      <a onclick="switchTab('tienda')">Inicio</a>
-      <a onclick="handleAuthClick()">Login Admin</a>
-      <a onclick="openModal('modal-creditos')">Garantía & Políticas</a>
-      <a href="mailto:itsdoomlater@gmail.com">Contacto: itsdoomlater@gmail.com</a>
-    </div>
-    <p>© 2026 <strong>ItsDoomlater</strong> (@itsdoomlater). Todos los derechos reservados.</p>
-    <p style="margin-top:4px; font-size:0.76rem;">Caracas, Venezuela · WhatsApp Oficial: +58 0424-5323796</p>
-  </footer>
-
-  <!-- BANNER INSTALABLE PWA (Réplica Juan Sequera) -->
-  <div class="pwa-banner" id="pwa-banner">
-    <div style="display:flex; align-items:center; gap:10px;">
-      <div class="brand-logo" style="width:38px; height:38px; font-size:14px; flex-shrink:0;">ID</div>
-      <div>
-        <strong style="font-size:0.86rem; display:block;">ItsDoomlater App</strong>
-        <span style="font-size:0.75rem; color:var(--text-muted);">Ten el laboratorio y Doomketplace a un toque en tu teléfono.</span>
-      </div>
-    </div>
-    <div style="display:flex; gap:6px;">
-      <button class="add-cart-btn" style="padding:7px 11px; font-size:0.76rem;" onclick="installPWA()">Instalar</button>
-      <button class="btn-secondary" style="padding:7px 9px; font-size:0.76rem;" onclick="closePwaBanner()">×</button>
-    </div>
-  </div>
 
   <!-- BARRA INFERIOR MÓVIL -->
   <nav class="bottom-nav">
     <button class="bottom-item active" id="bot-tienda" onclick="switchTab('tienda')">
-      <i class="fa-solid fa-house"></i>
-      <span>Inicio</span>
+      <i class="fa-solid fa-store"></i><span>Tienda</span>
     </button>
     <button class="bottom-item" id="bot-doomketplace" onclick="switchTab('doomketplace')">
-      <i class="fa-solid fa-Layer-group fa-gamepad"></i>
-      <span>Doomketplace</span>
+      <i class="fa-solid fa-fire"></i><span>Doomketplace</span>
     </button>
     <button class="bottom-item" onclick="openModal('modal-carrito')">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <span>Carrito</span>
-      <span class="cart-badge" id="cart-count">0</span>
+      <i class="fa-solid fa-cart-shopping"></i><span>Carrito</span>
     </button>
-    <a class="bottom-item" href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20vengo%20de%20la%20p%C3%A1gina%20web%20y%20quiero%20consultar%20un%20servicio" target="_blank">
-      <i class="fa-brands fa-whatsapp" style="color:#22c55e;"></i>
-      <span>WhatsApp</span>
+    <a class="bottom-item" href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20vengo%20de%20la%20web" target="_blank">
+      <i class="fa-brands fa-whatsapp" style="color:#22c55e;"></i><span>WhatsApp</span>
     </a>
     <button class="bottom-item" onclick="handleAuthClick()">
-      <i class="fa-solid fa-user"></i>
-      <span id="bottom-user-label">Usuario</span>
+      <i class="fa-regular fa-user"></i><span>Taller</span>
     </button>
   </nav>
 
-  <!-- MODAL: MIS REDES Y CONTACTO -->
-  <div class="modal-overlay" id="modal-redes">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal('modal-redes')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Mis Redes & Contacto</h3>
-      <p style="font-size:0.85rem; color:var(--text-muted);">Síguenos y contáctanos directamente para presupuestos, reparaciones o colaboraciones:</p>
-      <div class="social-list">
-        <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="social-item">
-          <span><i class="fa-brands fa-instagram" style="color:#ec4899; margin-right:8px;"></i> Instagram Oficial (@itsdoomlater)</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-        <a href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20quiero%20cotizar%20un%20servicio" target="_blank" class="social-item">
-          <span><i class="fa-brands fa-whatsapp" style="color:#22c55e; margin-right:8px;"></i> WhatsApp (+58 0424-5323796)</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-        <a href="mailto:itsdoomlater@gmail.com" class="social-item">
-          <span><i class="fa-solid fa-envelope" style="color:#38bdf8; margin-right:8px;"></i> Colaboraciones: itsdoomlater@gmail.com</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: GANA DINERO / REFERIDOS -->
-  <div class="modal-overlay" id="modal-gana">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal('modal-gana')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Gana Dinero con ItsDoomlater</h3>
-      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5;">
-        ¿Tienes amigos con consolas dañadas, controles con drift o que quieran instalar magia en su Nintendo Switch? Recomiéndalos y gana comisión directa o descuento en tus reparaciones.
-      </p>
-      <div class="promo-code-box">CÓDIGO: DOOMLATER</div>
-      <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:16px;">
-        Dile a tu referido que mencione este código junto con tu nombre al escribirnos al WhatsApp <strong>+58 0424-5323796</strong>.
-      </p>
-      <a href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20quiero%20afiliarme%20al%20programa%20de%20referidos%20con%20el%20c%C3%B3digo%20DOOMLATER" target="_blank" class="add-cart-btn" style="width:100%; justify-content:center; text-decoration:none; padding:12px;">
-        <i class="fa-brands fa-whatsapp"></i> Activar mi Código por WhatsApp
-      </a>
-    </div>
-  </div>
-
-  <!-- MODAL: LOGIN ADMIN -->
+  <!-- MODAL LOGIN -->
   <div class="modal-overlay" id="modal-login">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-login')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Acceso Administrador</h3>
-      <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:16px;">
-        Inicia sesión con tu cuenta de <strong>ItsDoomlater</strong> para agregar, editar o eliminar productos desde cualquier dispositivo.
-      </p>
+      <h3 style="margin-bottom:8px;">Acceso Taller · ItsDoomlater</h3>
       <form onsubmit="loginAdmin(event)">
-        <div class="form-group" style="margin-bottom:12px;">
-          <label>Correo Electrónico</label>
+        <div class="form-group" style="margin-bottom:10px;">
+          <label>Correo</label>
           <input type="email" id="login-email" class="form-control" placeholder="itsdoomlater@gmail.com" required />
         </div>
-        <div class="form-group" style="margin-bottom:16px;">
-          <label>Contraseña</label>
-          <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required />
+        <div class="form-group" style="margin-bottom:14px;">
+          <label>Clave</label>
+          <input type="password" id="login-pass" class="form-control" required />
         </div>
-        <p id="login-error" style="color:#f43f5e; font-size:0.8rem; margin-bottom:10px; display:none;">
-          Correo o clave incorrectos. Verifica tus datos.
-        </p>
-        <button type="submit" class="add-cart-btn" style="width:100%; justify-content:center; padding:12px;">
-          <i class="fa-solid fa-unlock-keyhole"></i> Entrar al Panel
-        </button>
+        <p id="login-error" style="color:#fb7185; font-size:0.8rem; display:none; margin-bottom:8px;">Credenciales incorrectas.</p>
+        <button type="submit" class="add-cart-btn" style="width:100%;">Iniciar Sesión</button>
       </form>
     </div>
   </div>
 
-  <!-- MODAL: CARRITO DE COMPRAS -->
+  <!-- MODAL CARRITO -->
   <div class="modal-overlay" id="modal-carrito">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-carrito')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:12px;">
-        <i class="fa-solid fa-cart-shopping" style="color:var(--primary);"></i> Tu Pedido / Presupuesto
-      </h3>
-      <div id="cart-items-list" style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; margin-bottom:14px;"></div>
-
-      <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:14px;">
-        <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; margin-bottom:10px;">
-          <span>Total Estimado:</span>
-          <span id="cart-total" style="color:var(--accent); font-family:'Orbitron',sans-serif;">$0.00</span>
-        </div>
-        <div class="form-group">
-          <label>Método de pago preferido</label>
-          <select id="cart-payment" class="form-control">
-            <option value="Binance USDT">Binance Pay / USDT</option>
-            <option value="Pago Móvil (Bs)">Pago Móvil (Tasa acuerdo)</option>
-            <option value="Efectivo USD">Efectivo USD (Caracas)</option>
-          </select>
-        </div>
+      <h3 style="margin-bottom:12px;">Tu Presupuesto / Pedido</h3>
+      <div id="cart-items-list" style="display:flex; flex-direction:column; gap:8px; max-height:240px; overflow-y:auto; margin-bottom:12px;"></div>
+      <div style="display:flex; justify-content:space-between; font-weight:800; margin-bottom:12px;">
+        <span>Total Estimado:</span>
+        <span id="cart-total" style="color:#22d3ee;">$0.00</span>
       </div>
-
-      <button class="add-cart-btn" style="width:100%; justify-content:center; padding:12px;" onclick="checkoutWhatsApp()">
-        <i class="fa-brands fa-whatsapp"></i> Enviar Pedido al +58 0424-5323796
+      <button class="add-cart-btn" style="width:100%;" onclick="checkoutWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> Enviar al +58 0424-5323796
       </button>
     </div>
   </div>
 
-  <!-- MODAL: GARANTÍA Y CONTACTO -->
+  <!-- MODAL GANA DINERO -->
+  <div class="modal-overlay" id="modal-gana">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('modal-gana')">×</button>
+      <h3 style="margin-bottom:8px;">Gana Dinero con ItsDoomlater</h3>
+      <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:14px;">
+        Refiere clientes para instalación de magia, microsoldadura o reparación de mandos con el código <strong>DOOMLATER</strong> y recibe comisión o descuentos en el taller.
+      </p>
+      <a href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20quiero%20activar%20mi%20c%C3%B3digo%20de%20referidos%20DOOMLATER" target="_blank" class="add-cart-btn" style="width:100%; text-decoration:none;">
+        <i class="fa-brands fa-whatsapp"></i> Activar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- MODAL REDES -->
+  <div class="modal-overlay" id="modal-redes">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('modal-redes')">×</button>
+      <h3 style="margin-bottom:12px;">Conecta con @itsdoomlater</h3>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="btn-secondary" style="text-decoration:none;">Instagram: @itsdoomlater</a>
+        <a href="https://wa.me/584245323796" target="_blank" class="btn-secondary" style="text-decoration:none;">WhatsApp: +58 0424-5323796</a>
+        <a href="mailto:itsdoomlater@gmail.com" class="btn-secondary" style="text-decoration:none;">Correo: itsdoomlater@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL GARANTÍA -->
   <div class="modal-overlay" id="modal-creditos">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal('modal-creditos')">×</button>
-      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:8px;">Garantía & Contacto</h3>
-      <p style="font-size:0.86rem; color:var(--text-muted); line-height:1.55; margin-bottom:12px;">
-        En <strong>ItsDoomlater</strong> trabajamos con estándares de laboratorio en microsoldadura, modificación de consolas y mantenimiento preventivo en Caracas.
+      <h3 style="margin-bottom:8px;">Garantía de Laboratorio</h3>
+      <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">
+        Todos nuestros trabajos de microsoldadura, modchips y reemplazo de sensores Hall Effect cuentan con garantía directa en Caracas. Contacto: +58 0424-5323796 · itsdoomlater@gmail.com
       </p>
-      <ul style="font-size:0.84rem; color:var(--text-muted); padding-left:18px; line-height:1.6; margin-bottom:14px;">
-        <li>Diagnóstico técnico transparente con registro fotográfico/video.</li>
-        <li>Garantía directa en instalaciones de modchips, puertos HDMI y joysticks Hall Effect.</li>
-        <li><strong>WhatsApp:</strong> +58 0424-5323796</li>
-        <li><strong>Correo empresarial & colaboraciones:</strong> itsdoomlater@gmail.com</li>
-      </ul>
-      <button class="btn-secondary" style="width:100%;" onclick="closeModal('modal-creditos')">Entendido</button>
     </div>
   </div>
 
   <script>
-    /********************************************************************
-     * CONFIGURACIÓN OFICIAL ITSDOOMLATER
-     ********************************************************************/
     const ADMIN_EMAIL = "itsdoomlater@gmail.com";
     const ADMIN_PASS  = "24112007";
     const WHATSAPP_NUMBER = "584245323796";
-    const CONTACT_EMAIL   = "itsdoomlater@gmail.com";
 
-    // Si creas una base de datos gratuita en Firebase Realtime Database,
-    // puedes pegar el link aquí o directamente desde el Panel Admin de la web:
-    const DEFAULT_CLOUD_DB_URL = "https://itsdoomlater-web-default-rtdb.firebaseio.com/";
+    // Pega aquí tu URL de Firebase Realtime Database para dejarla fija para siempre:
+    const DEFAULT_CLOUD_DB_URL = "";
 
-    const STORAGE_KEY_PRODUCTS = "itsdoomlater_catalog_v2";
-    const STORAGE_KEY_ADMIN    = "itsdoomlater_admin_session";
+    const STORAGE_KEY_PRODUCTS = "itsdoomlater_v3_catalog";
+    const STORAGE_KEY_LOGO     = "itsdoomlater_v3_logo";
+    const STORAGE_KEY_ADMIN    = "itsdoomlater_v3_admin";
     const STORAGE_KEY_CLOUD    = "itsdoomlater_cloud_db_url";
 
-    // Catálogo inicial por defecto de ItsDoomlater
     const INITIAL_PRODUCTS = [
       {
         id: "p1",
-        title: "Instalación de Magia Nintendo Switch (V1 / V2 / Lite / OLED)",
-        price: 60,
-        category: "Magia / Mods",
+        title: "Instalación de Magia Switch (OLED / V2 / Lite)",
+        price: 65,
+        category: "Magia & Modchips",
         section: "tienda",
         badge: "Más Pedido",
-        img: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?auto=format&fit=crop&w=700&q=80",
-        desc: "Instalación limpia con microsoldadura de precisión, configuración completa de Hekate, Atmosphère, tiendas y respaldo de NAND."
+        img: "",
+        desc: "Modchip instalado con microsoldadura bajo microscopio, configuración completa de Hekate, Atmosphère y respaldo seguro."
       },
       {
         id: "p2",
-        title: "Upgrade Joysticks Magnéticos Hall Effect (Adiós Drift)",
-        price: 25,
-        category: "Mandos",
+        title: "Reemplazo Puerto HDMI & Microsoldadura (PS5 / Xbox / Switch)",
+        price: 55,
+        category: "Microsoldadura & HDMI",
         section: "tienda",
-        badge: "Garantizado",
-        img: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=700&q=80",
-        desc: "Reemplazo de potenciómetros por sensores magnéticos Hall Effect para DualSense PS5, PS4, Xbox o Joy-Con con calibración exacta."
+        badge: "Microsoldadura",
+        img: "",
+        desc: "Cambio de puertos HDMI dañados, reconstrucción de pistas y diagnóstico electrónico de placa en nuestro laboratorio."
       },
       {
         id: "p3",
-        title: "Cambio de Puerto HDMI de Alta Precisión (PS5 / PS4 / Xbox Series)",
-        price: 45,
-        category: "Microsoldadura",
-        section: "tienda",
-        badge: "Laboratorio",
-        img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80",
-        desc: "Sustitución profesional bajo microscopio con estaño de alta pureza, refuerzo de pads e inspección de filtros EMI."
-      },
-      {
-        id: "p4",
-        title: "Mantenimiento Pro + Cambio de Pasta Térmica / Metal Líquido",
+        title: "Upgrade Joysticks Magnéticos Hall Effect (PS5 / PS4 / Switch)",
         price: 30,
-        category: "Microsoldadura",
+        category: "Mandos & Drift",
         section: "tienda",
-        badge: "Recomendado",
-        img: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=700&q=80",
-        desc: "Desarme completo, limpieza ultrasónica de disipadores, renovación de thermal pads y pasta térmica de alto rendimiento."
-      },
-      {
-        id: "p5",
-        title: "Modificación Retro & Upscaling Nintendo GameCube / Consolas Clásicas",
-        price: 40,
-        category: "Magia / Mods",
-        section: "doomketplace",
-        badge: "Retro Lab",
-        img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80",
-        desc: "Instalación de Picoboot, Swiss, adaptadores digitales y puesta a punto para coleccionistas."
-      },
-      {
-        id: "p6",
-        title: "Pack MicroSD Configurada + Optimización Custom Firmware",
-        price: 35,
-        category: "Accesorios",
-        section: "doomketplace",
-        badge: "Plug & Play",
-        img: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=700&q=80",
-        desc: "Tarjeta MicroSD original de alta velocidad lista y configurada con emuMMC, homebrew y utilidades para tu consola."
+        badge: "Cero Drift",
+        img: "",
+        desc: "Elimina el drift para siempre con sensores electromagnéticos Hall Effect calibrados al milímetro."
       }
     ];
 
     let products = [];
+    let profileLogo = "";
     let cart = [];
     let currentTab = "tienda";
     let currentCategory = "Todos";
     let isAdmin = false;
 
-    /********************************************************************
-     * INICIALIZACIÓN Y SINCRONIZACIÓN NUBE
-     ********************************************************************/
     window.addEventListener("DOMContentLoaded", async () => {
-      // Cargar estado de sesión admin
       isAdmin = localStorage.getItem(STORAGE_KEY_ADMIN) === "true";
       updateAdminUI();
 
-      // Cargar URL de base de datos en la nube si existe
-      const savedCloudUrl = localStorage.getItem(STORAGE_KEY_CLOUD) || DEFAULT_CLOUD_DB_URL;
-      if (savedCloudUrl) {
-        document.getElementById("cloud-db-input").value = savedCloudUrl;
-      }
+      profileLogo = localStorage.getItem(STORAGE_KEY_LOGO) || "";
+      renderProfileLogo();
 
-      // Cargar catálogo local primero para respuesta instantánea
-      const localData = localStorage.getItem(STORAGE_KEY_PRODUCTS);
-      if (localData) {
-        try {
-          products = JSON.parse(localData);
-        } catch (e) {
-          products = [...INITIAL_PRODUCTS];
-        }
-      } else {
-        products = [...INITIAL_PRODUCTS];
-        localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
-      }
+      const savedCloud = localStorage.getItem(STORAGE_KEY_CLOUD) || DEFAULT_CLOUD_DB_URL;
+      if (savedCloud) document.getElementById("cloud-db-input").value = savedCloud;
 
+      const localProds = localStorage.getItem(STORAGE_KEY_PRODUCTS);
+      products = localProds ? JSON.parse(localProds) : [...INITIAL_PRODUCTS];
       renderCatalog();
 
-      // Si hay nube configurada, sincronizar catálogo remoto (Teléfono <-> PC)
-      if (savedCloudUrl) {
-        await syncFromCloud(false);
-      }
+      if (savedCloud) await syncFromCloud();
     });
 
-    function getCleanCloudEndpoint() {
+    function getCloudBaseUrl() {
       let url = (localStorage.getItem(STORAGE_KEY_CLOUD) || DEFAULT_CLOUD_DB_URL || "").trim();
-      if (!url) return "";
-      url = url.replace(/\/+$/, "");
-      if (!url.endsWith(".json")) {
-        url += "/itsdoomlater_catalog.json";
-      }
-      return url;
+      return url.replace(/\/+$/, "").replace(/\/itsdoomlater_catalog\.json$/, "");
     }
 
-    async function saveCloudConfig() {
-      const inputVal = document.getElementById("cloud-db-input").value.trim();
-      if (!inputVal) {
-        localStorage.removeItem(STORAGE_KEY_CLOUD);
-        document.getElementById("sync-status").textContent = "Guardado Local Activo";
-        alert("Se desconectó la nube. Usando memoria local del navegador.");
-        return;
-      }
-      localStorage.setItem(STORAGE_KEY_CLOUD, inputVal);
-      await pushToCloud();
-      alert("¡Nube conectada y sincronizada! Ahora todo lo que cambies en el teléfono se verá en tu PC.");
-    }
-
-    async function syncFromCloud(showAlert = false) {
-      const endpoint = getCleanCloudEndpoint();
-      if (!endpoint) {
-        if (showAlert) alert("Primero pega la URL de tu Firebase Realtime Database en el campo de sincronización.");
-        return;
-      }
+    async function syncFromCloud() {
+      const base = getCloudBaseUrl();
+      if (!base) return;
       try {
-        document.getElementById("sync-status").textContent = "Sincronizando con la nube...";
-        const res = await fetch(endpoint);
+        const res = await fetch(`${base}/itsdoomlater_site.json`);
         if (res.ok) {
-          const remoteData = await res.json();
-          if (Array.isArray(remoteData) && remoteData.length > 0) {
-            products = remoteData;
+          const data = await res.json();
+          if (data && Array.isArray(data.products)) {
+            products = data.products;
             localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
-            renderCatalog();
-          } else {
-            // Si la nube está vacía, subimos nuestro catálogo actual
-            await pushToCloud();
           }
-          document.getElementById("sync-status").textContent = "Nube Sincronizada (Teléfono ↔ PC)";
-          if (showAlert) alert("¡Catálogo sincronizado correctamente desde la nube!");
+          if (data && typeof data.profileLogo === "string") {
+            profileLogo = data.profileLogo;
+            localStorage.setItem(STORAGE_KEY_LOGO, profileLogo);
+            renderProfileLogo();
+          }
+          renderCatalog();
         }
-      } catch (err) {
-        document.getElementById("sync-status").textContent = "Modo Local (Sin conexión a nube)";
-        if (showAlert) alert("No se pudo conectar a la URL indicada. Verifica que tu Firebase Realtime DB esté en modo lectura/escritura público.");
-      }
+      } catch (e) {}
     }
 
     async function pushToCloud() {
       localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
-      const endpoint = getCleanCloudEndpoint();
-      if (!endpoint) return;
+      localStorage.setItem(STORAGE_KEY_LOGO, profileLogo);
+      const base = getCloudBaseUrl();
+      if (!base) return;
       try {
-        document.getElementById("sync-status").textContent = "Guardando en la nube...";
-        await fetch(endpoint, {
+        await fetch(`${base}/itsdoomlater_site.json`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(products)
+          body: JSON.stringify({ products, profileLogo })
         });
-        document.getElementById("sync-status").textContent = "Sincronizado en la Nube ✓";
-      } catch (e) {
-        document.getElementById("sync-status").textContent = "Guardado en dispositivo (Error nube)";
+        document.getElementById("sync-status").textContent = "Nube Sincronizada ✓";
+      } catch (e) {}
+    }
+
+    async function saveCloudConfig() {
+      const val = document.getElementById("cloud-db-input").value.trim();
+      localStorage.setItem(STORAGE_KEY_CLOUD, val);
+      await pushToCloud();
+      alert("¡Firebase conectado y sincronizado!");
+    }
+
+    function renderProfileLogo() {
+      const imgEl = document.getElementById("brand-avatar-img");
+      const iconEl = document.getElementById("brand-avatar-icon");
+      if (profileLogo) {
+        imgEl.src = profileLogo;
+        imgEl.style.display = "block";
+        iconEl.style.display = "none";
+      } else {
+        imgEl.style.display = "none";
+        iconEl.style.display = "block";
       }
     }
 
-    /********************************************************************
-     * SISTEMA DE LOGIN Y PANEL DE ADMINISTRADOR
-     ********************************************************************/
+    function handleProfileLogoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      compressImage(file, 250, async (base64) => {
+        profileLogo = base64;
+        renderProfileLogo();
+        await pushToCloud();
+      });
+    }
+
+    async function clearProfileLogo() {
+      profileLogo = "";
+      renderProfileLogo();
+      await pushToCloud();
+    }
+
+    function handleProductImageUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      compressImage(file, 700, (base64) => {
+        document.getElementById("prod-img").value = base64;
+      });
+    }
+
+    function compressImage(file, maxW, callback) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const scale = Math.min(1, maxW / img.width);
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+          callback(canvas.toDataURL("image/jpeg", 0.8));
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function getThemeForCategory(cat) {
+      if (cat.includes("Microsoldadura")) return { cls: "theme-cyan", icon: "fa-plug-circle-bolt", badgeBg: "#06b6d4" };
+      if (cat.includes("Mandos")) return { cls: "theme-green", icon: "fa-gamepad", badgeBg: "#10b981" };
+      if (cat.includes("Accesorios")) return { cls: "theme-pink", icon: "fa-compact-disc", badgeBg: "#ec4899" };
+      return { cls: "theme-purple", icon: "fa-wand-magic-sparkles", badgeBg: "#8b5cf6" };
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById("products-grid");
+      const q = document.getElementById("search-input").value.trim().toLowerCase();
+
+      const filtered = products.filter(p => {
+        const sec = p.section || "tienda";
+        const matchTab = currentTab === "tienda" ? true : sec === "doomketplace";
+        const matchCat = currentCategory === "Todos" || p.category === currentCategory;
+        const matchQ = !q || p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+        return matchTab && matchCat && matchQ;
+      });
+
+      grid.innerHTML = filtered.map(p => {
+        const t = getThemeForCategory(p.category);
+        return `
+          <article class="product-card">
+            ${isAdmin ? `
+              <div class="card-admin-actions">
+                <button class="icon-action-btn btn-edit" onclick="editProduct('${p.id}')"><i class="fa-solid fa-pen"></i></button>
+                <button class="icon-action-btn btn-delete" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            ` : ""}
+            <div class="card-visual ${t.cls}">
+              ${p.img ? `<img src="${p.img}" class="card-visual-img" alt="${p.title}" />` : ""}
+              <div class="visual-top">
+                <span class="v-badge" style="background:${t.badgeBg};">${p.badge || "Servicio"}</span>
+                <span class="v-cat-tag">${p.category}</span>
+              </div>
+              <div class="visual-bottom">
+                <div class="v-icon-box"><i class="fa-solid ${t.icon}"></i></div>
+                <div class="v-price-box">
+                  <small>DESDE</small>
+                  <span class="price-tag">$${Number(p.price)}</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">${p.title}</h4>
+              <p class="card-desc">${p.desc}</p>
+              <div class="card-actions">
+                <button class="add-cart-btn" onclick="addToCart('${p.id}')">
+                  <i class="fa-solid fa-cart-plus"></i> Solicitar / Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById("nav-tienda").classList.toggle("active", tab === "tienda");
+      document.getElementById("nav-doomketplace").classList.toggle("active", tab === "doomketplace");
+      document.getElementById("seg-tienda").classList.toggle("active", tab === "tienda");
+      document.getElementById("seg-doomketplace").classList.toggle("active", tab === "doomketplace");
+      renderCatalog();
+    }
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      renderCatalog();
+    }
+
     function handleAuthClick() {
-      if (isAdmin) {
-        const panel = document.getElementById("admin-panel");
-        panel.scrollIntoView({ behavior: "smooth" });
-      } else {
-        openModal("modal-login");
-      }
+      if (isAdmin) document.getElementById("admin-panel").scrollIntoView({ behavior: "smooth" });
+      else openModal("modal-login");
     }
 
     function loginAdmin(e) {
       e.preventDefault();
       const email = document.getElementById("login-email").value.trim().toLowerCase();
-      const pass  = document.getElementById("login-pass").value.trim();
-      const errEl = document.getElementById("login-error");
-
-      if (email === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
+      const pass = document.getElementById("login-pass").value.trim();
+      if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
         isAdmin = true;
         localStorage.setItem(STORAGE_KEY_ADMIN, "true");
-        errEl.style.display = "none";
         closeModal("modal-login");
         updateAdminUI();
         renderCatalog();
-        document.getElementById("admin-panel").scrollIntoView({ behavior: "smooth" });
       } else {
-        errEl.style.display = "block";
+        document.getElementById("login-error").style.display = "block";
       }
     }
 
@@ -1370,100 +1430,51 @@
     }
 
     function updateAdminUI() {
-      const panel = document.getElementById("admin-panel");
-      const topBtn = document.getElementById("top-auth-btn");
-      const topText = document.getElementById("auth-btn-text");
-      const botLabel = document.getElementById("bottom-user-label");
-
-      if (isAdmin) {
-        panel.classList.add("show");
-        topBtn.classList.add("admin-active");
-        topText.textContent = "Panel Admin";
-        botLabel.textContent = "Admin";
-      } else {
-        panel.classList.remove("show");
-        topBtn.classList.remove("admin-active");
-        topText.textContent = "Login";
-        botLabel.textContent = "Usuario";
-      }
-    }
-
-    // Compresión automática de foto subida desde el teléfono o PC (Base64 ligero)
-    function handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement("canvas");
-          const MAX_WIDTH = 700;
-          const scale = Math.min(1, MAX_WIDTH / img.width);
-          canvas.width = img.width * scale;
-          canvas.height = img.height * scale;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.78);
-          document.getElementById("prod-img").value = compressedBase64;
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+      document.getElementById("admin-panel").classList.toggle("show", isAdmin);
+      document.getElementById("auth-btn-text").textContent = isAdmin ? "Panel Taller" : "Login / Taller";
     }
 
     async function saveProduct(e) {
       e.preventDefault();
       const id = document.getElementById("prod-id").value;
-      const title = document.getElementById("prod-title").value.trim();
-      const price = parseFloat(document.getElementById("prod-price").value) || 0;
-      const category = document.getElementById("prod-category").value;
-      const section = document.getElementById("prod-section").value;
-      const badge = document.getElementById("prod-badge").value.trim();
-      const img = document.getElementById("prod-img").value.trim() || "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80";
-      const desc = document.getElementById("prod-desc").value.trim();
-
+      const item = {
+        id: id || "p_" + Date.now(),
+        title: document.getElementById("prod-title").value.trim(),
+        price: parseFloat(document.getElementById("prod-price").value) || 0,
+        category: document.getElementById("prod-category").value,
+        section: document.getElementById("prod-section").value,
+        badge: document.getElementById("prod-badge").value.trim() || "Destacado",
+        img: document.getElementById("prod-img").value.trim(),
+        desc: document.getElementById("prod-desc").value.trim()
+      };
       if (id) {
-        const idx = products.findIndex(p => p.id === id);
-        if (idx > -1) {
-          products[idx] = { id, title, price, category, section, badge, img, desc };
-        }
+        const idx = products.findIndex(x => x.id === id);
+        if (idx > -1) products[idx] = item;
       } else {
-        const newProd = {
-          id: "prod_" + Date.now(),
-          title,
-          price,
-          category,
-          section,
-          badge,
-          img,
-          desc
-        };
-        products.unshift(newProd);
+        products.unshift(item);
       }
-
       await pushToCloud();
       resetForm();
       renderCatalog();
     }
 
     function editProduct(id) {
-      const p = products.find(item => item.id === id);
+      const p = products.find(x => x.id === id);
       if (!p) return;
       document.getElementById("prod-id").value = p.id;
       document.getElementById("prod-title").value = p.title;
       document.getElementById("prod-price").value = p.price;
       document.getElementById("prod-category").value = p.category;
-      document.getElementById("prod-section").value = p.section || "tienda";
-      document.getElementById("prod-badge").value = p.badge || "";
-      document.getElementById("prod-img").value = p.img || "";
-      document.getElementById("prod-desc").value = p.desc || "";
-      document.getElementById("save-btn-label").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Actualizar Producto`;
+      document.getElementById("prod-section").value = p.section;
+      document.getElementById("prod-badge").value = p.badge;
+      document.getElementById("prod-img").value = p.img;
+      document.getElementById("prod-desc").value = p.desc;
       document.getElementById("admin-panel").scrollIntoView({ behavior: "smooth" });
     }
 
     async function deleteProduct(id) {
-      if (!confirm("¿Seguro que deseas eliminar este servicio/producto del catálogo?")) return;
-      products = products.filter(p => p.id !== id);
+      if (!confirm("¿Eliminar del catálogo?")) return;
+      products = products.filter(x => x.id !== id);
       await pushToCloud();
       renderCatalog();
     }
@@ -1471,202 +1482,38 @@
     function resetForm() {
       document.getElementById("product-form").reset();
       document.getElementById("prod-id").value = "";
-      document.getElementById("save-btn-label").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Guardar en el Catálogo`;
     }
 
-    async function restoreDefaultCatalog() {
-      if (!confirm("¿Restaurar los servicios originales de ItsDoomlater?")) return;
-      products = [...INITIAL_PRODUCTS];
-      await pushToCloud();
-      renderCatalog();
-    }
-
-    /********************************************************************
-     * RENDERIZADO DE CATÁLOGO Y NAVEGACIÓN
-     ********************************************************************/
-    function switchTab(tab) {
-      currentTab = tab;
-      document.getElementById("nav-tienda").classList.toggle("active", tab === "tienda");
-      document.getElementById("nav-doomketplace").classList.toggle("active", tab === "doomketplace");
-      document.getElementById("bot-tienda").classList.toggle("active", tab === "tienda");
-      document.getElementById("bot-doomketplace").classList.toggle("active", tab === "doomketplace");
-
-      const heroBadge = document.getElementById("hero-badge");
-      const heroTitle = document.getElementById("hero-title");
-      const heroDesc  = document.getElementById("hero-desc");
-      const heading   = document.getElementById("catalog-heading");
-
-      if (tab === "doomketplace") {
-        heroBadge.textContent = "Doomketplace · Equipos & Mods";
-        heroTitle.textContent = "Doomketplace - Consolas, Mods y Accesorios Listos";
-        heroDesc.textContent  = "Equipos verificados por nuestro laboratorio, accesorios originales y consolas con magia lista para jugar.";
-        heading.innerHTML = `<i class="fa-solid fa-gamepad" style="color:var(--accent);"></i> Doomketplace Disponible`;
-      } else {
-        heroBadge.textContent = "Microsoldadura · Magia · Gaming";
-        heroTitle.textContent = "Mi Tienda & Laboratorio - No des tu consola por perdida";
-        heroDesc.textContent  = "Reparación electrónica de precisión, instalación de magia (Nintendo Switch, GameCube, PS4/PS5), joysticks Hall Effect y equipamiento para gamers exigentes en Caracas.";
-        heading.innerHTML = `<i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Servicios & Tienda Oficial`;
-      }
-
-      renderCatalog();
-    }
-
-    function setCategory(cat, btnEl) {
-      currentCategory = cat;
-      document.querySelectorAll(".cat-chip").forEach(b => b.classList.remove("active"));
-      if (btnEl) btnEl.classList.add("active");
-      renderCatalog();
-    }
-
-    function renderCatalog() {
-      const grid = document.getElementById("products-grid");
-      const query = document.getElementById("search-input").value.trim().toLowerCase();
-
-      const filtered = products.filter(p => {
-        const prodSection = p.section || "tienda";
-        const matchesTab = currentTab === "tienda" ? true : prodSection === "doomketplace";
-        const matchesCat = currentCategory === "Todos" || p.category === currentCategory;
-        const matchesSearch = !query ||
-          p.title.toLowerCase().includes(query) ||
-          p.desc.toLowerCase().includes(query) ||
-          p.category.toLowerCase().includes(query);
-        return matchesTab && matchesCat && matchesSearch;
-      });
-
-      document.getElementById("items-count").textContent = `${filtered.length} resultado(s)`;
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div class="empty-state">
-            <i class="fa-solid fa-box-open" style="font-size:2rem; margin-bottom:10px; color:var(--primary);"></i>
-            <p>No hay productos o servicios que coincidan con tu búsqueda.</p>
-          </div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(p => `
-        <article class="product-card">
-          ${p.badge ? `<span class="card-badge">${p.badge}</span>` : ""}
-          ${isAdmin ? `
-            <div class="card-admin-actions">
-              <button class="icon-action-btn btn-edit" title="Editar" onclick="editProduct('${p.id}')">
-                <i class="fa-solid fa-pen"></i>
-              </button>
-              <button class="icon-action-btn btn-delete" title="Eliminar" onclick="deleteProduct('${p.id}')">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </div>
-          ` : ""}
-          <div class="card-img-wrap">
-            <img src="${p.img}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80'" />
-          </div>
-          <div class="card-body">
-            <span class="card-cat">${p.category}</span>
-            <h4 class="card-title">${p.title}</h4>
-            <p class="card-desc">${p.desc}</p>
-            <div class="card-footer">
-              <span class="price-tag">$${Number(p.price).toFixed(2)}</span>
-              <button class="add-cart-btn" onclick="addToCart('${p.id}')">
-                <i class="fa-solid fa-cart-plus"></i> Agregar
-              </button>
-            </div>
-          </div>
-        </article>
-      `).join("");
-    }
-
-    /********************************************************************
-     * CARRITO Y ENVÍO DIRECTO A WHATSAPP (+58 04245323796)
-     ********************************************************************/
     function addToCart(id) {
-      const prod = products.find(p => p.id === id);
-      if (!prod) return;
-      const existing = cart.find(item => item.id === id);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ ...prod, qty: 1 });
-      }
-      updateCartUI();
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      cart.push(p);
+      document.getElementById("cart-count").textContent = cart.length;
+      renderCart();
       openModal("modal-carrito");
     }
 
-    function removeFromCart(id) {
-      cart = cart.filter(item => item.id !== id);
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
-      document.getElementById("cart-count").textContent = totalItems;
-
-      const listEl = document.getElementById("cart-items-list");
-      const totalEl = document.getElementById("cart-total");
-
-      if (cart.length === 0) {
-        listEl.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:18px 0;">Tu carrito está vacío.</p>`;
-        totalEl.textContent = "$0.00";
-        return;
-      }
-
-      let sum = 0;
-      listEl.innerHTML = cart.map(item => {
-        const sub = item.price * item.qty;
-        sum += sub;
-        return `
-          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); padding:10px 12px; border-radius:10px; border:1px solid var(--border);">
-            <div>
-              <strong style="font-size:0.86rem; display:block;">${item.title}</strong>
-              <span style="font-size:0.78rem; color:var(--text-muted);">$${Number(item.price).toFixed(2)} x ${item.qty}</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <strong style="color:var(--accent); font-size:0.88rem;">$${sub.toFixed(2)}</strong>
-              <button class="icon-action-btn btn-delete" style="width:26px; height:26px;" onclick="removeFromCart('${item.id}')">×</button>
-            </div>
-          </div>
-        `;
+    function renderCart() {
+      const list = document.getElementById("cart-items-list");
+      let total = 0;
+      list.innerHTML = cart.map((item, i) => {
+        total += Number(item.price);
+        return `<div style="display:flex; justify-content:space-between; padding:8px; background:rgba(255,255,255,0.04); border-radius:8px;">
+          <span>${item.title}</span>
+          <strong>$${item.price}</strong>
+        </div>`;
       }).join("");
-
-      totalEl.textContent = `$${sum.toFixed(2)}`;
+      document.getElementById("cart-total").textContent = `$${total.toFixed(2)}`;
     }
 
     function checkoutWhatsApp() {
-      if (cart.length === 0) {
-        alert("Agrega al menos un servicio o producto al carrito.");
-        return;
-      }
-      const payment = document.getElementById("cart-payment").value;
-      let total = 0;
-      let lines = cart.map(item => {
-        const sub = item.price * item.qty;
-        total += sub;
-        return `• ${item.qty}x ${item.title} ($${sub.toFixed(2)})`;
-      }).join("%0A");
-
-      const msg = `Hola *ItsDoomlater* (@itsdoomlater), vengo de la web y quiero solicitar lo siguiente:%0A%0A${lines}%0A%0A*Total Estimado:* $${total.toFixed(2)}%0A*Método de Pago:* ${encodeURIComponent(payment)}%0A%0A¿Me confirmas disponibilidad para coordinar?`;
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+      if (!cart.length) return;
+      const lines = cart.map(i => `• ${i.title} ($${i.price})`).join("%0A");
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20*ItsDoomlater*,%20quiero%20solicitar:%0A%0A${lines}`, "_blank");
     }
 
-    /********************************************************************
-     * MODALES Y BANNER PWA
-     ********************************************************************/
-    function openModal(id) {
-      document.getElementById(id).classList.add("open");
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove("open");
-    }
-
-    function closePwaBanner() {
-      document.getElementById("pwa-banner").classList.add("hidden");
-    }
-
-    function installPWA() {
-      alert("Para instalar ItsDoomlater App en tu teléfono:\n\n• En iPhone (Safari): Toca el botón Compartir y elige 'Agregar a pantalla de inicio'.\n• En Android (Chrome): Toca los 3 puntos arriba a la derecha y elige 'Instalar aplicación' o 'Agregar a la pantalla principal'.");
-      closePwaBanner();
-    }
+    function openModal(id) { document.getElementById(id).classList.add("open"); }
+    function closeModal(id) { document.getElementById(id).classList.remove("open"); }
   </script>
 </body>
 </html>
