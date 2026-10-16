@@ -1,1421 +1,1672 @@
 <!DOCTYPE html>
-<html lang="es" class="dark scroll-smooth">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>ItsDoomlater | Servicio Técnico, Magia de Consolas & Doomketplace</title>
-    <meta name="description" content="No dejes morir tu consola. Servicio técnico especializado, microsoldadura, magia para consolas y equipamiento de calidad para el gamer moderno.">
-    <meta name="theme-color" content="#0a0a0f">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ItsDoomlater · Laboratorio Técnico & Gaming Store</title>
+  <meta name="description" content="Microsoldadura, Magia para Consolas, Reparación de Mandos y Accesorios Gaming en Caracas. Servicio técnico especializado por @itsdoomlater." />
+  <meta name="theme-color" content="#0b0b10" />
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Fuente Inter & Orbitron -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
 
-    <!-- Google Fonts: Inter & Space Grotesk -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #09090e;
+      --bg-card: #13131c;
+      --bg-card-hover: #1b1b28;
+      --bg-glass: rgba(19, 19, 28, 0.88);
+      --primary: #e11d48;
+      --primary-glow: rgba(225, 29, 72, 0.38);
+      --accent: #00f0ff;
+      --green: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.09);
+      --radius: 16px;
+    }
 
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        doom: {
-                            bg: '#08080c',
-                            card: '#11111a',
-                            border: '#1f1f2e',
-                            purple: '#8b5cf6',
-                            cyan: '#06b6d4',
-                            crimson: '#f43f5e',
-                            emerald: '#10b981'
-                        }
-                    },
-                    boxShadow: {
-                        'neon-purple': '0 0 25px -5px rgba(139, 92, 246, 0.45)',
-                        'neon-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.45)',
-                        'neon-crimson': '0 0 25px -5px rgba(244, 63, 94, 0.45)',
-                    }
-                }
-            }
-        }
-    </script>
+    body {
+      background-color: var(--bg-main);
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(225, 29, 72, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(0, 240, 255, 0.08), transparent 35%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 90px;
+      overflow-x: hidden;
+    }
 
-    <style>
-        body {
-            background-color: #08080c;
-            color: #f8fafc;
-            background-image: 
-                radial-gradient(circle at 12% 10%, rgba(139, 92, 246, 0.14), transparent 32%),
-                radial-gradient(circle at 88% 15%, rgba(6, 182, 212, 0.11), transparent 30%),
-                radial-gradient(circle at 50% 85%, rgba(244, 63, 94, 0.08), transparent 40%);
-            background-attachment: fixed;
-            overflow-x: hidden;
-        }
+    /* TOP NAVBAR (Réplica estructura Juan Sequera) */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+    }
 
-        /* Subtle PCB Grid Overlay */
-        .bg-grid-pattern {
-            background-size: 32px 32px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-        }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
 
-        /* Glassmorphism Cards */
-        .glass-card {
-            background: rgba(17, 17, 26, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      cursor: pointer;
+    }
 
-        .glass-card:hover {
-            border-color: rgba(139, 92, 246, 0.45);
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(139, 92, 246, 0.25);
-        }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: #fff;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #08080c;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #262638;
-            border-radius: 9999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8b5cf6;
-        }
+    .brand-info h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
+    }
 
-        /* Hide scrollbar for category pills on mobile */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+    .verified-badge {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
 
-        /* Pulse Glow Animation */
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.65; transform: scale(1.06); }
-        }
-        .animate-glow {
-            animation: pulseGlow 2.8s infinite ease-in-out;
-        }
-    </style>
+    .follower-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(225, 29, 72, 0.16);
+      border: 1px solid rgba(225, 29, 72, 0.4);
+      color: #fda4af;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border);
+    }
+
+    .nav-btn.login-btn {
+      background: linear-gradient(135deg, var(--primary), #be123c);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .nav-btn.admin-active {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff;
+      border: none;
+    }
+
+    /* QUICK ACTION PILLS (YouTube, Implementos/Servicios, Gana Dinero, Mis Redes) */
+    .quick-actions {
+      max-width: 1200px;
+      margin: 18px auto 10px;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .action-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .action-pill:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      background: var(--bg-card-hover);
+    }
+
+    .action-pill i {
+      font-size: 1.1rem;
+    }
+
+    /* HERO BANNER */
+    .hero {
+      max-width: 1200px;
+      margin: 14px auto 22px;
+      padding: 0 16px;
+    }
+
+    .hero-box {
+      background: linear-gradient(135deg, rgba(225, 29, 72, 0.16) 0%, rgba(19, 19, 28, 0.95) 65%);
+      border: 1px solid rgba(225, 29, 72, 0.3);
+      border-radius: 20px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .hero-box h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .hero-box p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 680px;
+      margin-bottom: 18px;
+    }
+
+    /* SEARCH & FILTERS */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+
+    .search-wrap i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(9, 9, 14, 0.85);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 12px 14px 12px 40px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .category-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .category-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .cat-chip.active, .cat-chip:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* MAIN PRODUCTS GRID */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s ease, border-color 0.22s ease;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(225, 29, 72, 0.5);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(225, 29, 72, 0.92);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      z-index: 2;
+      text-transform: uppercase;
+    }
+
+    .card-admin-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 6px;
+      z-index: 3;
+    }
+
+    .icon-action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.85rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .btn-edit { background: rgba(14, 165, 233, 0.88); }
+    .btn-delete { background: rgba(239, 68, 68, 0.9); }
+
+    .card-img-wrap {
+      width: 100%;
+      height: 185px;
+      background: #0d0d14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-cat {
+      font-size: 0.73rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .card-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .price-tag {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .add-cart-btn {
+      background: linear-gradient(135deg, var(--primary), #be123c);
+      color: #fff;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .add-cart-btn:hover {
+      opacity: 0.92;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    /* ADMIN PANEL BOX */
+    .admin-panel {
+      display: none;
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(19, 19, 28, 0.96));
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 26px;
+    }
+
+    .admin-panel.show {
+      display: block;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .form-control {
+      background: rgba(9, 9, 14, 0.9);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--green);
+    }
+
+    .admin-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      align-items: center;
+    }
+
+    .btn-save-prod {
+      background: var(--green);
+      color: #052e16;
+      font-weight: 800;
+      border: none;
+      padding: 11px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .sync-box {
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.82rem;
+    }
+
+    /* MODALS */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.76);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #14141f;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 440px;
+      padding: 24px;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .social-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .social-item:hover {
+      border-color: var(--primary);
+      background: rgba(225, 29, 72, 0.12);
+    }
+
+    .promo-code-box {
+      background: rgba(225, 29, 72, 0.15);
+      border: 1px dashed var(--primary);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 14px 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      color: #fda4af;
+      letter-spacing: 1px;
+    }
+
+    /* FOOTER */
+    footer {
+      max-width: 1200px;
+      margin: 48px auto 20px;
+      padding: 24px 16px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.84rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* BOTTOM MOBILE BAR (Réplica exacta Juan Sequera) */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(12, 12, 18, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 6px 12px;
+      z-index: 120;
+    }
+
+    .bottom-item {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .bottom-item i {
+      font-size: 1.15rem;
+    }
+
+    .bottom-item.active, .bottom-item:hover {
+      color: var(--primary);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: 4px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* PWA INSTALL BANNER */
+    .pwa-banner {
+      position: fixed;
+      bottom: 74px;
+      right: 16px;
+      left: 16px;
+      max-width: 420px;
+      margin: 0 auto;
+      background: #171723;
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 16px;
+      padding: 14px 16px;
+      z-index: 110;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .pwa-banner.hidden {
+      display: none;
+    }
+
+    @media (max-width: 680px) {
+      .quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
-<body class="bg-grid-pattern min-h-screen flex flex-col pb-24 md:pb-8 selection:bg-doom-purple selection:text-white">
+<body>
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed top-20 right-4 z-[100] flex flex-col gap-2 pointer-events-none"></div>
-
-    <!-- ========================================== -->
-    <!-- 1. TOP NAVBAR (Replica de juansequera.com) -->
-    <!-- ========================================== -->
-    <header class="sticky top-0 z-40 w-full bg-[#08080c]/85 backdrop-blur-xl border-b border-white/10">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-            
-            <!-- Brand Logo + Title + Badge -->
-            <a href="#" onclick="switchMainView('tienda'); return false;" class="flex items-center gap-3 group focus:outline-none">
-                <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-doom-purple via-indigo-600 to-doom-cyan p-[1.5px] shadow-neon-purple">
-                    <div class="w-full h-full bg-[#0a0a12] rounded-[10px] flex items-center justify-center group-hover:bg-transparent transition-colors">
-                        <i class="fa-solid fa-gamepad text-lg text-white group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-doom-emerald ring-2 ring-[#08080c]" title="Laboratorio Activo"></span>
-                </div>
-                <div class="flex flex-col">
-                    <div class="flex items-center gap-2">
-                        <span class="font-display font-bold text-lg sm:text-xl tracking-tight text-white group-hover:text-doom-purple transition-colors">
-                            ItsDoomlater
-                        </span>
-                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-doom-purple/15 text-doom-purple border border-doom-purple/30">
-                            <i class="fa-solid fa-microchip text-[10px]"></i> Gaming & Lab
-                        </span>
-                    </div>
-                    <span class="text-[11px] text-slate-400 hidden sm:inline">@itsdoomlater · Microsoldadura & Magia</span>
-                </div>
-            </a>
-
-            <!-- Desktop Navigation Links -->
-            <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-                <button onclick="switchMainView('tienda')" id="nav-btn-tienda" class="px-3.5 py-2 rounded-xl text-sm font-medium text-white bg-white/10 transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-store text-doom-purple"></i> Tienda
-                </button>
-                <button onclick="switchMainView('doomketplace')" id="nav-btn-doomketplace" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-fire-flame-curved text-doom-cyan"></i> Doomketplace
-                    <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-doom-cyan/20 text-doom-cyan font-bold">USADOS</span>
-                </button>
-                <button onclick="openModal('modal-garantia')" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved text-doom-emerald"></i> Garantía
-                </button>
-                <button onclick="openModal('modal-login')" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2">
-                    <i class="fa-regular fa-user text-slate-400"></i> Login / Taller
-                </button>
-            </nav>
-
-            <!-- Right Actions (Cart + Social Quick Button) -->
-            <div class="flex items-center gap-2.5">
-                <a href="https://www.instagram.com/itsdoomlater/" target="_blank" rel="noopener noreferrer" 
-                   class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 text-pink-300 border border-pink-500/30 hover:border-pink-400 transition-all">
-                    <i class="fa-brands fa-instagram text-sm"></i> @itsdoomlater
-                </a>
-
-                <button onclick="openModal('modal-carrito')" class="relative p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all focus:outline-none" aria-label="Abrir Carrito">
-                    <i class="fa-solid fa-cart-shopping text-base text-doom-cyan"></i>
-                    <span id="header-cart-badge" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-doom-crimson text-white text-[11px] font-bold flex items-center justify-center shadow-lg">
-                        0
-                    </span>
-                </button>
-            </div>
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand-box" onclick="switchTab('tienda')">
+        <div class="brand-logo">ID</div>
+        <div class="brand-info">
+          <h1>ItsDoomlater <i class="fa-solid fa-circle-check verified-badge"></i></h1>
+          <span class="follower-pill"><i class="fa-solid fa-microchip"></i> Lab & Gaming Store</span>
         </div>
-    </header>
+      </div>
 
-    <!-- ========================================== -->
-    <!-- MAIN CONTENT CONTAINER                     -->
-    <!-- ========================================== -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6 pb-12 space-y-8">
+      <nav class="nav-links">
+        <button class="nav-btn active" id="nav-tienda" onclick="switchTab('tienda')">
+          <i class="fa-solid fa-store"></i> Tienda & Servicios
+        </button>
+        <button class="nav-btn" id="nav-doomketplace" onclick="switchTab('doomketplace')">
+          <i class="fa-solid fa-gamepad"></i> Doomketplace
+        </button>
+        <button class="nav-btn" onclick="openModal('modal-creditos')">
+          <i class="fa-solid fa-shield-halved"></i> Garantía & Contacto
+        </button>
+        <button class="nav-btn login-btn" id="top-auth-btn" onclick="handleAuthClick()">
+          <i class="fa-solid fa-user-lock"></i> <span id="auth-btn-text">Login</span>
+        </button>
+      </nav>
+    </div>
+  </header>
 
-        <!-- ======================================================== -->
-        <!-- 2. TOP QUICK-ACTION CARDS (4-Card Bento como JuanSequera) -->
-        <!-- ======================================================== -->
-        <section aria-label="Accesos rápidos">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                
-                <!-- Card 1: Contenido & Shorts (Reemplaza YouTube) -->
-                <a href="https://www.instagram.com/itsdoomlater/reels/" target="_blank" rel="noopener noreferrer"
-                   class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between group relative overflow-hidden cursor-pointer">
-                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-doom-crimson/15 rounded-full blur-xl group-hover:bg-doom-crimson/30 transition-all"></div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-rose-500/20 to-orange-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-clapperboard text-xl"></i>
-                        </div>
-                        <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/25 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping"></span> Reels
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-base sm:text-lg text-white group-hover:text-rose-400 transition-colors">
-                            Contenido & Shorts
-                        </h2>
-                        <p class="text-xs text-slate-400 mt-0.5 line-clamp-2">
-                            Mira reparaciones extremas, magia y diagnósticos en @itsdoomlater
-                        </p>
-                    </div>
-                </a>
+  <!-- 4 BOTONES RÁPIDOS SUPERIORES (Réplica Juan Sequera) -->
+  <section class="quick-actions">
+    <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="action-pill">
+      <i class="fa-brands fa-instagram" style="color:#ec4899;"></i> Reels & Trabajos
+    </a>
+    <button class="action-pill" onclick="switchTab('tienda')">
+      <i class="fa-solid fa-screwdriver-wrench" style="color:#00f0ff;"></i> Servicios Técnicos
+    </button>
+    <button class="action-pill" onclick="openModal('modal-gana')">
+      <i class="fa-solid fa-sack-dollar" style="color:#10b981;"></i> Gana Dinero
+    </button>
+    <button class="action-pill" onclick="openModal('modal-redes')">
+      <i class="fa-solid fa-share-nodes" style="color:#f43f5e;"></i> Mis Redes
+    </button>
+  </section>
 
-                <!-- Card 2: Servicios & Magia (Reemplaza Implementos) -->
-                <button onclick="scrollToStoreAndFilter('Magia & Modchips')"
-                        class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between text-left group relative overflow-hidden cursor-pointer">
-                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-doom-purple/15 rounded-full blur-xl group-hover:bg-doom-purple/30 transition-all"></div>
-                    <div class="flex items-center justify-between w-full mb-3">
-                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-                        </div>
-                        <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/25">
-                            Top Taller
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-base sm:text-lg text-white group-hover:text-purple-400 transition-colors">
-                            Servicios & Magia
-                        </h2>
-                        <p class="text-xs text-slate-400 mt-0.5 line-clamp-2">
-                            Modchips Switch OLED/Lite, HDMI PS5, Hall Effect y Microsoldadura
-                        </p>
-                    </div>
-                </button>
+  <!-- HERO PRINCIPAL -->
+  <section class="hero">
+    <div class="hero-box">
+      <span class="hero-tag" id="hero-badge">Microsoldadura · Magia · Gaming</span>
+      <h2 id="hero-title">Mi Tienda & Laboratorio - No des tu consola por perdida</h2>
+      <p id="hero-desc">
+        Reparación electrónica de precisión, instalación de magia (Nintendo Switch, GameCube, PS4/PS5), joysticks Hall Effect y equipamiento para gamers exigentes en Caracas.
+      </p>
 
-                <!-- Card 3: Gana Dinero / Referidos (Abre Modal Código DOOMLATER) -->
-                <button onclick="openModal('modal-gana-dinero')"
-                        class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between text-left group relative overflow-hidden cursor-pointer">
-                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/15 rounded-full blur-xl group-hover:bg-emerald-500/30 transition-all"></div>
-                    <div class="flex items-center justify-between w-full mb-3">
-                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-hand-holding-dollar text-xl"></i>
-                        </div>
-                        <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
-                            Comisión
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-base sm:text-lg text-white group-hover:text-emerald-400 transition-colors">
-                            Gana Dinero
-                        </h2>
-                        <p class="text-xs text-slate-400 mt-0.5 line-clamp-2">
-                            Alianza de referidos y descuentos con el código DOOMLATER
-                        </p>
-                    </div>
-                </button>
-
-                <!-- Card 4: Mis Redes (Abre Modal de Redes Sociales) -->
-                <button onclick="openModal('modal-redes')"
-                        class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between text-left group relative overflow-hidden cursor-pointer">
-                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-cyan-500/15 rounded-full blur-xl group-hover:bg-cyan-500/30 transition-all"></div>
-                    <div class="flex items-center justify-between w-full mb-3">
-                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-share-nodes text-xl"></i>
-                        </div>
-                        <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
-                            Conecta
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-base sm:text-lg text-white group-hover:text-cyan-400 transition-colors">
-                            Mis Redes
-                        </h2>
-                        <p class="text-xs text-slate-400 mt-0.5 line-clamp-2">
-                            Instagram @itsdoomlater, TikTok y contacto directo al taller
-                        </p>
-                    </div>
-                </button>
-
-            </div>
-        </section>
-
-        <!-- ======================================================== -->
-        <!-- 3. MAIN STORE & DOOMKETPLACE SECTION                     -->
-        <!-- ======================================================== -->
-        <section id="catalogo-principal" class="space-y-6">
-
-            <!-- View Switch Banner (Mi Tienda vs Doomketplace) -->
-            <div class="glass-card rounded-3xl p-5 sm:p-7 relative overflow-hidden border border-white/10">
-                <div class="absolute -top-24 -right-24 w-64 h-64 bg-doom-purple/20 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-doom-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
-                    <div class="space-y-2 max-w-2xl">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-doom-cyan">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                            <span id="section-badge-text">Mi Tienda & Laboratorio Oficial</span>
-                        </div>
-                        <h1 id="section-title-text" class="font-display font-extrabold text-2xl sm:text-4xl text-white tracking-tight">
-                            Mi Tienda · <span class="text-transparent bg-clip-text bg-gradient-to-r from-doom-purple via-fuchsia-400 to-doom-cyan">No dejes morir tu consola</span>
-                        </h1>
-                        <p id="section-subtitle-text" class="text-sm sm:text-base text-slate-300 leading-relaxed">
-                            Servicio técnico especializado, microsoldadura, magia para consolas y equipamiento de calidad para el gamer moderno. Todo lo que necesitas para jugar sin límites.
-                        </p>
-                    </div>
-
-                    <!-- Mode Switcher Pill -->
-                    <div class="flex flex-col sm:flex-row md:flex-col gap-2.5 shrink-0">
-                        <div class="inline-flex p-1.5 rounded-2xl bg-[#08080c]/90 border border-white/10">
-                            <button onclick="switchMainView('tienda')" id="switch-tab-tienda"
-                                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-doom-purple to-indigo-600 text-white shadow-neon-purple flex items-center gap-2">
-                                <i class="fa-solid fa-microchip"></i> Tienda & Taller
-                            </button>
-                            <button onclick="switchMainView('doomketplace')" id="switch-tab-doomketplace"
-                                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-400 hover:text-white flex items-center gap-2">
-                                <i class="fa-solid fa-fire-flame-curved text-doom-cyan"></i> Doomketplace
-                            </button>
-                        </div>
-                        <button onclick="openModal('modal-login')" class="text-xs text-slate-400 hover:text-doom-cyan transition-colors flex items-center justify-center gap-1.5 py-1">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i> ¿Dejaste tu consola? Consulta tu orden aquí
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ========================================== -->
-            <!-- VIEW A: MI TIENDA & SERVICIOS              -->
-            <!-- ========================================== -->
-            <div id="view-tienda" class="space-y-6">
-                
-                <!-- Search & Category Filter Bar -->
-                <div class="flex flex-col md:flex-row gap-3.5 items-stretch md:items-center justify-between">
-                    
-                    <!-- Search Input -->
-                    <div class="relative flex-grow max-w-md">
-                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                        <input type="text" id="store-search-input" oninput="handleSearchAndFilter()"
-                               placeholder="Buscar magia Switch, HDMI PS5, Hall Effect, repuestos..."
-                               class="w-full pl-10 pr-10 py-3 rounded-2xl bg-[#11111a] border border-white/10 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-doom-purple focus:ring-1 focus:ring-doom-purple transition-all">
-                        <button id="clear-search-icon" onclick="resetStoreFilters()" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
-                            <i class="fa-solid fa-circle-xmark"></i>
-                        </button>
-                    </div>
-
-                    <!-- Category Filter Pills -->
-                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0" id="category-pills-container">
-                        <button onclick="setCategory('Todos')" data-cat="Todos" class="cat-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-doom-purple text-white shadow-neon-purple">
-                            Todos
-                        </button>
-                        <button onclick="setCategory('Magia & Modchips')" data-cat="Magia & Modchips" class="cat-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-[#11111a] text-slate-300 border border-white/10 hover:border-doom-purple/50">
-                            <i class="fa-solid fa-wand-magic-sparkles mr-1 text-purple-400"></i> Magia & Modchips
-                        </button>
-                        <button onclick="setCategory('Microsoldadura & HDMI')" data-cat="Microsoldadura & HDMI" class="cat-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-[#11111a] text-slate-300 border border-white/10 hover:border-doom-purple/50">
-                            <i class="fa-solid fa-microchip mr-1 text-cyan-400"></i> Microsoldadura & HDMI
-                        </button>
-                        <button onclick="setCategory('Mandos & Drift')" data-cat="Mandos & Drift" class="cat-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-[#11111a] text-slate-300 border border-white/10 hover:border-doom-purple/50">
-                            <i class="fa-solid fa-gamepad mr-1 text-emerald-400"></i> Mandos & Drift
-                        </button>
-                        <button onclick="setCategory('Accesorios & Retro')" data-cat="Accesorios & Retro" class="cat-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-[#11111a] text-slate-300 border border-white/10 hover:border-doom-purple/50">
-                            <i class="fa-solid fa-compact-disc mr-1 text-rose-400"></i> Accesorios & Retro
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product / Service Grid -->
-                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <!-- Populated dynamically via JS -->
-                </div>
-
-                <!-- Empty State (Exact replica of juansequera.com behavior) -->
-                <div id="empty-search-state" class="hidden glass-card rounded-3xl p-10 text-center max-w-lg mx-auto my-8 border border-white/10">
-                    <div class="w-16 h-16 rounded-2xl bg-doom-purple/15 border border-doom-purple/30 flex items-center justify-center mx-auto mb-4 text-doom-purple">
-                        <i class="fa-solid fa-ghost text-3xl"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-white mb-1">
-                        No hay productos que coincidan con tu búsqueda
-                    </h3>
-                    <p class="text-xs sm:text-sm text-slate-400 mb-6">
-                        Intenta con otro término o escríbenos por WhatsApp si buscas una reparación específica de placa.
-                    </p>
-                    <div class="flex flex-wrap items-center justify-center gap-3">
-                        <button onclick="resetStoreFilters()" class="px-5 py-2.5 rounded-xl bg-doom-purple hover:bg-purple-500 text-white text-xs sm:text-sm font-bold transition-all shadow-neon-purple">
-                            Ver todo el catálogo
-                        </button>
-                        <a href="https://wa.me/584120000000?text=Hola%20ItsDoomlater!%20Busco%20un%20servicio%20o%20repuesto%20espec%C3%ADfico" target="_blank" rel="noopener noreferrer"
-                           class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold transition-all flex items-center gap-2">
-                            <i class="fa-brands fa-whatsapp text-emerald-400"></i> Consultar falla especial
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ========================================== -->
-            <!-- VIEW B: DOOMKETPLACE (Comunidad Usados)    -->
-            <!-- ========================================== -->
-            <div id="view-doomketplace" class="hidden space-y-6">
-                
-                <!-- Doomketplace Info Bar -->
-                <div class="glass-card rounded-2xl p-4 sm:p-5 border border-doom-cyan/30 bg-gradient-to-r from-doom-cyan/10 via-transparent to-doom-purple/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div class="flex items-start sm:items-center gap-3.5">
-                        <div class="w-12 h-12 rounded-2xl bg-doom-cyan/20 border border-doom-cyan/40 flex items-center justify-center text-doom-cyan shrink-0">
-                            <i class="fa-solid fa-certificate text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
-                                Consolas Verificadas por el Laboratorio ItsDoomlater
-                            </h3>
-                            <p class="text-xs text-slate-300 mt-0.5">
-                                Todas las consolas del Doomketplace pasan por pruebas de temperatura, mandos sin drift y sello de garantía antes de entregarse.
-                            </p>
-                        </div>
-                    </div>
-                    <button onclick="publishInDoomketplace()" class="shrink-0 w-full sm:w-auto px-4 py-2.5 rounded-xl bg-doom-cyan hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-neon-cyan">
-                        <i class="fa-solid fa-plus-circle"></i> Vender mi consola
-                    </button>
-                </div>
-
-                <!-- Doomketplace Grid -->
-                <div id="doomketplace-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <!-- Populated dynamically via JS -->
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ======================================================== -->
-        <!-- 5. PWA INSTALL FLOATING PROMPT (Exacta a juansequera.com)-->
-        <!-- ======================================================== -->
-        <section id="pwa-install-banner" class="glass-card rounded-3xl p-5 sm:p-6 border border-doom-purple/35 relative overflow-hidden shadow-neon-purple">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div class="flex items-start sm:items-center gap-4">
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-doom-purple to-doom-cyan p-0.5 shrink-0">
-                        <div class="w-full h-full bg-[#0a0a12] rounded-[14px] flex items-center justify-center text-white">
-                            <i class="fa-solid fa-mobile-screen-button text-xl text-doom-cyan"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold uppercase tracking-wider text-doom-purple">
-                                ItsDoomlater App · Instalable en iOS y Android
-                            </span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-200 mt-1">
-                            Ten la tienda y el Doomketplace en tu teléfono: sin barra del navegador, más rápida y siempre a un toque.
-                        </p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end shrink-0">
-                    <button onclick="dismissPwaBanner()" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
-                        Ahora no
-                    </button>
-                    <button onclick="triggerPwaInstall()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-doom-purple to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-neon-purple transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-download"></i> Instalar app
-                    </button>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ========================================== -->
-    <!-- 7. FOOTER (Replica de juansequera.com)     -->
-    <!-- ========================================== -->
-    <footer class="border-t border-white/10 bg-[#060609] py-8 px-4 sm:px-6 mt-auto">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2.5">
-                <div class="w-7 h-7 rounded-lg bg-doom-purple/20 border border-doom-purple/40 flex items-center justify-center text-doom-purple">
-                    <i class="fa-solid fa-gamepad text-xs"></i>
-                </div>
-                <span class="font-display font-bold text-sm text-white">ItsDoomlater</span>
-                <span class="text-xs text-slate-500">·</span>
-                <span class="text-xs text-slate-400">© 2026 ItsDoomlater. Todos los derechos reservados.</span>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center gap-5 text-xs font-medium text-slate-400">
-                <button onclick="switchMainView('tienda'); window.scrollTo({top:0, behavior:'smooth'})" class="hover:text-white transition-colors">Inicio</button>
-                <button onclick="openModal('modal-login')" class="hover:text-white transition-colors">Login</button>
-                <button onclick="openModal('modal-garantia')" class="hover:text-white transition-colors">Políticas</button>
-                <button onclick="openModal('modal-garantia')" class="hover:text-white transition-colors">Garantía</button>
-                <a href="https://www.instagram.com/itsdoomlater/" target="_blank" rel="noopener noreferrer" class="text-doom-purple hover:text-purple-400 transition-colors flex items-center gap-1">
-                    <i class="fa-brands fa-instagram"></i> @itsdoomlater
-                </a>
-            </div>
+      <div class="controls-row">
+        <div class="search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-input" class="search-input" placeholder="Buscar servicio, consola, repuesto o accesorio..." oninput="renderCatalog()" />
         </div>
-    </footer>
 
-    <!-- ======================================================== -->
-    <!-- 6. STICKY MOBILE BOTTOM NAVIGATION BAR (5 items)         -->
-    <!-- ======================================================== -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0a0a12]/95 backdrop-blur-xl border-t border-white/10 px-2 py-1.5">
-        <div class="grid grid-cols-5 gap-1 max-w-md mx-auto">
-            <!-- 1. Inicio -->
-            <button onclick="switchMainView('tienda'); window.scrollTo({top:0, behavior:'smooth'})" id="mob-nav-tienda"
-                    class="flex flex-col items-center justify-center py-1.5 rounded-xl text-doom-purple transition-all">
-                <i class="fa-solid fa-house text-base"></i>
-                <span class="text-[10px] font-semibold mt-1">Inicio</span>
-            </button>
-
-            <!-- 2. Doomketplace -->
-            <button onclick="switchMainView('doomketplace')" id="mob-nav-doomketplace"
-                    class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 hover:text-white transition-all">
-                <i class="fa-solid fa-fire-flame-curved text-base"></i>
-                <span class="text-[10px] font-semibold mt-1">Doomket</span>
-            </button>
-
-            <!-- 3. Carrito -->
-            <button onclick="openModal('modal-carrito')"
-                    class="relative flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 hover:text-white transition-all">
-                <div class="relative">
-                    <i class="fa-solid fa-cart-shopping text-base text-doom-cyan"></i>
-                    <span id="mobile-cart-badge" class="absolute -top-1.5 -right-2.5 min-w-[16px] h-4 px-1 rounded-full bg-doom-crimson text-white text-[10px] font-bold flex items-center justify-center">
-                        0
-                    </span>
-                </div>
-                <span class="text-[10px] font-semibold mt-1">Carrito</span>
-            </button>
-
-            <!-- 4. WhatsApp -->
-            <a href="https://wa.me/584120000000?text=Hola%20ItsDoomlater!%20Vengo%20desde%20tu%20p%C3%A1gina%20web" target="_blank" rel="noopener noreferrer"
-               class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 hover:text-emerald-400 transition-all">
-                <i class="fa-brands fa-whatsapp text-base text-emerald-400"></i>
-                <span class="text-[10px] font-semibold mt-1">WhatsApp</span>
-            </a>
-
-            <!-- 5. Usuario / Taller -->
-            <button onclick="openModal('modal-login')"
-                    class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 hover:text-white transition-all">
-                <i class="fa-regular fa-user text-base"></i>
-                <span class="text-[10px] font-semibold mt-1">Taller</span>
-            </button>
+        <div class="category-bar" id="category-bar">
+          <button class="cat-chip active" onclick="setCategory('Todos', this)">Todos</button>
+          <button class="cat-chip" onclick="setCategory('Magia / Mods', this)">Magia / Mods</button>
+          <button class="cat-chip" onclick="setCategory('Microsoldadura', this)">Microsoldadura</button>
+          <button class="cat-chip" onclick="setCategory('Mandos', this)">Mandos & Hall Effect</button>
+          <button class="cat-chip" onclick="setCategory('Accesorios', this)">Consolas & Accesorios</button>
         </div>
-    </nav>
+      </div>
+    </div>
+  </section>
 
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="main-container">
 
-    <!-- ======================================================== -->
-    <!-- 4. INTERACTIVE MODALS                                    -->
-    <!-- ======================================================== -->
-
-    <!-- MODAL 1: MIS REDES (@itsdoomlater) -->
-    <div id="modal-redes" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-card rounded-3xl max-w-md w-full p-6 border border-white/15 relative animate-fadeIn">
-            <button onclick="closeModal('modal-redes')" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white flex items-center justify-center text-lg font-bold transition-colors">
-                ×
-            </button>
-
-            <div class="flex items-center gap-3 mb-5">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-500 to-cyan-500 p-0.5">
-                    <div class="w-full h-full bg-[#0d0d14] rounded-[14px] flex items-center justify-center text-white">
-                        <i class="fa-solid fa-share-nodes text-xl"></i>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="font-display font-bold text-xl text-white">Mis Redes Oficiales</h3>
-                    <p class="text-xs text-slate-400">Sigue el día a día del laboratorio @itsdoomlater</p>
-                </div>
-            </div>
-
-            <div class="space-y-3">
-                <!-- Instagram Principal -->
-                <a href="https://www.instagram.com/itsdoomlater/" target="_blank" rel="noopener noreferrer"
-                   class="w-full p-4 rounded-2xl bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-indigo-600/20 hover:from-pink-600/35 hover:to-indigo-600/35 border border-pink-500/30 flex items-center justify-between group transition-all">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-md">
-                            <i class="fa-brands fa-instagram text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm text-white group-hover:text-pink-300 transition-colors">Instagram Oficial</div>
-                            <div class="text-xs text-slate-400">@itsdoomlater · Reels, casos reales y magia</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-pink-400 group-hover:translate-x-0.5 transition-transform"></i>
-                </a>
-
-                <!-- TikTok -->
-                <a href="https://www.tiktok.com/@itsdoomlater" target="_blank" rel="noopener noreferrer"
-                   class="w-full p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between group transition-all">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-black border border-cyan-400/40 flex items-center justify-center text-white">
-                            <i class="fa-brands fa-tiktok text-lg text-cyan-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm text-white group-hover:text-cyan-300 transition-colors">TikTok</div>
-                            <div class="text-xs text-slate-400">@itsdoomlater · Microsoldadura bajo microscopio</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400"></i>
-                </a>
-
-                <!-- WhatsApp Directo -->
-                <a href="https://wa.me/584120000000?text=Hola%20ItsDoomlater!%20Vi%20tu%20web%20y%20quiero%20consultar%20un%20servicio" target="_blank" rel="noopener noreferrer"
-                   class="w-full p-4 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-between group transition-all">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-slate-950 font-bold">
-                            <i class="fa-brands fa-whatsapp text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm text-white group-hover:text-emerald-300 transition-colors">WhatsApp Laboratorio</div>
-                            <div class="text-xs text-slate-400">Atención directa, citas y presupuestos</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-emerald-400"></i>
-                </a>
-            </div>
+    <!-- PANEL DE ADMINISTRADOR (Solo visible al iniciar sesión con itsdoomlater@gmail.com) -->
+    <section class="admin-panel" id="admin-panel">
+      <div class="admin-header">
+        <div>
+          <h3 style="font-family:'Orbitron',sans-serif; color:#10b981;">
+            <i class="fa-solid fa-user-gear"></i> Panel Admin · ItsDoomlater
+          </h3>
+          <p style="font-size:0.82rem; color:var(--text-muted);">
+            Sesión iniciada como <strong>itsdoomlater@gmail.com</strong>. Agrega, edita o elimina servicios y productos desde tu teléfono o PC.
+          </p>
         </div>
+        <button class="btn-secondary" onclick="logoutAdmin()">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+        </button>
+      </div>
+
+      <form id="product-form" onsubmit="saveProduct(event)">
+        <input type="hidden" id="prod-id" />
+        <div class="admin-grid">
+          <div class="form-group">
+            <label>Nombre del Servicio o Producto *</label>
+            <input type="text" id="prod-title" class="form-control" placeholder="Ej: Magia Nintendo Switch OLED" required />
+          </div>
+
+          <div class="form-group">
+            <label>Precio (USD) *</label>
+            <input type="number" step="0.01" id="prod-price" class="form-control" placeholder="Ej: 65" required />
+          </div>
+
+          <div class="form-group">
+            <label>Categoría *</label>
+            <select id="prod-category" class="form-control">
+              <option value="Magia / Mods">Magia / Mods</option>
+              <option value="Microsoldadura">Microsoldadura</option>
+              <option value="Mandos">Mandos & Hall Effect</option>
+              <option value="Accesorios">Consolas & Accesorios</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Sección de la Web *</label>
+            <select id="prod-section" class="form-control">
+              <option value="tienda">Tienda & Servicios (Principal)</option>
+              <option value="doomketplace">Doomketplace (Ofertas / Equipos)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Etiqueta Destacada (Opcional)</label>
+            <input type="text" id="prod-badge" class="form-control" placeholder="Ej: Más Pedido, Garantía, Nuevo" />
+          </div>
+
+          <div class="form-group">
+            <label>URL de Imagen o Subir Foto desde Teléfono/PC</label>
+            <input type="text" id="prod-img" class="form-control" placeholder="Pega link de imagen o sube archivo abajo" />
+            <input type="file" id="prod-file" accept="image/*" class="form-control" style="margin-top:6px; font-size:0.76rem;" onchange="handleImageUpload(event)" />
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:10px;">
+          <label>Descripción detallada *</label>
+          <textarea id="prod-desc" rows="2" class="form-control" placeholder="Describe qué incluye el servicio, tiempo de entrega o garantía..." required></textarea>
+        </div>
+
+        <div class="admin-actions-row">
+          <button type="submit" class="btn-save-prod" id="save-btn-label">
+            <i class="fa-solid fa-plus-circle"></i> Guardar en el Catálogo
+          </button>
+          <button type="button" class="btn-secondary" onclick="resetForm()">
+            Limpiar Formulario
+          </button>
+          <button type="button" class="btn-secondary" onclick="restoreDefaultCatalog()">
+            <i class="fa-solid fa-rotate-left"></i> Restaurar Catálogo Base
+          </button>
+        </div>
+      </form>
+
+      <!-- SINCRONIZACIÓN MULTI-DISPOSITIVO (TELÉFONO <-> PC) -->
+      <div class="sync-box">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <strong><i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent);"></i> Sincronización Teléfono ↔ PC (Nube en Tiempo Real)</strong>
+          <span id="sync-status" style="font-size:0.76rem; color:#10b981;">Guardado Local Activo</span>
+        </div>
+        <p style="color:var(--text-muted); margin-bottom:8px;">
+          Para que los productos que agregues desde el teléfono se actualicen al instante en tu PC y para todos tus clientes en GitHub Pages, pega aquí la URL de tu <strong>Firebase Realtime Database</strong> (ej. <code>https://tu-proyecto-default-rtdb.firebaseio.com</code>):
+        </p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="url" id="cloud-db-input" class="form-control" style="flex:1; min-width:220px;" placeholder="https://itsdoomlater-default-rtdb.firebaseio.com" />
+          <button type="button" class="btn-secondary" onclick="saveCloudConfig()">
+            <i class="fa-solid fa-link"></i> Conectar Nube
+          </button>
+          <button type="button" class="btn-secondary" onclick="syncFromCloud(true)">
+            <i class="fa-solid fa-arrows-rotate"></i> Sincronizar Ahora
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CABECERA DE CATÁLOGO -->
+    <div class="section-header">
+      <h3 class="section-title" id="catalog-heading">
+        <i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Catálogo Disponible
+      </h3>
+      <span id="items-count" style="font-size:0.84rem; color:var(--text-muted);">Cargando...</span>
     </div>
 
-    <!-- MODAL 2: GANA DINERO / REFERIDOS (Replica de Juan Sequera con código DOOMLATER) -->
-    <div id="modal-gana-dinero" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-card rounded-3xl max-w-md w-full p-6 border border-emerald-500/30 relative">
-            <button onclick="closeModal('modal-gana-dinero')" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white flex items-center justify-center text-lg font-bold transition-colors">
-                ×
-            </button>
+    <!-- GRILLA DE PRODUCTOS / SERVICIOS -->
+    <div class="products-grid" id="products-grid"></div>
 
-            <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
-                <i class="fa-solid fa-sack-dollar text-2xl"></i>
-            </div>
+  </main>
 
-            <h3 class="font-display font-extrabold text-xl text-white mb-2">
-                Gana dinero fácil con ItsDoomlater
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                ¿Tienes amigos con consolas dañadas, controles con drift o que quieren instalar magia en su Nintendo Switch? Recomiéndanos o usa el código en tu carrito para obtener descuento inmediato o comisión por referido.
-            </p>
-
-            <!-- Promo Code Box -->
-            <div class="p-4 rounded-2xl bg-[#08080c] border border-emerald-500/40 mb-5">
-                <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                    Recuerda usar el código:
-                </div>
-                <div class="flex items-center justify-between gap-2">
-                    <span id="promo-code-text" class="font-display font-extrabold text-2xl tracking-wider text-emerald-400">
-                        DOOMLATER
-                    </span>
-                    <button onclick="copyPromoCode()" class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition-all flex items-center gap-1.5">
-                        <i class="fa-regular fa-copy"></i> Copiar código
-                    </button>
-                </div>
-                <p class="text-[11px] text-slate-400 mt-2">
-                    * Aplica un <strong class="text-white">10% de descuento</strong> directo en mano de obra de taller o acumula saldo por cada consola referida.
-                </p>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-2.5">
-                <button onclick="applyPromoToCartDirectly()" class="flex-1 py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-tag"></i> Activar en mi Carrito
-                </button>
-                <a href="https://wa.me/584120000000?text=Hola%20ItsDoomlater!%20Quiero%20referir%20un%20cliente%20con%20el%20c%C3%B3digo%20DOOMLATER" target="_blank" rel="noopener noreferrer"
-                   class="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-emerald-400"></i> Referir por WhatsApp
-                </a>
-            </div>
-        </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a onclick="switchTab('tienda')">Inicio</a>
+      <a onclick="handleAuthClick()">Login Admin</a>
+      <a onclick="openModal('modal-creditos')">Garantía & Políticas</a>
+      <a href="mailto:itsdoomlater@gmail.com">Contacto: itsdoomlater@gmail.com</a>
     </div>
+    <p>© 2026 <strong>ItsDoomlater</strong> (@itsdoomlater). Todos los derechos reservados.</p>
+    <p style="margin-top:4px; font-size:0.76rem;">Caracas, Venezuela · WhatsApp Oficial: +58 0424-5323796</p>
+  </footer>
 
-    <!-- MODAL 3: CARRITO DE COMPRAS & PRESUPUESTO -->
-    <div id="modal-carrito" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-card rounded-3xl max-w-lg w-full p-6 border border-white/15 relative max-h-[90vh] flex flex-col">
-            <div class="flex items-center justify-between pb-4 border-b border-white/10">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-10 h-10 rounded-xl bg-doom-cyan/15 border border-doom-cyan/30 flex items-center justify-center text-doom-cyan">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-display font-bold text-lg text-white">Tu Carrito / Orden de Taller</h3>
-                        <p class="text-xs text-slate-400">Envía tu pedido directo al WhatsApp de @itsdoomlater</p>
-                    </div>
-                </div>
-                <button onclick="closeModal('modal-carrito')" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white flex items-center justify-center text-lg font-bold transition-colors">
-                    ×
-                </button>
-            </div>
-
-            <!-- Cart Items List -->
-            <div id="cart-items-container" class="py-4 overflow-y-auto space-y-3 flex-grow max-h-72">
-                <!-- Populated by JS -->
-            </div>
-
-            <!-- Promo Code Bar inside Cart -->
-            <div class="pt-3 border-t border-white/10">
-                <div class="flex gap-2 mb-3">
-                    <input type="text" id="cart-promo-input" placeholder="Código promocional (ej: DOOMLATER)"
-                           class="flex-grow px-3.5 py-2 rounded-xl bg-[#08080c] border border-white/10 text-xs text-white uppercase focus:outline-none focus:border-doom-purple">
-                    <button onclick="applyCartPromoInput()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-white transition-all">
-                        Aplicar
-                    </button>
-                </div>
-
-                <!-- Totals -->
-                <div class="space-y-1.5 text-xs sm:text-sm bg-[#08080c] p-4 rounded-2xl border border-white/5 mb-4">
-                    <div class="flex justify-between text-slate-400">
-                        <span>Subtotal:</span>
-                        <span id="cart-subtotal">$0.00</span>
-                    </div>
-                    <div id="cart-discount-row" class="hidden justify-between text-emerald-400 font-medium">
-                        <span>Descuento (Código DOOMLATER -10%):</span>
-                        <span id="cart-discount-amount">-$0.00</span>
-                    </div>
-                    <div class="flex justify-between text-white font-display font-bold text-base pt-1.5 border-t border-white/10">
-                        <span>Total Estimado (USD / USDT):</span>
-                        <span id="cart-total" class="text-doom-cyan">$0.00</span>
-                    </div>
-                </div>
-
-                <!-- Checkout via WhatsApp Button -->
-                <button onclick="checkoutWhatsApp()" class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-sm transition-all flex items-center justify-center gap-2 shadow-lg">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> Pedir / Agendar por WhatsApp
-                </button>
-            </div>
-        </div>
+  <!-- BANNER INSTALABLE PWA (Réplica Juan Sequera) -->
+  <div class="pwa-banner" id="pwa-banner">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="brand-logo" style="width:38px; height:38px; font-size:14px; flex-shrink:0;">ID</div>
+      <div>
+        <strong style="font-size:0.86rem; display:block;">ItsDoomlater App</strong>
+        <span style="font-size:0.75rem; color:var(--text-muted);">Ten el laboratorio y Doomketplace a un toque en tu teléfono.</span>
+      </div>
     </div>
-
-    <!-- MODAL 4: LOGIN & ESTADO DE TALLER EN VIVO -->
-    <div id="modal-login" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-card rounded-3xl max-w-md w-full p-6 border border-white/15 relative">
-            <button onclick="closeModal('modal-login')" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white flex items-center justify-center text-lg font-bold transition-colors">
-                ×
-            </button>
-
-            <div class="flex items-center gap-3 mb-5">
-                <div class="w-11 h-11 rounded-2xl bg-doom-purple/20 border border-doom-purple/40 flex items-center justify-center text-doom-purple">
-                    <i class="fa-solid fa-microchip text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-display font-bold text-lg text-white">Portal Cliente & Taller</h3>
-                    <p class="text-xs text-slate-400">Rastrea tu consola en vivo o inicia sesión</p>
-                </div>
-            </div>
-
-            <!-- Repair Ticket Tracker -->
-            <div class="p-4 rounded-2xl bg-[#08080c] border border-white/10 mb-5">
-                <label class="block text-xs font-bold text-doom-cyan uppercase tracking-wider mb-2">
-                    <i class="fa-solid fa-satellite-dish mr-1"></i> Rastrear Orden de Servicio
-                </label>
-                <div class="flex gap-2">
-                    <input type="text" id="ticket-input" placeholder="Ej: DOOM-2026 o PS5-HDMI"
-                           class="flex-grow px-3.5 py-2.5 rounded-xl bg-[#11111a] border border-white/10 text-xs text-white uppercase focus:outline-none focus:border-doom-cyan">
-                    <button onclick="checkRepairTicket()" class="px-4 py-2.5 rounded-xl bg-doom-cyan hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all">
-                        Consultar
-                    </button>
-                </div>
-                <div class="flex flex-wrap gap-1.5 mt-2.5">
-                    <span class="text-[10px] text-slate-400">Prueba un ticket demo:</span>
-                    <button onclick="fillDemoTicket('DOOM-2026')" class="text-[10px] px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-doom-purple font-mono">DOOM-2026</button>
-                    <button onclick="fillDemoTicket('PS5-HDMI')" class="text-[10px] px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-doom-cyan font-mono">PS5-HDMI</button>
-                </div>
-
-                <!-- Ticket Result Output -->
-                <div id="ticket-result-box" class="hidden mt-3 p-3 rounded-xl bg-white/5 border border-white/10 text-xs space-y-1"></div>
-            </div>
-
-            <!-- Standard Login Form -->
-            <form onsubmit="handleClientLogin(event)" class="space-y-3 border-t border-white/10 pt-4">
-                <div class="text-xs font-semibold text-slate-300 mb-1">Acceso de Usuario Doomketplace</div>
-                <input type="email" required placeholder="Tu correo electrónico"
-                       class="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-white/10 text-xs text-white focus:outline-none focus:border-doom-purple">
-                <input type="password" required placeholder="Contraseña"
-                       class="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-white/10 text-xs text-white focus:outline-none focus:border-doom-purple">
-                <button type="submit" class="w-full py-3 rounded-xl bg-doom-purple hover:bg-purple-500 text-white font-bold text-xs sm:text-sm transition-all shadow-neon-purple">
-                    Iniciar Sesión
-                </button>
-            </form>
-        </div>
+    <div style="display:flex; gap:6px;">
+      <button class="add-cart-btn" style="padding:7px 11px; font-size:0.76rem;" onclick="installPWA()">Instalar</button>
+      <button class="btn-secondary" style="padding:7px 9px; font-size:0.76rem;" onclick="closePwaBanner()">×</button>
     </div>
+  </div>
 
-    <!-- MODAL 5: GARANTÍA & POLÍTICAS DEL LABORATORIO -->
-    <div id="modal-garantia" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-card rounded-3xl max-w-lg w-full p-6 border border-white/15 relative max-h-[88vh] overflow-y-auto">
-            <button onclick="closeModal('modal-garantia')" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white flex items-center justify-center text-lg font-bold transition-colors">
-                ×
-            </button>
+  <!-- BARRA INFERIOR MÓVIL -->
+  <nav class="bottom-nav">
+    <button class="bottom-item active" id="bot-tienda" onclick="switchTab('tienda')">
+      <i class="fa-solid fa-house"></i>
+      <span>Inicio</span>
+    </button>
+    <button class="bottom-item" id="bot-doomketplace" onclick="switchTab('doomketplace')">
+      <i class="fa-solid fa-Layer-group fa-gamepad"></i>
+      <span>Doomketplace</span>
+    </button>
+    <button class="bottom-item" onclick="openModal('modal-carrito')">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Carrito</span>
+      <span class="cart-badge" id="cart-count">0</span>
+    </button>
+    <a class="bottom-item" href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20vengo%20de%20la%20p%C3%A1gina%20web%20y%20quiero%20consultar%20un%20servicio" target="_blank">
+      <i class="fa-brands fa-whatsapp" style="color:#22c55e;"></i>
+      <span>WhatsApp</span>
+    </a>
+    <button class="bottom-item" onclick="handleAuthClick()">
+      <i class="fa-solid fa-user"></i>
+      <span id="bottom-user-label">Usuario</span>
+    </button>
+  </nav>
 
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-11 h-11 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                    <i class="fa-solid fa-shield-halved text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-display font-bold text-lg text-white">Garantía & Políticas ItsDoomlater</h3>
-                    <p class="text-xs text-slate-400">Respaldo técnico real en cada soldadura</p>
-                </div>
-            </div>
-
-            <div class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10">
-                    <h4 class="font-bold text-white mb-1"><i class="fa-solid fa-check-circle text-emerald-400 mr-1.5"></i> 1. Garantía en Magia & Modchips (90 Días)</h4>
-                    <p class="text-xs text-slate-400">Toda instalación de magia (Switch V1, V2, Lite, OLED) incluye garantía directa sobre el chip RP2040/Picofly y puntos de microsoldadura bajo microscopio.</p>
-                </div>
-                <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10">
-                    <h4 class="font-bold text-white mb-1"><i class="fa-solid fa-check-circle text-doom-cyan mr-1.5"></i> 2. Garantía en Puertos HDMI & Joysticks Hall Effect</h4>
-                    <p class="text-xs text-slate-400">Los puertos HDMI reforzados y los sensores electromagnéticos Hall Effect cuentan con garantía contra defectos de fábrica y calibración.</p>
-                </div>
-                <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10">
-                    <h4 class="font-bold text-white mb-1"><i class="fa-solid fa-triangle-exclamation text-amber-400 mr-1.5"></i> 3. Sellos de Seguridad y Equipos Apagados</h4>
-                    <p class="text-xs text-slate-400">La garantía queda sin efecto si el sello holográfico de @itsdoomlater es violado o si el equipo presenta humedad, caídas posteriores o variaciones eléctricas severas.</p>
-                </div>
-            </div>
-
-            <button onclick="closeModal('modal-garantia')" class="mt-5 w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs sm:text-sm transition-all">
-                Entendido
-            </button>
-        </div>
+  <!-- MODAL: MIS REDES Y CONTACTO -->
+  <div class="modal-overlay" id="modal-redes">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('modal-redes')">×</button>
+      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Mis Redes & Contacto</h3>
+      <p style="font-size:0.85rem; color:var(--text-muted);">Síguenos y contáctanos directamente para presupuestos, reparaciones o colaboraciones:</p>
+      <div class="social-list">
+        <a href="https://www.instagram.com/itsdoomlater/" target="_blank" class="social-item">
+          <span><i class="fa-brands fa-instagram" style="color:#ec4899; margin-right:8px;"></i> Instagram Oficial (@itsdoomlater)</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <a href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20quiero%20cotizar%20un%20servicio" target="_blank" class="social-item">
+          <span><i class="fa-brands fa-whatsapp" style="color:#22c55e; margin-right:8px;"></i> WhatsApp (+58 0424-5323796)</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <a href="mailto:itsdoomlater@gmail.com" class="social-item">
+          <span><i class="fa-solid fa-envelope" style="color:#38bdf8; margin-right:8px;"></i> Colaboraciones: itsdoomlater@gmail.com</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <!-- ======================================================== -->
-    <!-- JAVASCRIPT ENGINE (State, Store, Cart, Filters, Modals)  -->
-    <!-- ======================================================== -->
-    <script>
-        // 1. CATALOG DATA (Real @itsdoomlater services & products)
-        const storeProducts = [
-            {
-                id: 'magia-switch-oled',
-                title: 'Instalación de Magia Nintendo Switch (V1 / V2 / Lite / OLED)',
-                category: 'Magia & Modchips',
-                price: 65,
-                badge: 'Más Pedido',
-                badgeColor: 'bg-doom-purple text-white',
-                icon: 'fa-wand-magic-sparkles',
-                accent: 'from-purple-600/30 to-indigo-600/30',
-                description: 'Instalación profesional con Modchip RP2040 / Picofly bajo microscopio. Incluye configuración completa en MicroSD, EmuMMC, Dual Boot (Original + Magia) y tiendas listas para descargar.',
-                specs: ['Dual Boot Seguro Online/Offline', 'Microsoldadura DAT0 precisa', 'Garantía de taller 90 días']
-            },
-            {
-                id: 'hdmi-ps5-series',
-                title: 'Cambio de Puerto HDMI PS5 / Xbox Series X|S',
-                category: 'Microsoldadura & HDMI',
-                price: 55,
-                badge: 'Microsoldadura',
-                badgeColor: 'bg-doom-cyan text-slate-950',
-                icon: 'fa-plug-circle-bolt',
-                accent: 'from-cyan-600/30 to-blue-600/30',
-                description: '¿Tu PS5 o Xbox enciende con luz blanca pero no da video? Reemplazamos el puerto HDMI dañado con repuesto original reforzado, reconstrucción de pistas y limpieza interna.',
-                specs: ['Soporte 4K 120Hz nativo', 'Estaño de aleación de plata', 'Entrega rápida en 24-48h']
-            },
-            {
-                id: 'hall-effect-dualsense',
-                title: 'Upgrade Joysticks Hall Effect / TMR (Adiós al Drift)',
-                category: 'Mandos & Drift',
-                price: 30,
-                badge: 'Cero Drift',
-                badgeColor: 'bg-emerald-500 text-slate-950',
-                icon: 'fa-gamepad',
-                accent: 'from-emerald-600/30 to-teal-600/30',
-                description: 'Instalación del par de joysticks electromagnéticos Hall Effect o TMR para DualSense PS5, PS4, Xbox Series o Switch Pro Controller. Nunca más sufrirás de drift en tus partidas competitivas.',
-                specs: ['Par de módulos magnéticos incluidos', 'Calibración milimétrica por software', 'Mayor precisión en shooters']
-            },
-            {
-                id: 'mantenimiento-metal-liquido',
-                title: 'Mantenimiento Preventivo Pro + Metal Líquido / Pasta Térmica',
-                category: 'Microsoldadura & HDMI',
-                price: 35,
-                badge: 'Vida Útil',
-                badgeColor: 'bg-amber-500 text-slate-950',
-                icon: 'fa-temperature-arrow-down',
-                accent: 'from-amber-600/30 to-orange-600/30',
-                description: 'Desarmado completo, limpieza de turbina y disipador, redistribución o recambio de Metal Líquido Thermal Grizzly en PS5 o pasta térmica Arctic MX-6 en PS4/Switch/Xbox.',
-                specs: ['Elimina apagados por temperatura', 'Reemplazo de Thermal Pads', 'Silencia el ventilador al máximo']
-            },
-            {
-                id: 'reparacion-placa-switch',
-                title: 'Reparación de Placa & Cortos (IC M92T36 / P13USB / Pantalla Azul)',
-                category: 'Microsoldadura & HDMI',
-                price: 50,
-                badge: 'Laboratorio',
-                badgeColor: 'bg-rose-500 text-white',
-                icon: 'fa-microchip',
-                accent: 'from-rose-600/30 to-pink-600/30',
-                description: 'Diagnóstico electrónico avanzado y reemplazo de integrados de carga M92T36, BQ24193, filtro de video P13USB o corto en placa madre para consolas que no cargan o no dan imagen en Dock.',
-                specs: ['Componentes SMD originales', 'Medición con cámara térmica', 'Salvamos consolas desahuciadas']
-            },
-            {
-                id: 'magia-ps4-vita-3ds',
-                title: 'Liberación & Magia PS4 / PS Vita / Nintendo 3DS + Pack Juegos',
-                category: 'Magia & Modchips',
-                price: 25,
-                badge: 'Clásicos',
-                badgeColor: 'bg-indigo-500 text-white',
-                icon: 'fa-compact-disc',
-                accent: 'from-indigo-600/30 to-violet-600/30',
-                description: 'Destraba todo el potencial de tu consola portátil o de sobremesa. Incluye tienda PKGj / hShop, emuladores retro (GBA, SNES, PS1, N64) y configuración de velocidad de ventilador.',
-                specs: ['Catálogo retro incluido', 'Adaptador SD2Vita disponible', 'Guía de uso paso a paso']
-            },
-            {
-                id: 'upscaler-retro-hdmi',
-                title: 'Adaptador Digital HDMI Retro / GameCube / PS2 + MicroSD',
-                category: 'Accesorios & Retro',
-                price: 40,
-                badge: 'Hardware',
-                badgeColor: 'bg-fuchsia-500 text-white',
-                icon: 'fa-tv',
-                accent: 'from-fuchsia-600/30 to-purple-600/30',
-                description: 'Conecta tus consolas clásicas a televisores modernos OLED/4K con señal digital pura, escaneo progresivo y cero retraso de entrada (Zero Input Lag).',
-                specs: ['Plug & Play sin modificar cables', 'Imagen nítida 720p/1080p', 'Compatible con Swiss / OPL']
-            },
-            {
-                id: 'cambio-pantalla-bateria',
-                title: 'Reemplazo de Pantalla LCD / OLED o Batería Original Switch',
-                category: 'Accesorios & Retro',
-                price: 45,
-                badge: 'Repuestos OEM',
-                badgeColor: 'bg-cyan-500 text-slate-950',
-                icon: 'fa-battery-full',
-                accent: 'from-teal-600/30 to-cyan-600/30',
-                description: '¿Pantalla con líneas, golpeada o batería hinchada que dura 20 minutos? Instalamos repuestos nuevos originales con sellado térmico de fábrica.',
-                specs: ['Laminado sin polvo', 'Batería 100% capacidad real', 'Instalación incluida']
-            },
-            {
-                id: 'reparacion-joycon-rieles',
-                title: 'Restauración Completa de Joy-Cons (Flex SL/SR + Traba Metálica)',
-                category: 'Mandos & Drift',
-                price: 20,
-                badge: 'Express',
-                badgeColor: 'bg-emerald-500 text-slate-950',
-                icon: 'fa-screwdriver-wrench',
-                accent: 'from-emerald-600/30 to-cyan-600/30',
-                description: 'Solucionamos Joy-Cons que se desconectan solos de la consola, botones L/R/SL/SR que no responden y cambiamos las trabas plásticas rotas por hebillas de aleación metálica.',
-                specs: ['Hebillas metálicas eternas', 'Cambio de flex de luces LED', 'Limpieza con alcohol isopropílico']
-            }
-        ];
+  <!-- MODAL: GANA DINERO / REFERIDOS -->
+  <div class="modal-overlay" id="modal-gana">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('modal-gana')">×</button>
+      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Gana Dinero con ItsDoomlater</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5;">
+        ¿Tienes amigos con consolas dañadas, controles con drift o que quieran instalar magia en su Nintendo Switch? Recomiéndalos y gana comisión directa o descuento en tus reparaciones.
+      </p>
+      <div class="promo-code-box">CÓDIGO: DOOMLATER</div>
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:16px;">
+        Dile a tu referido que mencione este código junto con tu nombre al escribirnos al WhatsApp <strong>+58 0424-5323796</strong>.
+      </p>
+      <a href="https://wa.me/584245323796?text=Hola%20ItsDoomlater,%20quiero%20afiliarme%20al%20programa%20de%20referidos%20con%20el%20c%C3%B3digo%20DOOMLATER" target="_blank" class="add-cart-btn" style="width:100%; justify-content:center; text-decoration:none; padding:12px;">
+        <i class="fa-brands fa-whatsapp"></i> Activar mi Código por WhatsApp
+      </a>
+    </div>
+  </div>
 
-        // 2. DOOMKETPLACE ITEMS (Verified Used Consoles)
-        const doomketplaceItems = [
-            {
-                id: 'dk-switch-oled-zelda',
-                title: 'Nintendo Switch OLED Edición Zelda TOTK + Magia 256GB',
-                condition: 'Estado 9.8/10 · Verificada en Lab',
-                price: 360,
-                seller: 'Certificado ItsDoomlater',
-                details: 'Incluye caja original, dock edición especial, chip RP2040 instalado, MicroSD Samsung 256GB llena de juegos y Joysticks calibrados sin drift.',
-                tag: 'Lista para jugar'
-            },
-            {
-                id: 'dk-ps5-slim',
-                title: 'PlayStation 5 Slim Lectora de Disco 1TB + 2 DualSense (Hall Effect)',
-                condition: 'Estado 9.5/10 · Mantenimiento recién hecho',
-                price: 470,
-                seller: 'Comunidad Doomketplace',
-                details: 'Revisada en laboratorio, metal líquido impecable, incluye dos controles DualSense con módulos magnéticos Hall Effect recién instalados.',
-                tag: 'Garantía 60 días'
-            },
-            {
-                id: 'dk-switch-lite-mod',
-                title: 'Nintendo Switch Lite Turquesa + Magia Instalada 128GB',
-                condition: 'Estado 9/10 · Batería al 100%',
-                price: 210,
-                seller: 'Certificado ItsDoomlater',
-                details: 'Ideal para llevar a todos lados. Magia Picofly instalada, vidrio templado nuevo, cargador original y 15 juegos top preinstalados.',
-                tag: 'Oportunidad'
-            }
-        ];
+  <!-- MODAL: LOGIN ADMIN -->
+  <div class="modal-overlay" id="modal-login">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('modal-login')">×</button>
+      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:6px;">Acceso Administrador</h3>
+      <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:16px;">
+        Inicia sesión con tu cuenta de <strong>ItsDoomlater</strong> para agregar, editar o eliminar productos desde cualquier dispositivo.
+      </p>
+      <form onsubmit="loginAdmin(event)">
+        <div class="form-group" style="margin-bottom:12px;">
+          <label>Correo Electrónico</label>
+          <input type="email" id="login-email" class="form-control" placeholder="itsdoomlater@gmail.com" required />
+        </div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label>Contraseña</label>
+          <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required />
+        </div>
+        <p id="login-error" style="color:#f43f5e; font-size:0.8rem; margin-bottom:10px; display:none;">
+          Correo o clave incorrectos. Verifica tus datos.
+        </p>
+        <button type="submit" class="add-cart-btn" style="width:100%; justify-content:center; padding:12px;">
+          <i class="fa-solid fa-unlock-keyhole"></i> Entrar al Panel
+        </button>
+      </form>
+    </div>
+  </div>
 
-        // 3. STATE VARIABLES
-        let currentCategory = 'Todos';
-        let cart = [];
-        let promoApplied = false;
+  <!-- MODAL: CARRITO DE COMPRAS -->
+  <div class="modal-overlay" id="modal-carrito">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('modal-carrito')">×</button>
+      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:12px;">
+        <i class="fa-solid fa-cart-shopping" style="color:var(--primary);"></i> Tu Pedido / Presupuesto
+      </h3>
+      <div id="cart-items-list" style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; margin-bottom:14px;"></div>
 
-        // 4. RENDER STORE CATALOG
-        function renderStore() {
-            const searchQuery = document.getElementById('store-search-input').value.trim().toLowerCase();
-            const clearIcon = document.getElementById('clear-search-icon');
-            const grid = document.getElementById('products-grid');
-            const emptyState = document.getElementById('empty-search-state');
+      <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; margin-bottom:10px;">
+          <span>Total Estimado:</span>
+          <span id="cart-total" style="color:var(--accent); font-family:'Orbitron',sans-serif;">$0.00</span>
+        </div>
+        <div class="form-group">
+          <label>Método de pago preferido</label>
+          <select id="cart-payment" class="form-control">
+            <option value="Binance USDT">Binance Pay / USDT</option>
+            <option value="Pago Móvil (Bs)">Pago Móvil (Tasa acuerdo)</option>
+            <option value="Efectivo USD">Efectivo USD (Caracas)</option>
+          </select>
+        </div>
+      </div>
 
-            if (searchQuery.length > 0) {
-                clearIcon.classList.remove('hidden');
-            } else {
-                clearIcon.classList.add('hidden');
-            }
+      <button class="add-cart-btn" style="width:100%; justify-content:center; padding:12px;" onclick="checkoutWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> Enviar Pedido al +58 0424-5323796
+      </button>
+    </div>
+  </div>
 
-            const filtered = storeProducts.filter(item => {
-                const matchesCat = currentCategory === 'Todos' || item.category === currentCategory;
-                const matchesSearch = item.title.toLowerCase().includes(searchQuery) ||
-                                      item.description.toLowerCase().includes(searchQuery) ||
-                                      item.category.toLowerCase().includes(searchQuery);
-                return matchesCat && matchesSearch;
-            });
+  <!-- MODAL: GARANTÍA Y CONTACTO -->
+  <div class="modal-overlay" id="modal-creditos">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('modal-creditos')">×</button>
+      <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:8px;">Garantía & Contacto</h3>
+      <p style="font-size:0.86rem; color:var(--text-muted); line-height:1.55; margin-bottom:12px;">
+        En <strong>ItsDoomlater</strong> trabajamos con estándares de laboratorio en microsoldadura, modificación de consolas y mantenimiento preventivo en Caracas.
+      </p>
+      <ul style="font-size:0.84rem; color:var(--text-muted); padding-left:18px; line-height:1.6; margin-bottom:14px;">
+        <li>Diagnóstico técnico transparente con registro fotográfico/video.</li>
+        <li>Garantía directa en instalaciones de modchips, puertos HDMI y joysticks Hall Effect.</li>
+        <li><strong>WhatsApp:</strong> +58 0424-5323796</li>
+        <li><strong>Correo empresarial & colaboraciones:</strong> itsdoomlater@gmail.com</li>
+      </ul>
+      <button class="btn-secondary" style="width:100%;" onclick="closeModal('modal-creditos')">Entendido</button>
+    </div>
+  </div>
 
-            grid.innerHTML = '';
+  <script>
+    /********************************************************************
+     * CONFIGURACIÓN OFICIAL ITSDOOMLATER
+     ********************************************************************/
+    const ADMIN_EMAIL = "itsdoomlater@gmail.com";
+    const ADMIN_PASS  = "24112007";
+    const WHATSAPP_NUMBER = "584245323796";
+    const CONTACT_EMAIL   = "itsdoomlater@gmail.com";
 
-            if (filtered.length === 0) {
-                grid.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-                return;
-            }
+    // Si creas una base de datos gratuita en Firebase Realtime Database,
+    // puedes pegar el link aquí o directamente desde el Panel Admin de la web:
+    const DEFAULT_CLOUD_DB_URL = "";
 
-            grid.classList.remove('hidden');
-            emptyState.classList.add('hidden');
+    const STORAGE_KEY_PRODUCTS = "itsdoomlater_catalog_v2";
+    const STORAGE_KEY_ADMIN    = "itsdoomlater_admin_session";
+    const STORAGE_KEY_CLOUD    = "itsdoomlater_cloud_db_url";
 
-            filtered.forEach(product => {
-                const card = document.createElement('article');
-                card.className = 'glass-card rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden group';
-                card.innerHTML = `
-                    <div>
-                        <!-- Top Visual Banner -->
-                        <div class="h-36 rounded-2xl bg-gradient-to-br ${product.accent} border border-white/10 p-4 flex flex-col justify-between relative overflow-hidden mb-4">
-                            <div class="flex items-center justify-between z-10">
-                                <span class="text-[11px] font-bold px-2.5 py-1 rounded-full ${product.badgeColor} shadow-sm">
-                                    ${product.badge}
-                                </span>
-                                <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-black/50 text-slate-200 backdrop-blur-md border border-white/10">
-                                    ${product.category}
-                                </span>
-                            </div>
-                            <div class="flex items-end justify-between z-10">
-                                <div class="w-12 h-12 rounded-2xl bg-[#0a0a12]/90 border border-white/15 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid ${product.icon} text-xl text-doom-cyan"></i>
-                                </div>
-                                <div class="text-right">
-                                    <span class="text-[10px] uppercase tracking-wider text-slate-300 block">Desde</span>
-                                    <span class="font-display font-extrabold text-2xl text-white">$${product.price}</span>
-                                </div>
-                            </div>
-                            <i class="fa-solid ${product.icon} text-7xl text-white/5 absolute -right-3 -bottom-3 pointer-events-none"></i>
-                        </div>
+    // Catálogo inicial por defecto de ItsDoomlater
+    const INITIAL_PRODUCTS = [
+      {
+        id: "p1",
+        title: "Instalación de Magia Nintendo Switch (V1 / V2 / Lite / OLED)",
+        price: 60,
+        category: "Magia / Mods",
+        section: "tienda",
+        badge: "Más Pedido",
+        img: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?auto=format&fit=crop&w=700&q=80",
+        desc: "Instalación limpia con microsoldadura de precisión, configuración completa de Hekate, Atmosphère, tiendas y respaldo de NAND."
+      },
+      {
+        id: "p2",
+        title: "Upgrade Joysticks Magnéticos Hall Effect (Adiós Drift)",
+        price: 25,
+        category: "Mandos",
+        section: "tienda",
+        badge: "Garantizado",
+        img: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=700&q=80",
+        desc: "Reemplazo de potenciómetros por sensores magnéticos Hall Effect para DualSense PS5, PS4, Xbox o Joy-Con con calibración exacta."
+      },
+      {
+        id: "p3",
+        title: "Cambio de Puerto HDMI de Alta Precisión (PS5 / PS4 / Xbox Series)",
+        price: 45,
+        category: "Microsoldadura",
+        section: "tienda",
+        badge: "Laboratorio",
+        img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80",
+        desc: "Sustitución profesional bajo microscopio con estaño de alta pureza, refuerzo de pads e inspección de filtros EMI."
+      },
+      {
+        id: "p4",
+        title: "Mantenimiento Pro + Cambio de Pasta Térmica / Metal Líquido",
+        price: 30,
+        category: "Microsoldadura",
+        section: "tienda",
+        badge: "Recomendado",
+        img: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=700&q=80",
+        desc: "Desarme completo, limpieza ultrasónica de disipadores, renovación de thermal pads y pasta térmica de alto rendimiento."
+      },
+      {
+        id: "p5",
+        title: "Modificación Retro & Upscaling Nintendo GameCube / Consolas Clásicas",
+        price: 40,
+        category: "Magia / Mods",
+        section: "doomketplace",
+        badge: "Retro Lab",
+        img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80",
+        desc: "Instalación de Picoboot, Swiss, adaptadores digitales y puesta a punto para coleccionistas."
+      },
+      {
+        id: "p6",
+        title: "Pack MicroSD Configurada + Optimización Custom Firmware",
+        price: 35,
+        category: "Accesorios",
+        section: "doomketplace",
+        badge: "Plug & Play",
+        img: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=700&q=80",
+        desc: "Tarjeta MicroSD original de alta velocidad lista y configurada con emuMMC, homebrew y utilidades para tu consola."
+      }
+    ];
 
-                        <!-- Title & Description -->
-                        <h3 class="font-display font-bold text-base sm:text-lg text-white group-hover:text-doom-purple transition-colors leading-snug mb-2">
-                            ${product.title}
-                        </h3>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                            ${product.description}
-                        </p>
+    let products = [];
+    let cart = [];
+    let currentTab = "tienda";
+    let currentCategory = "Todos";
+    let isAdmin = false;
 
-                        <!-- Specs List -->
-                        <ul class="space-y-1.5 mb-5">
-                            ${product.specs.map(spec => `
-                                <li class="text-[11px] text-slate-300 flex items-center gap-2">
-                                    <i class="fa-solid fa-check text-doom-emerald text-[10px]"></i> ${spec}
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
+    /********************************************************************
+     * INICIALIZACIÓN Y SINCRONIZACIÓN NUBE
+     ********************************************************************/
+    window.addEventListener("DOMContentLoaded", async () => {
+      // Cargar estado de sesión admin
+      isAdmin = localStorage.getItem(STORAGE_KEY_ADMIN) === "true";
+      updateAdminUI();
 
-                    <!-- Action Buttons -->
-                    <div class="pt-3 border-t border-white/10 flex items-center gap-2">
-                        <button onclick="addToCart('${product.id}')"
-                                class="flex-grow py-2.5 px-4 rounded-xl bg-gradient-to-r from-doom-purple to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-neon-purple">
-                            <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
-                        </button>
-                        <a href="https://wa.me/584120000000?text=${encodeURIComponent('Hola ItsDoomlater! Me interesa el servicio: ' + product.title + ' ($' + product.price + ')')}"
-                           target="_blank" rel="noopener noreferrer"
-                           class="p-2.5 rounded-xl bg-white/5 hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-400 border border-white/10 transition-all"
-                           title="Consultar directo por WhatsApp">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                        </a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+      // Cargar URL de base de datos en la nube si existe
+      const savedCloudUrl = localStorage.getItem(STORAGE_KEY_CLOUD) || DEFAULT_CLOUD_DB_URL;
+      if (savedCloudUrl) {
+        document.getElementById("cloud-db-input").value = savedCloudUrl;
+      }
+
+      // Cargar catálogo local primero para respuesta instantánea
+      const localData = localStorage.getItem(STORAGE_KEY_PRODUCTS);
+      if (localData) {
+        try {
+          products = JSON.parse(localData);
+        } catch (e) {
+          products = [...INITIAL_PRODUCTS];
         }
+      } else {
+        products = [...INITIAL_PRODUCTS];
+        localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      }
 
-        // 5. RENDER DOOMKETPLACE
-        function renderDoomketplace() {
-            const grid = document.getElementById('doomketplace-grid');
-            grid.innerHTML = '';
+      renderCatalog();
 
-            doomketplaceItems.forEach(item => {
-                const card = document.createElement('article');
-                card.className = 'glass-card rounded-3xl p-5 flex flex-col justify-between border border-doom-cyan/25';
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-3">
-                            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-doom-cyan/20 text-doom-cyan border border-doom-cyan/30">
-                                <i class="fa-solid fa-shield-check mr-1"></i> ${item.tag}
-                            </span>
-                            <span class="font-display font-extrabold text-xl text-white">$${item.price}</span>
-                        </div>
-                        <h3 class="font-display font-bold text-base sm:text-lg text-white mb-1.5">
-                            ${item.title}
-                        </h3>
-                        <div class="text-xs font-semibold text-emerald-400 mb-3 flex items-center gap-1.5">
-                            <i class="fa-solid fa-circle-check"></i> ${item.condition}
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                            ${item.details}
-                        </p>
-                    </div>
-                    <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
-                        <span class="text-[11px] text-slate-400"><i class="fa-solid fa-user-check mr-1 text-doom-purple"></i> ${item.seller}</span>
-                        <a href="https://wa.me/584120000000?text=${encodeURIComponent('Hola ItsDoomlater! Me interesa comprar del Doomketplace: ' + item.title + ' ($' + item.price + ')')}"
-                           target="_blank" rel="noopener noreferrer"
-                           class="px-4 py-2 rounded-xl bg-doom-cyan hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all flex items-center gap-1.5">
-                            <i class="fa-brands fa-whatsapp"></i> Apartar consola
-                        </a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+      // Si hay nube configurada, sincronizar catálogo remoto (Teléfono <-> PC)
+      if (savedCloudUrl) {
+        await syncFromCloud(false);
+      }
+    });
+
+    function getCleanCloudEndpoint() {
+      let url = (localStorage.getItem(STORAGE_KEY_CLOUD) || DEFAULT_CLOUD_DB_URL || "").trim();
+      if (!url) return "";
+      url = url.replace(/\/+$/, "");
+      if (!url.endsWith(".json")) {
+        url += "/itsdoomlater_catalog.json";
+      }
+      return url;
+    }
+
+    async function saveCloudConfig() {
+      const inputVal = document.getElementById("cloud-db-input").value.trim();
+      if (!inputVal) {
+        localStorage.removeItem(STORAGE_KEY_CLOUD);
+        document.getElementById("sync-status").textContent = "Guardado Local Activo";
+        alert("Se desconectó la nube. Usando memoria local del navegador.");
+        return;
+      }
+      localStorage.setItem(STORAGE_KEY_CLOUD, inputVal);
+      await pushToCloud();
+      alert("¡Nube conectada y sincronizada! Ahora todo lo que cambies en el teléfono se verá en tu PC.");
+    }
+
+    async function syncFromCloud(showAlert = false) {
+      const endpoint = getCleanCloudEndpoint();
+      if (!endpoint) {
+        if (showAlert) alert("Primero pega la URL de tu Firebase Realtime Database en el campo de sincronización.");
+        return;
+      }
+      try {
+        document.getElementById("sync-status").textContent = "Sincronizando con la nube...";
+        const res = await fetch(endpoint);
+        if (res.ok) {
+          const remoteData = await res.json();
+          if (Array.isArray(remoteData) && remoteData.length > 0) {
+            products = remoteData;
+            localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+            renderCatalog();
+          } else {
+            // Si la nube está vacía, subimos nuestro catálogo actual
+            await pushToCloud();
+          }
+          document.getElementById("sync-status").textContent = "Nube Sincronizada (Teléfono ↔ PC)";
+          if (showAlert) alert("¡Catálogo sincronizado correctamente desde la nube!");
         }
+      } catch (err) {
+        document.getElementById("sync-status").textContent = "Modo Local (Sin conexión a nube)";
+        if (showAlert) alert("No se pudo conectar a la URL indicada. Verifica que tu Firebase Realtime DB esté en modo lectura/escritura público.");
+      }
+    }
 
-        // 6. FILTER & VIEW SWITCHING FUNCTIONS
-        function setCategory(cat) {
-            currentCategory = cat;
-            const pills = document.querySelectorAll('.cat-pill');
-            pills.forEach(btn => {
-                if (btn.getAttribute('data-cat') === cat) {
-                    btn.className = 'cat-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-doom-purple text-white shadow-neon-purple';
-                } else {
-                    btn.className = 'cat-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-[#11111a] text-slate-300 border border-white/10 hover:border-doom-purple/50';
-                }
-            });
-            renderStore();
-        }
-
-        function handleSearchAndFilter() {
-            renderStore();
-        }
-
-        function resetStoreFilters() {
-            document.getElementById('store-search-input').value = '';
-            setCategory('Todos');
-        }
-
-        function scrollToStoreAndFilter(categoryName) {
-            switchMainView('tienda');
-            setCategory(categoryName);
-            document.getElementById('catalogo-principal').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function switchMainView(viewName) {
-            const viewTienda = document.getElementById('view-tienda');
-            const viewDoomket = document.getElementById('view-doomketplace');
-            const tabTienda = document.getElementById('switch-tab-tienda');
-            const tabDoomket = document.getElementById('switch-tab-doomketplace');
-            const navTienda = document.getElementById('nav-btn-tienda');
-            const navDoomket = document.getElementById('nav-btn-doomketplace');
-            const mobTienda = document.getElementById('mob-nav-tienda');
-            const mobDoomket = document.getElementById('mob-nav-doomketplace');
-
-            const badgeText = document.getElementById('section-badge-text');
-            const titleText = document.getElementById('section-title-text');
-            const subText = document.getElementById('section-subtitle-text');
-
-            if (viewName === 'doomketplace') {
-                viewTienda.classList.add('hidden');
-                viewDoomket.classList.remove('hidden');
-
-                tabDoomket.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-doom-cyan to-blue-600 text-slate-950 shadow-neon-cyan flex items-center gap-2';
-                tabTienda.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-400 hover:text-white flex items-center gap-2';
-
-                navDoomket.classList.add('bg-white/10', 'text-white');
-                navTienda.classList.remove('bg-white/10');
-
-                mobDoomket.classList.replace('text-slate-400', 'text-doom-cyan');
-                mobTienda.classList.replace('text-doom-purple', 'text-slate-400');
-
-                badgeText.textContent = 'Doomketplace · Compra y Venta Segura';
-                titleText.innerHTML = 'Doomketplace · <span class="text-transparent bg-clip-text bg-gradient-to-r from-doom-cyan to-doom-purple">Consolas Verificadas</span>';
-                subText.textContent = 'El marketplace oficial de la comunidad @itsdoomlater. Compra consolas usadas certificadas por nuestro laboratorio o publica la tuya.';
-            } else {
-                viewDoomket.classList.add('hidden');
-                viewTienda.classList.remove('hidden');
-
-                tabTienda.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-doom-purple to-indigo-600 text-white shadow-neon-purple flex items-center gap-2';
-                tabDoomket.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-400 hover:text-white flex items-center gap-2';
-
-                navTienda.classList.add('bg-white/10', 'text-white');
-                navDoomket.classList.remove('bg-white/10');
-
-                mobTienda.classList.replace('text-slate-400', 'text-doom-purple');
-                mobDoomket.classList.replace('text-doom-cyan', 'text-slate-400');
-
-                badgeText.textContent = 'Mi Tienda & Laboratorio Oficial';
-                titleText.innerHTML = 'Mi Tienda · <span class="text-transparent bg-clip-text bg-gradient-to-r from-doom-purple via-fuchsia-400 to-doom-cyan">No dejes morir tu consola</span>';
-                subText.textContent = 'Servicio técnico especializado, microsoldadura, magia para consolas y equipamiento de calidad para el gamer moderno. Todo lo que necesitas para jugar sin límites.';
-            }
-        }
-
-        // 7. CART SYSTEM
-        function addToCart(productId) {
-            const product = storeProducts.find(p => p.id === productId);
-            if (!product) return;
-
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
-
-            updateCartUI();
-            showToast(`Agregado: ${product.title}`, 'purple');
-        }
-
-        function changeCartQty(productId, delta) {
-            const itemIndex = cart.findIndex(item => item.id === productId);
-            if (itemIndex === -1) return;
-
-            cart[itemIndex].qty += delta;
-            if (cart[itemIndex].qty <= 0) {
-                cart.splice(itemIndex, 1);
-            }
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
-            document.getElementById('header-cart-badge').textContent = totalCount;
-            document.getElementById('mobile-cart-badge').textContent = totalCount;
-
-            const container = document.getElementById('cart-items-container');
-            const subtotalEl = document.getElementById('cart-subtotal');
-            const discountRow = document.getElementById('cart-discount-row');
-            const discountAmountEl = document.getElementById('cart-discount-amount');
-            const totalEl = document.getElementById('cart-total');
-
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-slate-400">
-                        <i class="fa-solid fa-cart-arrow-down text-3xl mb-2 text-slate-600"></i>
-                        <p class="text-xs">Tu carrito está vacío. Agrega un servicio de magia, HDMI o Hall Effect.</p>
-                    </div>
-                `;
-                subtotalEl.textContent = '$0.00';
-                discountRow.classList.add('hidden');
-                totalEl.textContent = '$0.00';
-                return;
-            }
-
-            container.innerHTML = cart.map(item => `
-                <div class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-[#08080c] border border-white/10">
-                    <div class="flex-grow">
-                        <h4 class="text-xs font-bold text-white leading-snug">${item.title}</h4>
-                        <span class="text-xs text-doom-cyan font-semibold">$${item.price} c/u</span>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <button onclick="changeCartQty('${item.id}', -1)" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/15 text-white text-xs font-bold">-</button>
-                        <span class="text-xs font-bold w-5 text-center">${item.qty}</span>
-                        <button onclick="changeCartQty('${item.id}', 1)" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/15 text-white text-xs font-bold">+</button>
-                    </div>
-                </div>
-            `).join('');
-
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const discount = promoApplied ? subtotal * 0.10 : 0;
-            const finalTotal = subtotal - discount;
-
-            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-            if (promoApplied) {
-                discountRow.classList.remove('hidden');
-                discountRow.classList.add('flex');
-                discountAmountEl.textContent = `-$${discount.toFixed(2)}`;
-            } else {
-                discountRow.classList.add('hidden');
-                discountRow.classList.remove('flex');
-            }
-            totalEl.textContent = `$${finalTotal.toFixed(2)}`;
-        }
-
-        function applyCartPromoInput() {
-            const code = document.getElementById('cart-promo-input').value.trim().toUpperCase();
-            if (code === 'DOOMLATER') {
-                promoApplied = true;
-                updateCartUI();
-                showToast('¡Código DOOMLATER (-10%) activado!', 'emerald');
-            } else {
-                showToast('Código inválido. Usa DOOMLATER', 'crimson');
-            }
-        }
-
-        function applyPromoToCartDirectly() {
-            promoApplied = true;
-            document.getElementById('cart-promo-input').value = 'DOOMLATER';
-            updateCartUI();
-            closeModal('modal-gana-dinero');
-            openModal('modal-carrito');
-            showToast('¡Código DOOMLATER aplicado a tu orden!', 'emerald');
-        }
-
-        function checkoutWhatsApp() {
-            if (cart.length === 0) {
-                showToast('Agrega al menos un servicio o producto al carrito', 'crimson');
-                return;
-            }
-
-            let lines = ['Hola *ItsDoomlater* (@itsdoomlater)! Quiero agendar/pedir lo siguiente desde la web:', ''];
-            cart.forEach(item => {
-                lines.push(`• ${item.qty}x ${item.title} ($${item.price * item.qty})`);
-            });
-
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const discount = promoApplied ? subtotal * 0.10 : 0;
-            const total = subtotal - discount;
-
-            lines.push('');
-            if (promoApplied) {
-                lines.push(`🎁 Código aplicado: *DOOMLATER* (-$${discount.toFixed(2)})`);
-            }
-            lines.push(`💰 *Total Estimado: $${total.toFixed(2)} USD*`);
-
-            const waUrl = `https://wa.me/584120000000?text=${encodeURIComponent(lines.join('\n'))}`;
-            window.open(waUrl, '_blank');
-        }
-
-        // 8. MODALS & UTILITIES
-        function openModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        // Close modal when clicking backdrop
-        window.addEventListener('click', (e) => {
-            ['modal-redes', 'modal-gana-dinero', 'modal-carrito', 'modal-login', 'modal-garantia'].forEach(id => {
-                const modal = document.getElementById(id);
-                if (e.target === modal) {
-                    closeModal(id);
-                }
-            });
+    async function pushToCloud() {
+      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      const endpoint = getCleanCloudEndpoint();
+      if (!endpoint) return;
+      try {
+        document.getElementById("sync-status").textContent = "Guardando en la nube...";
+        await fetch(endpoint, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(products)
         });
+        document.getElementById("sync-status").textContent = "Sincronizado en la Nube ✓";
+      } catch (e) {
+        document.getElementById("sync-status").textContent = "Guardado en dispositivo (Error nube)";
+      }
+    }
 
-        function copyPromoCode() {
-            const tempInput = document.createElement('input');
-            tempInput.value = 'DOOMLATER';
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            showToast('¡Código DOOMLATER copiado al portapapeles!', 'emerald');
-        }
+    /********************************************************************
+     * SISTEMA DE LOGIN Y PANEL DE ADMINISTRADOR
+     ********************************************************************/
+    function handleAuthClick() {
+      if (isAdmin) {
+        const panel = document.getElementById("admin-panel");
+        panel.scrollIntoView({ behavior: "smooth" });
+      } else {
+        openModal("modal-login");
+      }
+    }
 
-        // Repair Ticket Tracker Demo
-        function fillDemoTicket(code) {
-            document.getElementById('ticket-input').value = code;
-            checkRepairTicket();
-        }
+    function loginAdmin(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim().toLowerCase();
+      const pass  = document.getElementById("login-pass").value.trim();
+      const errEl = document.getElementById("login-error");
 
-        function checkRepairTicket() {
-            const code = document.getElementById('ticket-input').value.trim().toUpperCase();
-            const box = document.getElementById('ticket-result-box');
-            box.classList.remove('hidden');
+      if (email === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
+        isAdmin = true;
+        localStorage.setItem(STORAGE_KEY_ADMIN, "true");
+        errEl.style.display = "none";
+        closeModal("modal-login");
+        updateAdminUI();
+        renderCatalog();
+        document.getElementById("admin-panel").scrollIntoView({ behavior: "smooth" });
+      } else {
+        errEl.style.display = "block";
+      }
+    }
 
-            if (code === 'DOOM-2026') {
-                box.innerHTML = `
-                    <div class="flex items-center justify-between text-emerald-400 font-bold">
-                        <span>Orden #DOOM-2026 · Switch OLED</span>
-                        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-[10px]">LISTA PARA ENTREGA</span>
-                    </div>
-                    <p class="text-slate-300 mt-1">Magia RP2040 instalada + EmuMMC 256GB configurado. Pruebas de temperatura superadas al 100%.</p>
-                `;
-            } else if (code === 'PS5-HDMI') {
-                box.innerHTML = `
-                    <div class="flex items-center justify-between text-doom-cyan font-bold">
-                        <span>Orden #PS5-HDMI · PlayStation 5</span>
-                        <span class="px-2 py-0.5 rounded bg-doom-cyan/20 text-[10px]">EN MICROSOLDADURA</span>
-                    </div>
-                    <p class="text-slate-300 mt-1">Puerto HDMI nuevo soldado bajo microscopio. Realizando test de salida 4K 120Hz y cambio de metal líquido.</p>
-                `;
-            } else {
-                box.innerHTML = `
-                    <div class="text-amber-400 font-semibold">Orden "${code || '---'}" no encontrada en sistema activo.</div>
-                    <p class="text-slate-400 mt-0.5">Verifica el código de tu recibo o consulta directamente por nuestro WhatsApp.</p>
-                `;
-            }
-        }
+    function logoutAdmin() {
+      isAdmin = false;
+      localStorage.removeItem(STORAGE_KEY_ADMIN);
+      updateAdminUI();
+      renderCatalog();
+    }
 
-        function handleClientLogin(e) {
-            e.preventDefault();
-            showToast('Sesión iniciada en el portal ItsDoomlater', 'purple');
-            closeModal('modal-login');
-        }
+    function updateAdminUI() {
+      const panel = document.getElementById("admin-panel");
+      const topBtn = document.getElementById("top-auth-btn");
+      const topText = document.getElementById("auth-btn-text");
+      const botLabel = document.getElementById("bottom-user-label");
 
-        function publishInDoomketplace() {
-            const msg = 'Hola ItsDoomlater! Quiero publicar mi consola en el Doomketplace para venderla con verificación de laboratorio.';
-            window.open(`https://wa.me/584120000000?text=${encodeURIComponent(msg)}`, '_blank');
-        }
+      if (isAdmin) {
+        panel.classList.add("show");
+        topBtn.classList.add("admin-active");
+        topText.textContent = "Panel Admin";
+        botLabel.textContent = "Admin";
+      } else {
+        panel.classList.remove("show");
+        topBtn.classList.remove("admin-active");
+        topText.textContent = "Login";
+        botLabel.textContent = "Usuario";
+      }
+    }
 
-        // PWA Prompt Handlers
-        function dismissPwaBanner() {
-            document.getElementById('pwa-install-banner').classList.add('hidden');
-        }
-
-        function triggerPwaInstall() {
-            showToast('En iOS pulsa "Compartir > Agregar a inicio" o en Android "Instalar aplicación"', 'cyan');
-        }
-
-        // Custom Toast Notification (No alert() used)
-        function showToast(message, color = 'purple') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            const borderColors = {
-                purple: 'border-doom-purple bg-[#131122]',
-                emerald: 'border-emerald-500 bg-[#0d1f1a]',
-                cyan: 'border-doom-cyan bg-[#0c1d24]',
-                crimson: 'border-rose-500 bg-[#220e15]'
-            };
-            toast.className = `px-4 py-3 rounded-2xl border ${borderColors[color] || borderColors.purple} text-white text-xs font-semibold shadow-2xl flex items-center gap-2.5 transition-all duration-300`;
-            toast.innerHTML = `<i class="fa-solid fa-bolt text-doom-cyan"></i> <span>${message}</span>`;
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(20px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Initialize on Load
-        window.onload = function () {
-            renderStore();
-            renderDoomketplace();
-            updateCartUI();
+    // Compresión automática de foto subida desde el teléfono o PC (Base64 ligero)
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 700;
+          const scale = Math.min(1, MAX_WIDTH / img.width);
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.78);
+          document.getElementById("prod-img").value = compressedBase64;
         };
-    </script>
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function saveProduct(e) {
+      e.preventDefault();
+      const id = document.getElementById("prod-id").value;
+      const title = document.getElementById("prod-title").value.trim();
+      const price = parseFloat(document.getElementById("prod-price").value) || 0;
+      const category = document.getElementById("prod-category").value;
+      const section = document.getElementById("prod-section").value;
+      const badge = document.getElementById("prod-badge").value.trim();
+      const img = document.getElementById("prod-img").value.trim() || "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80";
+      const desc = document.getElementById("prod-desc").value.trim();
+
+      if (id) {
+        const idx = products.findIndex(p => p.id === id);
+        if (idx > -1) {
+          products[idx] = { id, title, price, category, section, badge, img, desc };
+        }
+      } else {
+        const newProd = {
+          id: "prod_" + Date.now(),
+          title,
+          price,
+          category,
+          section,
+          badge,
+          img,
+          desc
+        };
+        products.unshift(newProd);
+      }
+
+      await pushToCloud();
+      resetForm();
+      renderCatalog();
+    }
+
+    function editProduct(id) {
+      const p = products.find(item => item.id === id);
+      if (!p) return;
+      document.getElementById("prod-id").value = p.id;
+      document.getElementById("prod-title").value = p.title;
+      document.getElementById("prod-price").value = p.price;
+      document.getElementById("prod-category").value = p.category;
+      document.getElementById("prod-section").value = p.section || "tienda";
+      document.getElementById("prod-badge").value = p.badge || "";
+      document.getElementById("prod-img").value = p.img || "";
+      document.getElementById("prod-desc").value = p.desc || "";
+      document.getElementById("save-btn-label").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Actualizar Producto`;
+      document.getElementById("admin-panel").scrollIntoView({ behavior: "smooth" });
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm("¿Seguro que deseas eliminar este servicio/producto del catálogo?")) return;
+      products = products.filter(p => p.id !== id);
+      await pushToCloud();
+      renderCatalog();
+    }
+
+    function resetForm() {
+      document.getElementById("product-form").reset();
+      document.getElementById("prod-id").value = "";
+      document.getElementById("save-btn-label").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Guardar en el Catálogo`;
+    }
+
+    async function restoreDefaultCatalog() {
+      if (!confirm("¿Restaurar los servicios originales de ItsDoomlater?")) return;
+      products = [...INITIAL_PRODUCTS];
+      await pushToCloud();
+      renderCatalog();
+    }
+
+    /********************************************************************
+     * RENDERIZADO DE CATÁLOGO Y NAVEGACIÓN
+     ********************************************************************/
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById("nav-tienda").classList.toggle("active", tab === "tienda");
+      document.getElementById("nav-doomketplace").classList.toggle("active", tab === "doomketplace");
+      document.getElementById("bot-tienda").classList.toggle("active", tab === "tienda");
+      document.getElementById("bot-doomketplace").classList.toggle("active", tab === "doomketplace");
+
+      const heroBadge = document.getElementById("hero-badge");
+      const heroTitle = document.getElementById("hero-title");
+      const heroDesc  = document.getElementById("hero-desc");
+      const heading   = document.getElementById("catalog-heading");
+
+      if (tab === "doomketplace") {
+        heroBadge.textContent = "Doomketplace · Equipos & Mods";
+        heroTitle.textContent = "Doomketplace - Consolas, Mods y Accesorios Listos";
+        heroDesc.textContent  = "Equipos verificados por nuestro laboratorio, accesorios originales y consolas con magia lista para jugar.";
+        heading.innerHTML = `<i class="fa-solid fa-gamepad" style="color:var(--accent);"></i> Doomketplace Disponible`;
+      } else {
+        heroBadge.textContent = "Microsoldadura · Magia · Gaming";
+        heroTitle.textContent = "Mi Tienda & Laboratorio - No des tu consola por perdida";
+        heroDesc.textContent  = "Reparación electrónica de precisión, instalación de magia (Nintendo Switch, GameCube, PS4/PS5), joysticks Hall Effect y equipamiento para gamers exigentes en Caracas.";
+        heading.innerHTML = `<i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Servicios & Tienda Oficial`;
+      }
+
+      renderCatalog();
+    }
+
+    function setCategory(cat, btnEl) {
+      currentCategory = cat;
+      document.querySelectorAll(".cat-chip").forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById("products-grid");
+      const query = document.getElementById("search-input").value.trim().toLowerCase();
+
+      const filtered = products.filter(p => {
+        const prodSection = p.section || "tienda";
+        const matchesTab = currentTab === "tienda" ? true : prodSection === "doomketplace";
+        const matchesCat = currentCategory === "Todos" || p.category === currentCategory;
+        const matchesSearch = !query ||
+          p.title.toLowerCase().includes(query) ||
+          p.desc.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query);
+        return matchesTab && matchesCat && matchesSearch;
+      });
+
+      document.getElementById("items-count").textContent = `${filtered.length} resultado(s)`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-box-open" style="font-size:2rem; margin-bottom:10px; color:var(--primary);"></i>
+            <p>No hay productos o servicios que coincidan con tu búsqueda.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => `
+        <article class="product-card">
+          ${p.badge ? `<span class="card-badge">${p.badge}</span>` : ""}
+          ${isAdmin ? `
+            <div class="card-admin-actions">
+              <button class="icon-action-btn btn-edit" title="Editar" onclick="editProduct('${p.id}')">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="icon-action-btn btn-delete" title="Eliminar" onclick="deleteProduct('${p.id}')">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          ` : ""}
+          <div class="card-img-wrap">
+            <img src="${p.img}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80'" />
+          </div>
+          <div class="card-body">
+            <span class="card-cat">${p.category}</span>
+            <h4 class="card-title">${p.title}</h4>
+            <p class="card-desc">${p.desc}</p>
+            <div class="card-footer">
+              <span class="price-tag">$${Number(p.price).toFixed(2)}</span>
+              <button class="add-cart-btn" onclick="addToCart('${p.id}')">
+                <i class="fa-solid fa-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    /********************************************************************
+     * CARRITO Y ENVÍO DIRECTO A WHATSAPP (+58 04245323796)
+     ********************************************************************/
+    function addToCart(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...prod, qty: 1 });
+      }
+      updateCartUI();
+      openModal("modal-carrito");
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById("cart-count").textContent = totalItems;
+
+      const listEl = document.getElementById("cart-items-list");
+      const totalEl = document.getElementById("cart-total");
+
+      if (cart.length === 0) {
+        listEl.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:18px 0;">Tu carrito está vacío.</p>`;
+        totalEl.textContent = "$0.00";
+        return;
+      }
+
+      let sum = 0;
+      listEl.innerHTML = cart.map(item => {
+        const sub = item.price * item.qty;
+        sum += sub;
+        return `
+          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); padding:10px 12px; border-radius:10px; border:1px solid var(--border);">
+            <div>
+              <strong style="font-size:0.86rem; display:block;">${item.title}</strong>
+              <span style="font-size:0.78rem; color:var(--text-muted);">$${Number(item.price).toFixed(2)} x ${item.qty}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <strong style="color:var(--accent); font-size:0.88rem;">$${sub.toFixed(2)}</strong>
+              <button class="icon-action-btn btn-delete" style="width:26px; height:26px;" onclick="removeFromCart('${item.id}')">×</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      totalEl.textContent = `$${sum.toFixed(2)}`;
+    }
+
+    function checkoutWhatsApp() {
+      if (cart.length === 0) {
+        alert("Agrega al menos un servicio o producto al carrito.");
+        return;
+      }
+      const payment = document.getElementById("cart-payment").value;
+      let total = 0;
+      let lines = cart.map(item => {
+        const sub = item.price * item.qty;
+        total += sub;
+        return `• ${item.qty}x ${item.title} ($${sub.toFixed(2)})`;
+      }).join("%0A");
+
+      const msg = `Hola *ItsDoomlater* (@itsdoomlater), vengo de la web y quiero solicitar lo siguiente:%0A%0A${lines}%0A%0A*Total Estimado:* $${total.toFixed(2)}%0A*Método de Pago:* ${encodeURIComponent(payment)}%0A%0A¿Me confirmas disponibilidad para coordinar?`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+    }
+
+    /********************************************************************
+     * MODALES Y BANNER PWA
+     ********************************************************************/
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    function closePwaBanner() {
+      document.getElementById("pwa-banner").classList.add("hidden");
+    }
+
+    function installPWA() {
+      alert("Para instalar ItsDoomlater App en tu teléfono:\n\n• En iPhone (Safari): Toca el botón Compartir y elige 'Agregar a pantalla de inicio'.\n• En Android (Chrome): Toca los 3 puntos arriba a la derecha y elige 'Instalar aplicación' o 'Agregar a la pantalla principal'.");
+      closePwaBanner();
+    }
+  </script>
 </body>
 </html>
